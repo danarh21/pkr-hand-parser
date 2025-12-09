@@ -1,0 +1,17 @@
+Poker Hand #1
+Player1 posts SB
+Player2 posts BB
+Player1 raises to 2bb
+Player2 calls
+FLOP: A K Q
+Player1 bets
+Player2 folds
+
+Poker Hand #2
+Player3 posts SB
+Player4 posts BB
+Player3 raises to 3bb
+Player4 calls
+FLOP: 5 6 7
+Player4 bets
+Player3 folds
