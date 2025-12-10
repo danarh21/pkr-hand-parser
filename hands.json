@@ -121,6 +121,42 @@
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
       "comment": "Тип действия на флопе: bet_vs_check. Ты играешь в мультипоте без позиции. Размер ставки: 0.06 в пот 0.21 (~28.6% пота). Категория руки на флопе: pair (top_pair). Оценка решения движком: good. Сильная рука и ставка на флопе выглядит стандартным велью-бетом. Оценочная equity против диапазона оппонента на флопе ≈ 0.65."
     },
+    "hero_turn_decision": {
+      "action_type": "bet_vs_check",
+      "action_kind": "bet",
+      "sizing": {
+        "amount": 0.12,
+        "pot_before": 0.39,
+        "pct_pot": 0.30769230769230765
+      },
+      "context": {
+        "players_to_turn": 3,
+        "multiway": true,
+        "hero_ip": false,
+        "hero_position": "BTN",
+        "preflop_role": "caller"
+      },
+      "hand": {
+        "approx_category_from_flop": "pair",
+        "approx_strength_score_from_flop": 0.7,
+        "flop_equity_estimate": 0.65,
+        "evolution": "same",
+        "evolution_detail": "equity_stable",
+        "board_texture": {
+          "turn_card_type": "paired_board",
+          "overall_texture": "semi_wet",
+          "impact_on_equity": "neutral"
+        }
+      },
+      "equity_estimate": {
+        "estimated_equity": 0.63,
+        "model": "simple_turn_model",
+        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.70. Мультипот (несколько оппонентов) снижает реализуемую equity примерно на 5 п.п. Игра без позиции на тёрне снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, диапазон немного слабее — вычитаем около 1 п.п. equity. Агрессия на тёрне (ставка/рейз) увеличивает реализацию equity примерно на 2 п.п."
+      },
+      "decision_quality": "good",
+      "quality_comment": "Ставка на тёрне с сильной готовой рукой выглядит стандартным велью-розыгрышем.",
+      "comment": "Тип действия на тёрне: bet_vs_check. Ты играешь в мультипоте без позиции. Размер ставки на тёрне: 0.12 в пот 0.39 (~30.8% пота). По сравнению с флопом твоя реализуемая equity на тёрне примерно не изменилась. Карта тёрна классифицируется как 'paired_board'. Карта тёрна нейтральна для твоей руки/диапазона. Оценка решения движком: good. Ставка на тёрне с сильной готовой рукой выглядит стандартным велью-розыгрышем. Оценочная equity на тёрне против диапазона оппонента ≈ 0.63."
+    },
     "actions": [
       {
         "street": "preflop",
@@ -482,9 +518,10 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.35 и категории руки на флопе (pair). Мультипот (несколько оппонентов) снижает твою equity примерно на 7 п.п. Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, твой диапазон слегка слабее диапазона агрессора — вычитаем около 1 п.п. equity. Пара полностью на борде (board_pair), твой showdown value слабый — ещё немного снижаем equity."
       },
       "decision_quality": "good",
-      "quality_comment": "Чек с рукой средней силы на флопе допустим, особенно вне позиции или в мультипоте.",
-      "comment": "Тип действия на флопе: check. Ты играешь в мультипоте без позиции. Категория руки на флопе: pair (board_pair). Оценка решения движком: good. Чек с рукой средней силы на флопе допустим, особенно вне позиции или в мультипоте. Оценочная equity против диапазона оппонента на флопе ≈ 0.17."
+      "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
+      "comment": "Тип действия на флопе: check. Ты играешь в мультипоте без позиции. Категория руки на флопе: pair (board_pair). Оценка решения движком: good. Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air. Оценочная equity против диапазона оппонента на флопе ≈ 0.17."
     },
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -812,6 +849,42 @@
       "quality_comment": "Блефовый рейз со слабой рукой в мультипоте или без позиции выглядит рискованным.",
       "comment": "Тип действия на флопе: raise_vs_bet. Ты играешь в хедз-ап банке без позиции. Размер ставки: 0.10 в пот 0.42 (~23.8% пота). Категория руки на флопе: high_card Оценка решения движком: risky. Блефовый рейз со слабой рукой в мультипоте или без позиции выглядит рискованным. Оценочная equity против диапазона оппонента на флопе ≈ 0.05."
     },
+    "hero_turn_decision": {
+      "action_type": "bet_vs_check",
+      "action_kind": "bet",
+      "sizing": {
+        "amount": 0.1,
+        "pot_before": 0.6,
+        "pct_pot": 0.16666666666666669
+      },
+      "context": {
+        "players_to_turn": 2,
+        "multiway": false,
+        "hero_ip": false,
+        "hero_position": "BB",
+        "preflop_role": "aggressor"
+      },
+      "hand": {
+        "approx_category_from_flop": "high_card",
+        "approx_strength_score_from_flop": 0.2,
+        "flop_equity_estimate": 0.05,
+        "evolution": "improved",
+        "evolution_detail": "equity_increased",
+        "board_texture": {
+          "turn_card_type": "paired_board",
+          "overall_texture": "semi_wet",
+          "impact_on_equity": "positive"
+        }
+      },
+      "equity_estimate": {
+        "estimated_equity": 0.21,
+        "model": "simple_turn_model",
+        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.20. Игра без позиции на тёрне снижает эффективную equity примерно на 3 п.п. Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 2 п.п. equity. Агрессия на тёрне (ставка/рейз) увеличивает реализацию equity примерно на 2 п.п."
+      },
+      "decision_quality": "risky",
+      "quality_comment": "Блефовая ставка на тёрне со слабой рукой в мультипоте или без позиции, особенно на опасной карте борда, выглядит рискованной.",
+      "comment": "Тип действия на тёрне: bet_vs_check. Ты играешь в хедз-ап банке без позиции. Размер ставки на тёрне: 0.10 в пот 0.60 (~16.7% пота). По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'paired_board'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: risky. Блефовая ставка на тёрне со слабой рукой в мультипоте или без позиции, особенно на опасной карте борда, выглядит рискованной. Оценочная equity на тёрне против диапазона оппонента ≈ 0.21."
+    },
     "actions": [
       {
         "street": "preflop",
@@ -1128,6 +1201,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -1362,6 +1436,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -1648,6 +1723,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -1988,6 +2064,7 @@
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
       "comment": "Тип действия на флопе: cbet. Ты играешь в мультипоте без позиции. Размер ставки: 0.08 в пот 0.13 (~61.5% пота). Категория руки на флопе: set Оценка решения движком: good. Сильная рука и ставка на флопе выглядит стандартным велью-бетом. Оценочная equity против диапазона оппонента на флопе ≈ 0.81."
     },
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -2264,6 +2341,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -2469,6 +2547,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -2818,6 +2897,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -3108,6 +3188,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -3462,11 +3543,32 @@
         "error_type": null,
         "range_comment": "K9o открыта с позиции CO, что НЕ раньше минимальной MOS-позиции HJ. По диапазону открытия ты в рамках своей стратегии."
       },
-      "comment": "Тип действия: open_raise. Формат: raise. Математически или стратегически решение выглядит минусовым. В долгую дистанцию лучше искать более сильные или более дисциплинированные споты. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.56 (56.4%). Разница (edge) ≈ -0.01. K9o открыта с позиции CO, что НЕ раньше минимальной MOS-позиции HJ. По диапазону открытия ты в рамках своей стратегии."
+      "comment": "Тип действия: open_raise. Формат: raise. Математически или стратегически решение выглядит минусовым. В долгую дистанцию лучше искать более сильные или более дисциплинированные споты. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.56 (56.4%). Разница (edge) ≈ -0.01. K9o открыта с позиции CO, что НЕ раньше минимальной MOS-позиции HJ. По диапазону открытия ты в рамках своей стратегии.",
+      "followup_vs_aggression": {
+        "action_type": "fold_vs_3bet_plus",
+        "action_kind": "fold",
+        "villain": {
+          "name": "88fa6b5e"
+        },
+        "math": {
+          "pot_before": 0.22,
+          "to_call": 0.13,
+          "final_pot_if_call": 0.35,
+          "pot_odds": 0.37142857142857144,
+          "required_equity": 0.37142857142857144,
+          "estimated_equity": 0.564,
+          "ev_simple": 0.06739999999999996,
+          "model": "preflop_followup_model"
+        },
+        "decision_quality": "risky",
+        "quality_comment": "По голой equity тебя, вероятно, устраивал бы кол/ол-ин против этого повышения. Фолд может быть излишне тайтовым (возможно, недобор EV).",
+        "comment": "После уже вложенных денег на префлопе ты получил(а) дополнительную агрессию от 88fa6b5e и выбрал(а) фолд.  Пот-оддсы требуют около 0.37 equity, твоя оценочная equity ≈ 0.56.  В простой модели EV (без учёта позиций и реализуемости) разница EV(call−fold) ≈ 0.067."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -3684,11 +3786,32 @@
         "error_type": null,
         "range_comment": "Q8o открыта с позиции BTN, что НЕ раньше минимальной MOS-позиции CO. По диапазону открытия ты в рамках своей стратегии."
       },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.52 (51.6%). Разница (edge) ≈ -0.06. Q8o открыта с позиции BTN, что НЕ раньше минимальной MOS-позиции CO. По диапазону открытия ты в рамках своей стратегии."
+      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.52 (51.6%). Разница (edge) ≈ -0.06. Q8o открыта с позиции BTN, что НЕ раньше минимальной MOS-позиции CO. По диапазону открытия ты в рамках своей стратегии.",
+      "followup_vs_aggression": {
+        "action_type": "fold_vs_3bet_plus",
+        "action_kind": "fold",
+        "villain": {
+          "name": "3b4f16a1"
+        },
+        "math": {
+          "pot_before": 0.2,
+          "to_call": 0.11000000000000001,
+          "final_pot_if_call": 0.31000000000000005,
+          "pot_odds": 0.3548387096774193,
+          "required_equity": 0.3548387096774193,
+          "estimated_equity": 0.516,
+          "ev_simple": 0.049960000000000004,
+          "model": "preflop_followup_model"
+        },
+        "decision_quality": "risky",
+        "quality_comment": "По голой equity тебя, вероятно, устраивал бы кол/ол-ин против этого повышения. Фолд может быть излишне тайтовым (возможно, недобор EV).",
+        "comment": "После уже вложенных денег на префлопе ты получил(а) дополнительную агрессию от 3b4f16a1 и выбрал(а) фолд.  Пот-оддсы требуют около 0.35 equity, твоя оценочная equity ≈ 0.52.  В простой модели EV (без учёта позиций и реализуемости) разница EV(call−fold) ≈ 0.050."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -3932,8 +4055,44 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.35 и категории руки на флопе (pair). Мультипот (несколько оппонентов) снижает твою equity примерно на 7 п.п. Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, твой диапазон слегка слабее диапазона агрессора — вычитаем около 1 п.п. equity. Пара полностью на борде (board_pair), твой showdown value слабый — ещё немного снижаем equity."
       },
       "decision_quality": "good",
-      "quality_comment": "Чек с рукой средней силы на флопе допустим, особенно вне позиции или в мультипоте.",
-      "comment": "Тип действия на флопе: check. Ты играешь в мультипоте без позиции. Категория руки на флопе: pair (board_pair). Оценка решения движком: good. Чек с рукой средней силы на флопе допустим, особенно вне позиции или в мультипоте. Оценочная equity против диапазона оппонента на флопе ≈ 0.17."
+      "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
+      "comment": "Тип действия на флопе: check. Ты играешь в мультипоте без позиции. Категория руки на флопе: pair (board_pair). Оценка решения движком: good. Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air. Оценочная equity против диапазона оппонента на флопе ≈ 0.17."
+    },
+    "hero_turn_decision": {
+      "action_type": "check",
+      "action_kind": "check",
+      "sizing": {
+        "amount": null,
+        "pot_before": 0.26,
+        "pct_pot": null
+      },
+      "context": {
+        "players_to_turn": 4,
+        "multiway": true,
+        "hero_ip": false,
+        "hero_position": "SB",
+        "preflop_role": "caller"
+      },
+      "hand": {
+        "approx_category_from_flop": "pair",
+        "approx_strength_score_from_flop": 0.35,
+        "flop_equity_estimate": 0.165,
+        "evolution": "improved",
+        "evolution_detail": "equity_increased",
+        "board_texture": {
+          "turn_card_type": "flush_complete",
+          "overall_texture": "wet",
+          "impact_on_equity": "negative"
+        }
+      },
+      "equity_estimate": {
+        "estimated_equity": 0.25,
+        "model": "simple_turn_model",
+        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.35. Мультипот (несколько оппонентов) снижает реализуемую equity примерно на 5 п.п. Игра без позиции на тёрне снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, диапазон немного слабее — вычитаем около 1 п.п. equity. Пассивная линия (чек) слегка уменьшает реализуемость equity."
+      },
+      "decision_quality": "good",
+      "quality_comment": "Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air.",
+      "comment": "Тип действия на тёрне: check. Ты играешь в мультипоте без позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'flush_complete'. Влияние карты тёрна на твою руку скорее негативное. Оценка решения движком: good. Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.25."
     },
     "actions": [
       {
@@ -4296,6 +4455,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -4597,6 +4757,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -4909,6 +5070,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -5220,6 +5382,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -5502,6 +5665,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -5814,6 +5978,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -6164,6 +6329,42 @@
       "quality_comment": "Колл со слабой рукой без хороших дро может быть минусовым решением.",
       "comment": "Тип действия на флопе: call_vs_bet. Ты играешь в хедз-ап банке в позиции. Категория руки на флопе: high_card Оценка решения движком: risky. Колл со слабой рукой без хороших дро может быть минусовым решением. Оценочная equity против диапазона оппонента на флопе ≈ 0.10."
     },
+    "hero_turn_decision": {
+      "action_type": "raise_vs_bet",
+      "action_kind": "raise",
+      "sizing": {
+        "amount": 0.24,
+        "pot_before": 0.36,
+        "pct_pot": 0.6666666666666666
+      },
+      "context": {
+        "players_to_turn": 2,
+        "multiway": false,
+        "hero_ip": false,
+        "hero_position": "BB",
+        "preflop_role": "aggressor"
+      },
+      "hand": {
+        "approx_category_from_flop": "high_card",
+        "approx_strength_score_from_flop": 0.2,
+        "flop_equity_estimate": 0.1,
+        "evolution": "improved",
+        "evolution_detail": "equity_increased",
+        "board_texture": {
+          "turn_card_type": "flush_complete",
+          "overall_texture": "wet",
+          "impact_on_equity": "positive"
+        }
+      },
+      "equity_estimate": {
+        "estimated_equity": 0.21,
+        "model": "simple_turn_model",
+        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.20. Игра без позиции на тёрне снижает эффективную equity примерно на 3 п.п. Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 2 п.п. equity. Агрессия на тёрне (ставка/рейз) увеличивает реализацию equity примерно на 2 п.п."
+      },
+      "decision_quality": "risky",
+      "quality_comment": "Блефовый рейз на тёрне со слабой рукой в мультипоте или без позиции, особенно на опасной карте борда, выглядит рискованным.",
+      "comment": "Тип действия на тёрне: raise_vs_bet. Ты играешь в хедз-ап банке без позиции. Размер ставки на тёрне: 0.24 в пот 0.36 (~66.7% пота). По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'flush_complete'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: risky. Блефовый рейз на тёрне со слабой рукой в мультипоте или без позиции, особенно на опасной карте борда, выглядит рискованным. Оценочная equity на тёрне против диапазона оппонента ≈ 0.21."
+    },
     "actions": [
       {
         "street": "preflop",
@@ -6486,6 +6687,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -6718,6 +6920,42 @@
       "decision_quality": "risky",
       "quality_comment": "Колл со слабой рукой без хороших дро может быть минусовым решением.",
       "comment": "Тип действия на флопе: call_vs_bet. Ты играешь в мультипоте без позиции. Категория руки на флопе: high_card Оценка решения движком: risky. Колл со слабой рукой без хороших дро может быть минусовым решением. Оценочная equity против диапазона оппонента на флопе ≈ 0.05."
+    },
+    "hero_turn_decision": {
+      "action_type": "call_vs_bet",
+      "action_kind": "call",
+      "sizing": {
+        "amount": 0.02,
+        "pot_before": 0.4700000000000001,
+        "pct_pot": 0.042553191489361694
+      },
+      "context": {
+        "players_to_turn": 3,
+        "multiway": true,
+        "hero_ip": false,
+        "hero_position": "MP",
+        "preflop_role": "aggressor"
+      },
+      "hand": {
+        "approx_category_from_flop": "high_card",
+        "approx_strength_score_from_flop": 0.2,
+        "flop_equity_estimate": 0.05,
+        "evolution": "improved",
+        "evolution_detail": "equity_increased",
+        "board_texture": {
+          "turn_card_type": "paired_board",
+          "overall_texture": "semi_wet",
+          "impact_on_equity": "positive"
+        }
+      },
+      "equity_estimate": {
+        "estimated_equity": 0.14,
+        "model": "simple_turn_model",
+        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.20. Мультипот (несколько оппонентов) снижает реализуемую equity примерно на 5 п.п. Игра без позиции на тёрне снижает эффективную equity примерно на 3 п.п. Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 2 п.п. equity. Колл на тёрне сохраняет часть equity, но без fold equity."
+      },
+      "decision_quality": "risky",
+      "quality_comment": "Колл ставки на тёрне со слабой рукой без хороших дро может быть минусовым решением.",
+      "comment": "Тип действия на тёрне: call_vs_bet. Ты играешь в мультипоте без позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'paired_board'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: risky. Колл ставки на тёрне со слабой рукой без хороших дро может быть минусовым решением. Оценочная equity на тёрне против диапазона оппонента ≈ 0.14."
     },
     "actions": [
       {
@@ -7055,6 +7293,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -7229,11 +7468,32 @@
         "final_pot_if_called": 0.29000000000000004
       },
       "range_discipline": null,
-      "comment": "Тип действия: 3bet. Формат: raise. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.53 (52.6%), твоя оценочная equity около 0.70 (70.0%). Разница (edge) ≈ 0.17."
+      "comment": "Тип действия: 3bet. Формат: raise. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.53 (52.6%), твоя оценочная equity около 0.70 (70.0%). Разница (edge) ≈ 0.17.",
+      "followup_vs_aggression": {
+        "action_type": "fold_vs_3bet_plus",
+        "action_kind": "fold",
+        "villain": {
+          "name": "cf79f5cd"
+        },
+        "math": {
+          "pot_before": 2.21,
+          "to_call": 1.98,
+          "final_pot_if_call": 4.1899999999999995,
+          "pot_odds": 0.4725536992840096,
+          "required_equity": 0.4725536992840096,
+          "estimated_equity": 0.7,
+          "ev_simple": 0.9529999999999994,
+          "model": "preflop_followup_model"
+        },
+        "decision_quality": "risky",
+        "quality_comment": "По голой equity тебя, вероятно, устраивал бы кол/ол-ин против этого повышения. Фолд может быть излишне тайтовым (возможно, недобор EV).",
+        "comment": "После уже вложенных денег на префлопе ты получил(а) дополнительную агрессию от cf79f5cd и выбрал(а) фолд.  Пот-оддсы требуют около 0.47 equity, твоя оценочная equity ≈ 0.70.  В простой модели EV (без учёта позиций и реализуемости) разница EV(call−fold) ≈ 0.953."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -7457,6 +7717,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -7663,6 +7924,42 @@
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
       "comment": "Тип действия на флопе: cbet. Ты играешь в хедз-ап банке без позиции. Размер ставки: 0.04 в пот 0.11 (~36.4% пота). Категория руки на флопе: two_pair Оценка решения движком: good. Сильная рука и ставка на флопе выглядит стандартным велью-бетом. Оценочная equity против диапазона оппонента на флопе ≈ 0.78."
+    },
+    "hero_turn_decision": {
+      "action_type": "bet_vs_check",
+      "action_kind": "bet",
+      "sizing": {
+        "amount": 0.24,
+        "pot_before": 0.35000000000000003,
+        "pct_pot": 0.6857142857142856
+      },
+      "context": {
+        "players_to_turn": 2,
+        "multiway": false,
+        "hero_ip": false,
+        "hero_position": "UTG",
+        "preflop_role": "aggressor"
+      },
+      "hand": {
+        "approx_category_from_flop": "two_pair",
+        "approx_strength_score_from_flop": 0.72,
+        "flop_equity_estimate": 0.776,
+        "evolution": "same",
+        "evolution_detail": "equity_stable",
+        "board_texture": {
+          "turn_card_type": "paired_board",
+          "overall_texture": "wet",
+          "impact_on_equity": "neutral"
+        }
+      },
+      "equity_estimate": {
+        "estimated_equity": 0.73,
+        "model": "simple_turn_model",
+        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.72. Игра без позиции на тёрне снижает эффективную equity примерно на 3 п.п. Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 2 п.п. equity. Агрессия на тёрне (ставка/рейз) увеличивает реализацию equity примерно на 2 п.п."
+      },
+      "decision_quality": "good",
+      "quality_comment": "Ставка на тёрне с сильной готовой рукой выглядит стандартным велью-розыгрышем.",
+      "comment": "Тип действия на тёрне: bet_vs_check. Ты играешь в хедз-ап банке без позиции. Размер ставки на тёрне: 0.24 в пот 0.35 (~68.6% пота). По сравнению с флопом твоя реализуемая equity на тёрне примерно не изменилась. Карта тёрна классифицируется как 'paired_board'. Карта тёрна нейтральна для твоей руки/диапазона. Оценка решения движком: good. Ставка на тёрне с сильной готовой рукой выглядит стандартным велью-розыгрышем. Оценочная equity на тёрне против диапазона оппонента ≈ 0.73."
     },
     "actions": [
       {
@@ -7935,6 +8232,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -8130,6 +8428,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -8415,8 +8714,44 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.20 и категории руки на флопе (high_card). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, твой диапазон слегка слабее диапазона агрессора — вычитаем около 1 п.п. equity. Рука без попадания (high_card) редко хорошо реализует equity — дополнительно уменьшаем оценку."
       },
       "decision_quality": "good",
-      "quality_comment": "Чек с рукой средней силы на флопе допустим, особенно вне позиции или в мультипоте.",
-      "comment": "Тип действия на флопе: check. Ты играешь в хедз-ап банке без позиции. Категория руки на флопе: high_card Оценка решения движком: good. Чек с рукой средней силы на флопе допустим, особенно вне позиции или в мультипоте. Оценочная equity против диапазона оппонента на флопе ≈ 0.05."
+      "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
+      "comment": "Тип действия на флопе: check. Ты играешь в хедз-ап банке без позиции. Категория руки на флопе: high_card Оценка решения движком: good. Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air. Оценочная equity против диапазона оппонента на флопе ≈ 0.05."
+    },
+    "hero_turn_decision": {
+      "action_type": "check",
+      "action_kind": "check",
+      "sizing": {
+        "amount": null,
+        "pot_before": 0.04,
+        "pct_pot": null
+      },
+      "context": {
+        "players_to_turn": 2,
+        "multiway": false,
+        "hero_ip": false,
+        "hero_position": "SB",
+        "preflop_role": "caller"
+      },
+      "hand": {
+        "approx_category_from_flop": "high_card",
+        "approx_strength_score_from_flop": 0.2,
+        "flop_equity_estimate": 0.05,
+        "evolution": "improved",
+        "evolution_detail": "equity_increased",
+        "board_texture": {
+          "turn_card_type": "flush_complete",
+          "overall_texture": "wet",
+          "impact_on_equity": "positive"
+        }
+      },
+      "equity_estimate": {
+        "estimated_equity": 0.15,
+        "model": "simple_turn_model",
+        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.20. Игра без позиции на тёрне снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, диапазон немного слабее — вычитаем около 1 п.п. equity. Пассивная линия (чек) слегка уменьшает реализуемость equity."
+      },
+      "decision_quality": "good",
+      "quality_comment": "Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air.",
+      "comment": "Тип действия на тёрне: check. Ты играешь в хедз-ап банке без позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'flush_complete'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: good. Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.15."
     },
     "actions": [
       {
@@ -8730,6 +9065,7 @@
       "quality_comment": "Фолд слабой руки без перспективных дро против ставки на флопе — нормальное аккуратное решение.",
       "comment": "Тип действия на флопе: fold_vs_bet. Ты играешь в хедз-ап банке без позиции. Категория руки на флопе: high_card Оценка решения движком: good. Фолд слабой руки без перспективных дро против ставки на флопе — нормальное аккуратное решение. Оценочная equity против диапазона оппонента на флопе ≈ 0.05."
     },
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -8966,6 +9302,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -9176,11 +9513,32 @@
         "final_pot_if_called": 0.29000000000000004
       },
       "range_discipline": null,
-      "comment": "Тип действия: 3bet. Формат: raise. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.53 (52.6%), твоя оценочная equity около 0.70 (70.0%). Разница (edge) ≈ 0.17."
+      "comment": "Тип действия: 3bet. Формат: raise. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.53 (52.6%), твоя оценочная equity около 0.70 (70.0%). Разница (edge) ≈ 0.17.",
+      "followup_vs_aggression": {
+        "action_type": "fold_vs_3bet_plus",
+        "action_kind": "fold",
+        "villain": {
+          "name": "89380169"
+        },
+        "math": {
+          "pot_before": 2.6799999999999997,
+          "to_call": 2.51,
+          "final_pot_if_call": 5.1899999999999995,
+          "pot_odds": 0.4836223506743738,
+          "required_equity": 0.4836223506743738,
+          "estimated_equity": 0.7,
+          "ev_simple": 1.1229999999999998,
+          "model": "preflop_followup_model"
+        },
+        "decision_quality": "risky",
+        "quality_comment": "По голой equity тебя, вероятно, устраивал бы кол/ол-ин против этого повышения. Фолд может быть излишне тайтовым (возможно, недобор EV).",
+        "comment": "После уже вложенных денег на префлопе ты получил(а) дополнительную агрессию от 89380169 и выбрал(а) фолд.  Пот-оддсы требуют около 0.48 equity, твоя оценочная equity ≈ 0.70.  В простой модели EV (без учёта позиций и реализуемости) разница EV(call−fold) ≈ 1.123."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -9436,6 +9794,42 @@
       "decision_quality": "risky",
       "quality_comment": "Колл со слабой рукой без хороших дро может быть минусовым решением.",
       "comment": "Тип действия на флопе: call_vs_bet. Ты играешь в хедз-ап банке в позиции. Категория руки на флопе: high_card Оценка решения движком: risky. Колл со слабой рукой без хороших дро может быть минусовым решением. Оценочная equity против диапазона оппонента на флопе ≈ 0.10."
+    },
+    "hero_turn_decision": {
+      "action_type": "fold_vs_bet",
+      "action_kind": "fold",
+      "sizing": {
+        "amount": null,
+        "pot_before": 2.0900000000000003,
+        "pct_pot": null
+      },
+      "context": {
+        "players_to_turn": 2,
+        "multiway": false,
+        "hero_ip": false,
+        "hero_position": "CO",
+        "preflop_role": "aggressor"
+      },
+      "hand": {
+        "approx_category_from_flop": "high_card",
+        "approx_strength_score_from_flop": 0.2,
+        "flop_equity_estimate": 0.1,
+        "evolution": "improved",
+        "evolution_detail": "equity_increased",
+        "board_texture": {
+          "turn_card_type": "flush_complete",
+          "overall_texture": "wet",
+          "impact_on_equity": "positive"
+        }
+      },
+      "equity_estimate": {
+        "estimated_equity": 0.19,
+        "model": "simple_turn_model",
+        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.20. Игра без позиции на тёрне снижает эффективную equity примерно на 3 п.п. Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 2 п.п. equity. Фолд на тёрне завершает раздачу, но оценка equity рассматривает гипотетическую продолженную игру."
+      },
+      "decision_quality": "good",
+      "quality_comment": "Фолд слабой руки без перспективных дро против ставки на тёрне — нормальное аккуратное решение.",
+      "comment": "Тип действия на тёрне: fold_vs_bet. Ты играешь в хедз-ап банке без позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'flush_complete'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: good. Фолд слабой руки без перспективных дро против ставки на тёрне — нормальное аккуратное решение. Оценочная equity на тёрне против диапазона оппонента ≈ 0.19."
     },
     "actions": [
       {
@@ -9707,6 +10101,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -9999,6 +10394,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -10242,8 +10638,44 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.20 и категории руки на флопе (high_card). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, твой диапазон слегка слабее диапазона агрессора — вычитаем около 1 п.п. equity. Рука без попадания (high_card) редко хорошо реализует equity — дополнительно уменьшаем оценку."
       },
       "decision_quality": "good",
-      "quality_comment": "Чек с рукой средней силы на флопе допустим, особенно вне позиции или в мультипоте.",
-      "comment": "Тип действия на флопе: check. Ты играешь в хедз-ап банке без позиции. Категория руки на флопе: high_card Оценка решения движком: good. Чек с рукой средней силы на флопе допустим, особенно вне позиции или в мультипоте. Оценочная equity против диапазона оппонента на флопе ≈ 0.05."
+      "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
+      "comment": "Тип действия на флопе: check. Ты играешь в хедз-ап банке без позиции. Категория руки на флопе: high_card Оценка решения движком: good. Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air. Оценочная equity против диапазона оппонента на флопе ≈ 0.05."
+    },
+    "hero_turn_decision": {
+      "action_type": "check",
+      "action_kind": "check",
+      "sizing": {
+        "amount": null,
+        "pot_before": 0.11,
+        "pct_pot": null
+      },
+      "context": {
+        "players_to_turn": 2,
+        "multiway": false,
+        "hero_ip": false,
+        "hero_position": "BB",
+        "preflop_role": "caller"
+      },
+      "hand": {
+        "approx_category_from_flop": "high_card",
+        "approx_strength_score_from_flop": 0.2,
+        "flop_equity_estimate": 0.05,
+        "evolution": "improved",
+        "evolution_detail": "equity_increased",
+        "board_texture": {
+          "turn_card_type": "paired_board",
+          "overall_texture": "semi_wet",
+          "impact_on_equity": "positive"
+        }
+      },
+      "equity_estimate": {
+        "estimated_equity": 0.15,
+        "model": "simple_turn_model",
+        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.20. Игра без позиции на тёрне снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, диапазон немного слабее — вычитаем около 1 п.п. equity. Пассивная линия (чек) слегка уменьшает реализуемость equity."
+      },
+      "decision_quality": "good",
+      "quality_comment": "Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air.",
+      "comment": "Тип действия на тёрне: check. Ты играешь в хедз-ап банке без позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'paired_board'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: good. Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.15."
     },
     "actions": [
       {
@@ -10516,6 +10948,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -10847,6 +11280,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -11092,6 +11526,42 @@
       "decision_quality": "ok",
       "quality_comment": "Чек с рукой средней/достаточной силы на флопе допустим, особенно в мультипоте или на сложных бордах.",
       "comment": "Тип действия на флопе: check. Ты играешь в мультипоте в позиции. Категория руки на флопе: pair (top_pair). Оценка решения движком: ok. Чек с рукой средней/достаточной силы на флопе допустим, особенно в мультипоте или на сложных бордах. Оценочная equity против диапазона оппонента на флопе ≈ 0.70."
+    },
+    "hero_turn_decision": {
+      "action_type": "check",
+      "action_kind": "check",
+      "sizing": {
+        "amount": null,
+        "pot_before": 0.2,
+        "pct_pot": null
+      },
+      "context": {
+        "players_to_turn": 3,
+        "multiway": true,
+        "hero_ip": true,
+        "hero_position": "CO",
+        "preflop_role": "caller"
+      },
+      "hand": {
+        "approx_category_from_flop": "pair",
+        "approx_strength_score_from_flop": 0.7,
+        "flop_equity_estimate": 0.7,
+        "evolution": "same",
+        "evolution_detail": "equity_stable",
+        "board_texture": {
+          "turn_card_type": "flush_complete",
+          "overall_texture": "wet",
+          "impact_on_equity": "negative"
+        }
+      },
+      "equity_estimate": {
+        "estimated_equity": 0.65,
+        "model": "simple_turn_model",
+        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.70. Мультипот (несколько оппонентов) снижает реализуемую equity примерно на 5 п.п. Игра в позиции на тёрне слегка повышает эффективную equity (около 2 п.п.). Ты префлоп-коллер, диапазон немного слабее — вычитаем около 1 п.п. equity. Пассивная линия (чек) слегка уменьшает реализуемость equity."
+      },
+      "decision_quality": "ok",
+      "quality_comment": "Чек на тёрне с рукой средней силы допустим, особенно на опасных бордах или против агрессивных оппонентов.",
+      "comment": "Тип действия на тёрне: check. Ты играешь в мультипоте в позиции. По сравнению с флопом твоя реализуемая equity на тёрне примерно не изменилась. Карта тёрна классифицируется как 'flush_complete'. Влияние карты тёрна на твою руку скорее негативное. Оценка решения движком: ok. Чек на тёрне с рукой средней силы допустим, особенно на опасных бордах или против агрессивных оппонентов. Оценочная equity на тёрне против диапазона оппонента ≈ 0.65."
     },
     "actions": [
       {
@@ -11415,6 +11885,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -11717,6 +12188,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -11912,6 +12384,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -12124,6 +12597,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -12329,6 +12803,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -12534,6 +13009,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -12828,6 +13304,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -13045,6 +13522,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -13280,9 +13758,10 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.20 и категории руки на флопе (high_card). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, твой диапазон слегка слабее диапазона агрессора — вычитаем около 1 п.п. equity. Рука без попадания (high_card) редко хорошо реализует equity — дополнительно уменьшаем оценку."
       },
       "decision_quality": "good",
-      "quality_comment": "Чек с рукой средней силы на флопе допустим, особенно вне позиции или в мультипоте.",
-      "comment": "Тип действия на флопе: check. Ты играешь в хедз-ап банке без позиции. Категория руки на флопе: high_card Оценка решения движком: good. Чек с рукой средней силы на флопе допустим, особенно вне позиции или в мультипоте. Оценочная equity против диапазона оппонента на флопе ≈ 0.05."
+      "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
+      "comment": "Тип действия на флопе: check. Ты играешь в хедз-ап банке без позиции. Категория руки на флопе: high_card Оценка решения движком: good. Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air. Оценочная equity против диапазона оппонента на флопе ≈ 0.05."
     },
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -13496,6 +13975,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -13767,11 +14247,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: call_vs_raise. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.36 (36.4%), твоя оценочная equity около 0.52 (51.6%). Разница (edge) ≈ 0.15."
+      "comment": "Тип действия: call_vs_raise. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.36 (36.4%), твоя оценочная equity около 0.52 (51.6%). Разница (edge) ≈ 0.15.",
+      "followup_vs_aggression": {
+        "action_type": "fold_vs_3bet_plus",
+        "action_kind": "fold",
+        "villain": {
+          "name": "3b4f16a1"
+        },
+        "math": {
+          "pot_before": 0.28,
+          "to_call": 0.15,
+          "final_pot_if_call": 0.43000000000000005,
+          "pot_odds": 0.34883720930232553,
+          "required_equity": 0.34883720930232553,
+          "estimated_equity": 0.516,
+          "ev_simple": 0.07188000000000003,
+          "model": "preflop_followup_model"
+        },
+        "decision_quality": "risky",
+        "quality_comment": "По голой equity тебя, вероятно, устраивал бы кол/ол-ин против этого повышения. Фолд может быть излишне тайтовым (возможно, недобор EV).",
+        "comment": "После уже вложенных денег на префлопе ты получил(а) дополнительную агрессию от 3b4f16a1 и выбрал(а) фолд.  Пот-оддсы требуют около 0.35 equity, твоя оценочная equity ≈ 0.52.  В простой модели EV (без учёта позиций и реализуемости) разница EV(call−fold) ≈ 0.072."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -13987,6 +14488,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -14226,6 +14728,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -14496,6 +14999,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -14708,6 +15212,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -14913,6 +15418,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -15163,6 +15669,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -15368,6 +15875,7 @@
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -15638,6 +16146,7 @@
       "quality_comment": "Фолд слабой руки без перспективных дро против ставки на флопе — нормальное аккуратное решение.",
       "comment": "Тип действия на флопе: fold_vs_bet. Ты играешь в хедз-ап банке без позиции. Категория руки на флопе: high_card Оценка решения движком: good. Фолд слабой руки без перспективных дро против ставки на флопе — нормальное аккуратное решение. Оценочная equity против диапазона оппонента на флопе ≈ 0.05."
     },
+    "hero_turn_decision": null,
     "actions": [
       {
         "street": "preflop",

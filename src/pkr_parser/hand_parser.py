@@ -9,7 +9,7 @@ import re
 from .equity_engine import estimate_preflop_equity_as_dict
 from .decision_engine import evaluate_preflop_decision
 from .flop_equity_engine import estimate_flop_equity_simple
-
+from .turn_engine import evaluate_hero_turn_decision
 
 # ---------------------------------------------------------------------
 #  МОДЕЛИ ДАННЫХ
@@ -90,10 +90,11 @@ class Hand:
     hero_preflop_equity: Optional[Dict[str, Any]]
     hero_preflop_decision: Optional[Dict[str, Any]]
 
-    # 🔹 Флоп-анализ
+      # 🔹 Флоп / терн анализ
     hero_flop_hand_category: Optional[str]          # set / pair / two_pair / ...
     hero_flop_hand_detail: Optional[Dict[str, Any]] # made_hand + pair_kind и т.п.
     hero_flop_decision: Optional[Dict[str, Any]]    # разбор первого решения на флопе
+    hero_turn_decision: Optional[Dict[str, Any]]    # разбор первого решения на терне
 
     actions: List[Action]
     board: List[str]
@@ -835,7 +836,8 @@ def compute_hero_preflop_decision(
     facing_raises = hero_preflop_analysis.facing_raises
     effective_stack_bb = hero_preflop_analysis.effective_stack_bb
 
-    return evaluate_preflop_decision(
+    # Базовая оценка первого решения на префлопе
+    base_decision = evaluate_preflop_decision(
         action_type=action_type,
         action_kind=action_kind,
         pot_before=pot_before,
@@ -849,6 +851,182 @@ def compute_hero_preflop_decision(
         effective_stack_bb=effective_stack_bb,
     )
 
+    # Дополнительный разбор: что произошло ПОСЛЕ первого действия героя
+    followup = compute_hero_preflop_followup(
+        actions=actions,
+        hero_name=hero_name,
+        hero_preflop_equity=hero_preflop_equity,
+    )
+    if followup is not None:
+        base_decision["followup_vs_aggression"] = followup
+
+    return base_decision
+
+
+def compute_hero_preflop_followup(
+    actions: List[Action],
+    hero_name: Optional[str],
+    hero_preflop_equity: Optional[Dict[str, Any]],
+) -> Optional[Dict[str, Any]]:
+    """
+    Анализ продолжения линии на префлопе:
+    пример — герой 3-бетит, получает 4-бет и ФОЛДИТ.
+
+    Возвращает dict с ключами:
+      - action_type: 'fold_vs_aggression' / 'fold_vs_3bet_plus'
+      - action_kind: 'fold'
+      - math: { pot_before, to_call, final_pot_if_call, pot_odds, required_equity,
+                estimated_equity, ev_simple }
+      - villain: { name }
+      - comment, quality, quality_comment
+    """
+    if not hero_name or not hero_preflop_equity:
+        return None
+
+    preflop_actions = [a for a in actions if a.street == "preflop"]
+    if not preflop_actions:
+        return None
+
+    # Все добровольные действия героя на префлопе
+    hero_preflop_actions = [
+        a for a in preflop_actions
+        if a.player == hero_name and a.action not in ("uncalled", "post_sb", "post_bb")
+    ]
+    # Нас интересуют только случаи, где герой делал КАК МИНИМУМ два действия
+    # (например: 3-бет -> фолд vs 4-бет).
+    if len(hero_preflop_actions) < 2:
+        return None
+
+    hero_last = hero_preflop_actions[-1]
+    if hero_last.action != "fold":
+        # follow-up анализ пока делаем только для фолдов
+        return None
+
+    # Индекс последнего действия героя в общем списке префлоп-экшенов
+    try:
+        idx_last = preflop_actions.index(hero_last)
+    except ValueError:
+        return None
+
+    prior = preflop_actions[:idx_last]
+
+    # Ищем последнее агрессивное действие соперника до фолда героя (бет/рейз)
+    last_agg_idx = None
+    last_agg = None
+    for i, a in enumerate(prior):
+        if a.action in ("bet", "raise"):
+            last_agg_idx = i
+            last_agg = a
+
+    if last_agg is None:
+        # Герой сфолдил без явной агрессии перед этим — неинтересно.
+        return None
+
+    villain_name = last_agg.player
+
+    # Считаем, сколько каждый игрок уже вложил в банк к моменту фолда героя
+    contributions: Dict[str, float] = {}
+    for i, a in enumerate(prior):
+        if a.amount is None:
+            continue
+        contributions[a.player] = contributions.get(a.player, 0.0) + a.amount
+
+    hero_invested = contributions.get(hero_name, 0.0)
+    villain_invested = contributions.get(villain_name, 0.0)
+
+    # Сколько нужно было доплатить герою, чтобы уравнять ставку соперника.
+    # Это приближение, но для наших целей (оценка EV фолда) достаточно точное.
+    to_call = max(villain_invested - hero_invested, 0.0)
+
+    pot_before = hero_last.pot_before
+    if pot_before is None:
+        return None
+
+    final_pot_if_call = pot_before + to_call if to_call > 0 else pot_before
+    pot_odds = None
+    required_equity = None
+    if to_call > 0 and final_pot_if_call > 0:
+        pot_odds = to_call / final_pot_if_call
+        required_equity = pot_odds
+
+    estimated_equity = hero_preflop_equity.get("estimated_equity_vs_unknown")
+    ev_simple = None
+    if estimated_equity is not None and to_call > 0 and final_pot_if_call > 0:
+        # Очень упрощённая модель EV:
+        # EV(call) = equity * final_pot_if_call - to_call
+        ev_simple = estimated_equity * final_pot_if_call - to_call
+
+    # Классифицируем тип ситуации
+    # (fold после уже вложенного рейза, например 3-бет/4-бет-пот).
+    raises_before_hero = [a for a in prior if a.action == "raise"]
+    if len(raises_before_hero) >= 2:
+        action_type = "fold_vs_3bet_plus"
+    else:
+        action_type = "fold_vs_aggression"
+
+    action_kind = "fold"
+
+    # Оценка качества решения по разнице между оценочной equity и требуемой equity
+    decision_quality = "unknown"
+    quality_comment = "Не удалось точно оценить решение: не хватает данных о банке или ставках."
+
+    if required_equity is not None and estimated_equity is not None:
+        edge = estimated_equity - required_equity
+        if edge <= -0.05:
+            decision_quality = "good"
+            quality_comment = (
+                "По пот-оддсам кол выглядел бы убыточным, твоя оценочная equity "
+                "ниже требуемой. Фолд против дополнительной агрессии выглядит аккуратным решением."
+            )
+        elif -0.05 < edge < 0.05:
+            decision_quality = "close"
+            quality_comment = (
+                "Спот пограничный: оценочная equity примерно соответствует требуемой. "
+                "Фолд — консервативный, но защитимый выбор."
+            )
+        else:
+            decision_quality = "risky"
+            quality_comment = (
+                "По голой equity тебя, вероятно, устраивал бы кол/ол-ин против этого повышения. "
+                "Фолд может быть излишне тайтовым (возможно, недобор EV)."
+            )
+
+    comment_parts = []
+    comment_parts.append(
+        f"После уже вложенных денег на префлопе ты получил(а) дополнительную агрессию от {villain_name} "
+        f"и выбрал(а) фолд."
+    )
+    if pot_odds is not None and required_equity is not None and estimated_equity is not None:
+        comment_parts.append(
+            f" Пот-оддсы требуют около {required_equity:.2f} equity, твоя оценочная equity ≈ {estimated_equity:.2f}."
+        )
+    if ev_simple is not None:
+        comment_parts.append(
+            f" В простой модели EV (без учёта позиций и реализуемости) разница EV(call−fold) ≈ {ev_simple:.3f}."
+        )
+
+    comment = " ".join(comment_parts)
+
+    return {
+        "action_type": action_type,
+        "action_kind": action_kind,
+        "villain": {
+            "name": villain_name,
+        },
+        "math": {
+            "pot_before": pot_before,
+            "to_call": to_call,
+            "final_pot_if_call": final_pot_if_call,
+            "pot_odds": pot_odds,
+            "required_equity": required_equity,
+            "estimated_equity": estimated_equity,
+            "ev_simple": ev_simple,
+            "model": "preflop_followup_model",
+        },
+        "decision_quality": decision_quality,
+        "quality_comment": quality_comment,
+        "comment": comment,
+    }
 
 # ---------------------------------------------------------------------
 #  АНАЛИЗ РУКИ ГЕРОЯ НА ФЛОПЕ (категория + тип пары)
@@ -1242,13 +1420,16 @@ def compute_hero_flop_decision(
                 reason = "Чек с очень сильной рукой в хедз-ап поте в позиции может недобрать велью."
             elif weak:
                 q = "good"
-                reason = "Чек с воздухом/слабой рукой на флопе — нормальная линия, ты не раздуваешь банк без шансов на шоудаун."
+                if ip:
+                    reason = "Чек с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и избегaешь минусовых блефов."
+                else:
+                    reason = "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air."
             else:
                 q = "ok"
-            if ip:
-                reason = "Чек с рукой средней/достаточной силы на флопе допустим, особенно в мультипоте или на сложных бордах."
-            else:
-                reason = "Чек с рукой средней силы на флопе допустим, особенно вне позиции или в мультипоте."
+                if ip:
+                    reason = "Чек с рукой средней/достаточной силы на флопе допустим, особенно в мультипоте или на сложных бордах."
+                else:
+                    reason = "Чек с рукой средней силы на флопе допустим, особенно вне позиции или в мультипоте."
 
         elif action_type in ("call_vs_bet", "call"):
             if strong or very_strong:
@@ -1287,6 +1468,7 @@ def compute_hero_flop_decision(
             else:
                 q = "ok"
                 reason = "Фолд руки средней силы на флопе может быть ок, особенно против крупного сайзинга или тайтовых диапазонов."
+
 
         decision_quality = q
         if reason:
@@ -1433,6 +1615,7 @@ def parse_file_to_hands(path: str | Path) -> List[Dict[str, Any]]:
             hero_flop_hand_category: Optional[str] = None
             hero_flop_hand_detail: Optional[Dict[str, Any]] = None
             hero_flop_decision: Optional[Dict[str, Any]] = None
+            hero_turn_decision: Optional[Dict[str, Any]] = None
         else:
             hero_flop_hand_category = evaluate_flop_hand_category(
                 hero_cards=hero_cards,
@@ -1450,6 +1633,14 @@ def parse_file_to_hands(path: str | Path) -> List[Dict[str, Any]]:
                 hero_preflop_analysis=hero_preflop_analysis,
                 hero_flop_hand_category=hero_flop_hand_category,
                 hero_flop_hand_detail=hero_flop_hand_detail,
+            )
+            hero_turn_decision = evaluate_hero_turn_decision(
+                actions=actions,
+                hero_name=hero_name,
+                hero_position=hero_position,
+                hero_preflop_analysis=hero_preflop_analysis,
+                hero_flop_decision=hero_flop_decision,
+                board=board,
             )
 
         hand = Hand(
@@ -1475,6 +1666,7 @@ def parse_file_to_hands(path: str | Path) -> List[Dict[str, Any]]:
             hero_flop_hand_category=hero_flop_hand_category,
             hero_flop_hand_detail=hero_flop_hand_detail,
             hero_flop_decision=hero_flop_decision,
+            hero_turn_decision=hero_turn_decision,
             actions=actions,
             board=board,
             pot_preflop=pots["preflop"],
