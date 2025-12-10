@@ -10,6 +10,7 @@ from .equity_engine import estimate_preflop_equity_as_dict
 from .decision_engine import evaluate_preflop_decision
 from .flop_equity_engine import estimate_flop_equity_simple
 from .turn_engine import evaluate_hero_turn_decision
+from .river_engine import evaluate_hero_river_decision
 
 # ---------------------------------------------------------------------
 #  МОДЕЛИ ДАННЫХ
@@ -90,11 +91,16 @@ class Hand:
     hero_preflop_equity: Optional[Dict[str, Any]]
     hero_preflop_decision: Optional[Dict[str, Any]]
 
-      # 🔹 Флоп / терн анализ
+    # 🔹 Флоп-анализ
     hero_flop_hand_category: Optional[str]          # set / pair / two_pair / ...
     hero_flop_hand_detail: Optional[Dict[str, Any]] # made_hand + pair_kind и т.п.
     hero_flop_decision: Optional[Dict[str, Any]]    # разбор первого решения на флопе
-    hero_turn_decision: Optional[Dict[str, Any]]    # разбор первого решения на терне
+
+    # 🔹 Тёрн-анализ
+    hero_turn_decision: Optional[Dict[str, Any]]
+
+    # 🔹 Ривер-анализ
+    hero_river_decision: Optional[Dict[str, Any]]
 
     actions: List[Action]
     board: List[str]
@@ -110,6 +116,7 @@ class Hand:
     showdown: List[ShowdownEntry]
 
     raw_text: str
+
 
 
 # ---------------------------------------------------------------------
@@ -1603,7 +1610,13 @@ def parse_file_to_hands(path: str | Path) -> List[Dict[str, Any]]:
                 hero_preflop_equity=hero_preflop_equity,
             )
 
-        # --- Флоп-анализ: только если герой реально дошёл до флопа ---
+        # --- Флоп / Тёрн / Ривер-анализ ---
+        hero_flop_hand_category: Optional[str] = None
+        hero_flop_hand_detail: Optional[Dict[str, Any]] = None
+        hero_flop_decision: Optional[Dict[str, Any]] = None
+        hero_turn_decision: Optional[Dict[str, Any]] = None
+        hero_river_decision: Optional[Dict[str, Any]] = None
+
         hero_has_flop_action = False
         if hero_name is not None:
             hero_has_flop_action = any(
@@ -1611,12 +1624,7 @@ def parse_file_to_hands(path: str | Path) -> List[Dict[str, Any]]:
                 for a in actions
             )
 
-        if not hero_has_flop_action:
-            hero_flop_hand_category: Optional[str] = None
-            hero_flop_hand_detail: Optional[Dict[str, Any]] = None
-            hero_flop_decision: Optional[Dict[str, Any]] = None
-            hero_turn_decision: Optional[Dict[str, Any]] = None
-        else:
+        if hero_has_flop_action:
             hero_flop_hand_category = evaluate_flop_hand_category(
                 hero_cards=hero_cards,
                 board=board,
@@ -1634,12 +1642,23 @@ def parse_file_to_hands(path: str | Path) -> List[Dict[str, Any]]:
                 hero_flop_hand_category=hero_flop_hand_category,
                 hero_flop_hand_detail=hero_flop_hand_detail,
             )
+
             hero_turn_decision = evaluate_hero_turn_decision(
                 actions=actions,
                 hero_name=hero_name,
                 hero_position=hero_position,
                 hero_preflop_analysis=hero_preflop_analysis,
                 hero_flop_decision=hero_flop_decision,
+                board=board,
+            )
+
+            hero_river_decision = evaluate_hero_river_decision(
+                actions=actions,
+                hero_name=hero_name,
+                hero_position=hero_position,
+                hero_preflop_analysis=hero_preflop_analysis,
+                hero_flop_decision=hero_flop_decision,
+                hero_turn_decision=hero_turn_decision,
                 board=board,
             )
 
@@ -1667,6 +1686,7 @@ def parse_file_to_hands(path: str | Path) -> List[Dict[str, Any]]:
             hero_flop_hand_detail=hero_flop_hand_detail,
             hero_flop_decision=hero_flop_decision,
             hero_turn_decision=hero_turn_decision,
+            hero_river_decision=hero_river_decision,
             actions=actions,
             board=board,
             pot_preflop=pots["preflop"],
