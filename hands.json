@@ -157,6 +157,7 @@
       "quality_comment": "Ставка на тёрне с сильной готовой рукой выглядит стандартным велью-розыгрышем.",
       "comment": "Тип действия на тёрне: bet_vs_check. Ты играешь в мультипоте без позиции. Размер ставки на тёрне: 0.12 в пот 0.39 (~30.8% пота). По сравнению с флопом твоя реализуемая equity на тёрне примерно не изменилась. Карта тёрна классифицируется как 'paired_board'. Карта тёрна нейтральна для твоей руки/диапазона. Оценка решения движком: good. Ставка на тёрне с сильной готовой рукой выглядит стандартным велью-розыгрышем. Оценочная equity на тёрне против диапазона оппонента ≈ 0.63."
     },
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -522,6 +523,7 @@
       "comment": "Тип действия на флопе: check. Ты играешь в мультипоте без позиции. Категория руки на флопе: pair (board_pair). Оценка решения движком: good. Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air. Оценочная equity против диапазона оппонента на флопе ≈ 0.17."
     },
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -885,6 +887,34 @@
       "quality_comment": "Блефовая ставка на тёрне со слабой рукой в мультипоте или без позиции, особенно на опасной карте борда, выглядит рискованной.",
       "comment": "Тип действия на тёрне: bet_vs_check. Ты играешь в хедз-ап банке без позиции. Размер ставки на тёрне: 0.10 в пот 0.60 (~16.7% пота). По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'paired_board'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: risky. Блефовая ставка на тёрне со слабой рукой в мультипоте или без позиции, особенно на опасной карте борда, выглядит рискованной. Оценочная equity на тёрне против диапазона оппонента ≈ 0.21."
     },
+    "hero_river_decision": {
+      "action_type": "check",
+      "action_kind": "check",
+      "sizing": {
+        "amount": null,
+        "pot_before": 0.7999999999999999,
+        "pct_pot": null
+      },
+      "context": {
+        "players_to_river": 2,
+        "multiway": false,
+        "hero_ip": true,
+        "hero_position": "BB",
+        "preflop_role": "aggressor"
+      },
+      "hand": {
+        "base_from_turn_equity": 0.21,
+        "note": "На ривере в v1 мы опираемся на оценку equity с тёрна, слегка подстраивая её под контекст ривера."
+      },
+      "equity_estimate": {
+        "estimated_equity": 0.225,
+        "model": "simple_river_model",
+        "explanation": "Базовая оценка на ривере строится от turn-equity≈0.21. Игра в позиции на ривере слегка повышает эффективную equity (около 1 п.п.). Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 1 п.п. equity. Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
+      },
+      "decision_quality": "good",
+      "quality_comment": "Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка.",
+      "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке в позиции. Оценка решения движком: good. Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка. Оценочная equity на ривере против диапазона оппонента ≈ 0.23."
+    },
     "actions": [
       {
         "street": "preflop",
@@ -1202,6 +1232,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -1437,6 +1468,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -1724,6 +1756,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -2065,6 +2098,7 @@
       "comment": "Тип действия на флопе: cbet. Ты играешь в мультипоте без позиции. Размер ставки: 0.08 в пот 0.13 (~61.5% пота). Категория руки на флопе: set Оценка решения движком: good. Сильная рука и ставка на флопе выглядит стандартным велью-бетом. Оценочная equity против диапазона оппонента на флопе ≈ 0.81."
     },
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -2342,6 +2376,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -2548,6 +2583,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -2898,6 +2934,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -3189,6 +3226,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -3569,6 +3607,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -3812,6 +3851,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -4094,6 +4134,7 @@
       "quality_comment": "Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air.",
       "comment": "Тип действия на тёрне: check. Ты играешь в мультипоте без позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'flush_complete'. Влияние карты тёрна на твою руку скорее негативное. Оценка решения движком: good. Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.25."
     },
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -4456,6 +4497,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -4758,6 +4800,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -5071,6 +5114,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -5383,6 +5427,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -5666,6 +5711,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -5979,6 +6025,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -6365,6 +6412,34 @@
       "quality_comment": "Блефовый рейз на тёрне со слабой рукой в мультипоте или без позиции, особенно на опасной карте борда, выглядит рискованным.",
       "comment": "Тип действия на тёрне: raise_vs_bet. Ты играешь в хедз-ап банке без позиции. Размер ставки на тёрне: 0.24 в пот 0.36 (~66.7% пота). По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'flush_complete'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: risky. Блефовый рейз на тёрне со слабой рукой в мультипоте или без позиции, особенно на опасной карте борда, выглядит рискованным. Оценочная equity на тёрне против диапазона оппонента ≈ 0.21."
     },
+    "hero_river_decision": {
+      "action_type": "call_vs_bet",
+      "action_kind": "call",
+      "sizing": {
+        "amount": 0.02,
+        "pot_before": 0.98,
+        "pct_pot": 0.020408163265306124
+      },
+      "context": {
+        "players_to_river": 2,
+        "multiway": false,
+        "hero_ip": true,
+        "hero_position": "BB",
+        "preflop_role": "aggressor"
+      },
+      "hand": {
+        "base_from_turn_equity": 0.21,
+        "note": "На ривере в v1 мы опираемся на оценку equity с тёрна, слегка подстраивая её под контекст ривера."
+      },
+      "equity_estimate": {
+        "estimated_equity": 0.23,
+        "model": "simple_river_model",
+        "explanation": "Базовая оценка на ривере строится от turn-equity≈0.21. Игра в позиции на ривере слегка повышает эффективную equity (около 1 п.п.). Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 1 п.п. equity. Колл на ривере сохраняет часть equity, но без fold equity."
+      },
+      "decision_quality": "risky",
+      "quality_comment": "Колл ставки на ривере со слабой рукой без явных ридсов — потенциально минусовое решение.",
+      "comment": "Тип действия на ривере: call_vs_bet. Ты играешь в хедз-ап банке в позиции. Оценка решения движком: risky. Колл ставки на ривере со слабой рукой без явных ридсов — потенциально минусовое решение. Оценочная equity на ривере против диапазона оппонента ≈ 0.23."
+    },
     "actions": [
       {
         "street": "preflop",
@@ -6688,6 +6763,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -6956,6 +7032,34 @@
       "decision_quality": "risky",
       "quality_comment": "Колл ставки на тёрне со слабой рукой без хороших дро может быть минусовым решением.",
       "comment": "Тип действия на тёрне: call_vs_bet. Ты играешь в мультипоте без позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'paired_board'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: risky. Колл ставки на тёрне со слабой рукой без хороших дро может быть минусовым решением. Оценочная equity на тёрне против диапазона оппонента ≈ 0.14."
+    },
+    "hero_river_decision": {
+      "action_type": "raise_vs_bet",
+      "action_kind": "raise",
+      "sizing": {
+        "amount": 0.04,
+        "pot_before": 0.5100000000000001,
+        "pct_pot": 0.07843137254901959
+      },
+      "context": {
+        "players_to_river": 2,
+        "multiway": false,
+        "hero_ip": false,
+        "hero_position": "MP",
+        "preflop_role": "aggressor"
+      },
+      "hand": {
+        "base_from_turn_equity": 0.14,
+        "note": "На ривере в v1 мы опираемся на оценку equity с тёрна, слегка подстраивая её под контекст ривера."
+      },
+      "equity_estimate": {
+        "estimated_equity": 0.15,
+        "model": "simple_river_model",
+        "explanation": "Базовая оценка на ривере строится от turn-equity≈0.14. Игра без позиции на ривере слегка снижает эффективную equity (примерно на 1 п.п.). Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 1 п.п. equity. Агрессия на ривере (ставка/рейз) немного повышает реализуемость equity (около 1 п.п.)."
+      },
+      "decision_quality": "risky",
+      "quality_comment": "Блефовый рейз на ривере со слабой рукой — одна из самых рискованных линий.",
+      "comment": "Тип действия на ривере: raise_vs_bet. Ты играешь в хедз-ап банке без позиции. Размер ставки на ривере: 0.04 в пот 0.51 (~7.8% пота). Оценка решения движком: risky. Блефовый рейз на ривере со слабой рукой — одна из самых рискованных линий. Оценочная equity на ривере против диапазона оппонента ≈ 0.15."
     },
     "actions": [
       {
@@ -7294,6 +7398,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -7494,6 +7599,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -7718,6 +7824,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -7960,6 +8067,34 @@
       "decision_quality": "good",
       "quality_comment": "Ставка на тёрне с сильной готовой рукой выглядит стандартным велью-розыгрышем.",
       "comment": "Тип действия на тёрне: bet_vs_check. Ты играешь в хедз-ап банке без позиции. Размер ставки на тёрне: 0.24 в пот 0.35 (~68.6% пота). По сравнению с флопом твоя реализуемая equity на тёрне примерно не изменилась. Карта тёрна классифицируется как 'paired_board'. Карта тёрна нейтральна для твоей руки/диапазона. Оценка решения движком: good. Ставка на тёрне с сильной готовой рукой выглядит стандартным велью-розыгрышем. Оценочная equity на тёрне против диапазона оппонента ≈ 0.73."
+    },
+    "hero_river_decision": {
+      "action_type": "bet_vs_check",
+      "action_kind": "bet",
+      "sizing": {
+        "amount": 0.4,
+        "pot_before": 0.8300000000000001,
+        "pct_pot": 0.4819277108433735
+      },
+      "context": {
+        "players_to_river": 2,
+        "multiway": false,
+        "hero_ip": false,
+        "hero_position": "UTG",
+        "preflop_role": "aggressor"
+      },
+      "hand": {
+        "base_from_turn_equity": 0.73,
+        "note": "На ривере в v1 мы опираемся на оценку equity с тёрна, слегка подстраивая её под контекст ривера."
+      },
+      "equity_estimate": {
+        "estimated_equity": 0.74,
+        "model": "simple_river_model",
+        "explanation": "Базовая оценка на ривере строится от turn-equity≈0.73. Игра без позиции на ривере слегка снижает эффективную equity (примерно на 1 п.п.). Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 1 п.п. equity. Агрессия на ривере (ставка/рейз) немного повышает реализуемость equity (около 1 п.п.)."
+      },
+      "decision_quality": "good",
+      "quality_comment": "Велью-бет на ривере с сильной готовой рукой выглядит стандартно и логично.",
+      "comment": "Тип действия на ривере: bet_vs_check. Ты играешь в хедз-ап банке без позиции. Размер ставки на ривере: 0.40 в пот 0.83 (~48.2% пота). Оценка решения движком: good. Велью-бет на ривере с сильной готовой рукой выглядит стандартно и логично. Оценочная equity на ривере против диапазона оппонента ≈ 0.74."
     },
     "actions": [
       {
@@ -8233,6 +8368,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -8429,6 +8565,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -8753,6 +8890,34 @@
       "quality_comment": "Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air.",
       "comment": "Тип действия на тёрне: check. Ты играешь в хедз-ап банке без позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'flush_complete'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: good. Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.15."
     },
+    "hero_river_decision": {
+      "action_type": "check",
+      "action_kind": "check",
+      "sizing": {
+        "amount": null,
+        "pot_before": 0.04,
+        "pct_pot": null
+      },
+      "context": {
+        "players_to_river": 2,
+        "multiway": false,
+        "hero_ip": false,
+        "hero_position": "SB",
+        "preflop_role": "caller"
+      },
+      "hand": {
+        "base_from_turn_equity": 0.15,
+        "note": "На ривере в v1 мы опираемся на оценку equity с тёрна, слегка подстраивая её под контекст ривера."
+      },
+      "equity_estimate": {
+        "estimated_equity": 0.13,
+        "model": "simple_river_model",
+        "explanation": "Базовая оценка на ривере строится от turn-equity≈0.15. Игра без позиции на ривере слегка снижает эффективную equity (примерно на 1 п.п.). Ты префлоп-коллер, диапазон немного слабее — вычитаем около 0.5 п.п. equity. Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
+      },
+      "decision_quality": "good",
+      "quality_comment": "Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка.",
+      "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке без позиции. Оценка решения движком: good. Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка. Оценочная equity на ривере против диапазона оппонента ≈ 0.13."
+    },
     "actions": [
       {
         "street": "preflop",
@@ -9066,6 +9231,7 @@
       "comment": "Тип действия на флопе: fold_vs_bet. Ты играешь в хедз-ап банке без позиции. Категория руки на флопе: high_card Оценка решения движком: good. Фолд слабой руки без перспективных дро против ставки на флопе — нормальное аккуратное решение. Оценочная equity против диапазона оппонента на флопе ≈ 0.05."
     },
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -9303,6 +9469,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -9539,6 +9706,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -9831,6 +9999,7 @@
       "quality_comment": "Фолд слабой руки без перспективных дро против ставки на тёрне — нормальное аккуратное решение.",
       "comment": "Тип действия на тёрне: fold_vs_bet. Ты играешь в хедз-ап банке без позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'flush_complete'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: good. Фолд слабой руки без перспективных дро против ставки на тёрне — нормальное аккуратное решение. Оценочная equity на тёрне против диапазона оппонента ≈ 0.19."
     },
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -10102,6 +10271,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -10395,6 +10565,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -10677,6 +10848,34 @@
       "quality_comment": "Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air.",
       "comment": "Тип действия на тёрне: check. Ты играешь в хедз-ап банке без позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'paired_board'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: good. Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.15."
     },
+    "hero_river_decision": {
+      "action_type": "bet_vs_check",
+      "action_kind": "bet",
+      "sizing": {
+        "amount": 0.08,
+        "pot_before": 0.11,
+        "pct_pot": 0.7272727272727273
+      },
+      "context": {
+        "players_to_river": 2,
+        "multiway": false,
+        "hero_ip": false,
+        "hero_position": "BB",
+        "preflop_role": "caller"
+      },
+      "hand": {
+        "base_from_turn_equity": 0.15,
+        "note": "На ривере в v1 мы опираемся на оценку equity с тёрна, слегка подстраивая её под контекст ривера."
+      },
+      "equity_estimate": {
+        "estimated_equity": 0.145,
+        "model": "simple_river_model",
+        "explanation": "Базовая оценка на ривере строится от turn-equity≈0.15. Игра без позиции на ривере слегка снижает эффективную equity (примерно на 1 п.п.). Ты префлоп-коллер, диапазон немного слабее — вычитаем около 0.5 п.п. equity. Агрессия на ривере (ставка/рейз) немного повышает реализуемость equity (около 1 п.п.)."
+      },
+      "decision_quality": "risky",
+      "quality_comment": "Блефовая ставка на ривере со слабой рукой в мультипоте или без позиции чаще всего рискованна.",
+      "comment": "Тип действия на ривере: bet_vs_check. Ты играешь в хедз-ап банке без позиции. Размер ставки на ривере: 0.08 в пот 0.11 (~72.7% пота). Оценка решения движком: risky. Блефовая ставка на ривере со слабой рукой в мультипоте или без позиции чаще всего рискованна. Оценочная equity на ривере против диапазона оппонента ≈ 0.14."
+    },
     "actions": [
       {
         "street": "preflop",
@@ -10949,6 +11148,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -11281,6 +11481,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -11562,6 +11763,34 @@
       "decision_quality": "ok",
       "quality_comment": "Чек на тёрне с рукой средней силы допустим, особенно на опасных бордах или против агрессивных оппонентов.",
       "comment": "Тип действия на тёрне: check. Ты играешь в мультипоте в позиции. По сравнению с флопом твоя реализуемая equity на тёрне примерно не изменилась. Карта тёрна классифицируется как 'flush_complete'. Влияние карты тёрна на твою руку скорее негативное. Оценка решения движком: ok. Чек на тёрне с рукой средней силы допустим, особенно на опасных бордах или против агрессивных оппонентов. Оценочная equity на тёрне против диапазона оппонента ≈ 0.65."
+    },
+    "hero_river_decision": {
+      "action_type": "check",
+      "action_kind": "check",
+      "sizing": {
+        "amount": null,
+        "pot_before": 0.2,
+        "pct_pot": null
+      },
+      "context": {
+        "players_to_river": 3,
+        "multiway": true,
+        "hero_ip": true,
+        "hero_position": "CO",
+        "preflop_role": "caller"
+      },
+      "hand": {
+        "base_from_turn_equity": 0.65,
+        "note": "На ривере в v1 мы опираемся на оценку equity с тёрна, слегка подстраивая её под контекст ривера."
+      },
+      "equity_estimate": {
+        "estimated_equity": 0.63,
+        "model": "simple_river_model",
+        "explanation": "Базовая оценка на ривере строится от turn-equity≈0.65. Мультипот (несколько оппонентов) снижает реализуемую equity примерно на 2 п.п. Игра в позиции на ривере слегка повышает эффективную equity (около 1 п.п.). Ты префлоп-коллер, диапазон немного слабее — вычитаем около 0.5 п.п. equity. Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
+      },
+      "decision_quality": "ok",
+      "quality_comment": "Чек на ривере с рукой средней силы часто нейтрален: ты контролируешь банк и не превращаешь руку в блеф.",
+      "comment": "Тип действия на ривере: check. Ты играешь в мультипоте в позиции. Оценка решения движком: ok. Чек на ривере с рукой средней силы часто нейтрален: ты контролируешь банк и не превращаешь руку в блеф. Оценочная equity на ривере против диапазона оппонента ≈ 0.63."
     },
     "actions": [
       {
@@ -11886,6 +12115,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -12189,6 +12419,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -12385,6 +12616,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -12598,6 +12830,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -12804,6 +13037,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -13010,6 +13244,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -13305,6 +13540,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -13523,6 +13759,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -13762,6 +13999,7 @@
       "comment": "Тип действия на флопе: check. Ты играешь в хедз-ап банке без позиции. Категория руки на флопе: high_card Оценка решения движком: good. Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air. Оценочная equity против диапазона оппонента на флопе ≈ 0.05."
     },
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -13976,6 +14214,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -14273,6 +14512,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -14489,6 +14729,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -14729,6 +14970,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -15000,6 +15242,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -15213,6 +15456,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -15419,6 +15663,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -15670,6 +15915,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -15876,6 +16122,7 @@
     "hero_flop_hand_detail": null,
     "hero_flop_decision": null,
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
@@ -16147,6 +16394,7 @@
       "comment": "Тип действия на флопе: fold_vs_bet. Ты играешь в хедз-ап банке без позиции. Категория руки на флопе: high_card Оценка решения движком: good. Фолд слабой руки без перспективных дро против ставки на флопе — нормальное аккуратное решение. Оценочная equity против диапазона оппонента на флопе ≈ 0.05."
     },
     "hero_turn_decision": null,
+    "hero_river_decision": null,
     "actions": [
       {
         "street": "preflop",
