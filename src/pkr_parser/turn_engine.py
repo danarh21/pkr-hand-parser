@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+from .ev_tools import compute_ev_estimate_v1
 from typing import Optional, Dict, Any, List
 
 
@@ -700,6 +700,17 @@ def evaluate_hero_turn_decision(
         f"Ты играешь {multi_part} {pos_part}.{size_part}"
         f"{evolution_part}{texture_part}{quality_part}{equity_part}"
     )
+       # hero_turn_actions у тебя — список действий героя на тёрне
+    hero_turn_action = hero_turn_actions[0] if hero_turn_actions else None
+    action_kind_for_ev = hero_turn_action.action if hero_turn_action else None
+
+    ev_estimate = compute_ev_estimate_v1(
+        action_kind=action_kind_for_ev,
+        sizing=sizing,
+        equity_estimate=equity_estimate,
+        facing_bet=facing_bet,
+    )
+
 
     return {
         "action_type": action_type,
@@ -711,4 +722,6 @@ def evaluate_hero_turn_decision(
         "decision_quality": decision_quality,
         "quality_comment": quality_comment,
         "comment": comment,
+        "ev_estimate": ev_estimate,
+
     }

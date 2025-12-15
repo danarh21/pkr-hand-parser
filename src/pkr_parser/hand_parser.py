@@ -11,6 +11,7 @@ from .decision_engine import evaluate_preflop_decision
 from .flop_equity_engine import estimate_flop_equity_simple
 from .turn_engine import evaluate_hero_turn_decision
 from .river_engine import evaluate_hero_river_decision
+from .ev_tools import compute_ev_estimate_v1
 
 # ---------------------------------------------------------------------
 #  МОДЕЛИ ДАННЫХ
@@ -1517,6 +1518,12 @@ def compute_hero_flop_decision(
         f"Тип действия на флопе: {action_type}. "
         f"Ты играешь {multi_part} {pos_part}.{size_part}{hand_part}{quality_part}{equity_part}"
     )
+    ev_estimate = compute_ev_estimate_v1(
+        action_kind=first.action,
+        sizing=sizing,
+        equity_estimate=equity_estimate,
+        facing_bet=facing_bet,
+    )
 
     return {
         "action_type": action_type,
@@ -1525,6 +1532,7 @@ def compute_hero_flop_decision(
         "context": context,
         "hand": hand_info,
         "equity_estimate": equity_estimate,
+        "ev_estimate": ev_estimate,
         "decision_quality": decision_quality,
         "quality_comment": quality_comment,
         "comment": comment,
