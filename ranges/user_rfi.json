@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "name": "User RFI Ranges",
+    "version": 1,
+    "game": "NLHE",
+    "max_players": 6
+  },
+  "rfi": {
+    "UTG": [],
+    "MP": [],
+    "HJ": [],
+    "CO": [],
+    "BTN": [],
+    "SB": [],
+    "EP": [
+      "A9o"
+    ]
+  }
+}

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, asdict
 from typing import Optional, Dict, Any, List
+from .range_store import mos_min_position
 
 
 # ---------------------------------------------------------------------
@@ -158,14 +159,9 @@ def normalize_hand_key(hero_cards: List[str]) -> str:
 
 def get_mos_min_position(hand_key: str) -> Optional[str]:
     """
-    Возвращает минимальную позицию открытия для данной руки по твоему MOS-чарту:
-    - "EP", "MP", "HJ", "CO"
-    - или None, если рука вообще не входит в RFI-диапазоны.
+    Теперь MOS берём НЕ из хардкода, а из ranges/default_rfi.json + ranges/user_rfi.json
     """
-    for pos in RFI_MOS_ORDER:
-        if hand_key in RFI_MOS_RANGES[pos]:
-            return pos
-    return None
+    return mos_min_position(hand_key)
 
 
 def _classify_hand_category_from_mos(hand_key: str) -> tuple[str, float, Optional[str], str]:

@@ -1,0 +1,41 @@
+{
+  "meta": {
+    "name": "Default MOS RFI",
+    "version": 1,
+    "format": "min_position",
+    "positions": ["EP", "MP", "HJ", "CO"]
+  },
+  "rfi": {
+    "EP": [
+      "44","55","66","77","88","99",
+      "A2s","A3s","A4s","A5s","A6s","A7s","A8s","A9s","ATo","ATs","AJo","AJs","AQo","AQs","AKo","AKs",
+      "J8s","J9s","JTs","JJ",
+      "KJo","KQo","KQs","KTs","KK",
+      "Q8s","Q9s","QJs","QQ","QTs",
+      "T8s","T9s","TT"
+    ],
+    "MP": [
+      "65s","86s","97s",
+      "A6s","A7s","A9o",
+      "J7s","JTo",
+      "K6s","K7s","KTo",
+      "Q7s","QJo","QQ","QTo",
+      "T7s"
+    ],
+    "HJ": [
+      "54s","64s","75s","76o","76s","87o","87s","98o",
+      "A8o","A9o",
+      "J6s","J8o","J9o","JTo",
+      "K5s","K8o","K9o",
+      "Q6s","Q8o","Q9o"
+    ],
+    "CO": [
+      "43s","53s","63s","65o","74s","85s","95s","96o",
+      "A2o","A3o","A4o","A5o","A7o","A8o",
+      "J5s","J7o","J8o",
+      "K4s","K8o",
+      "Q5s","Q7o",
+      "T6s","T8o","T9o"
+    ]
+  }
+}
