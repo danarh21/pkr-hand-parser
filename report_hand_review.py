@@ -316,6 +316,12 @@ def main() -> None:
     _print_total_ev(ev_pf, ev_flop, ev_turn, ev_river)
     _print_coach_summary(hand, ev_pf, ev_flop, ev_turn, ev_river)
 
+    # Сохраняем результат в JSON файл
+    output_filename = f"hand_review_{hand_id}.json"
+    with open(output_filename, 'w', encoding='utf-8') as f:
+        json.dump(hand, f, ensure_ascii=False, indent=2)
+    print(f"\nРезультат сохранен в файл: {output_filename}")
+
 
 if __name__ == "__main__":
     main()
