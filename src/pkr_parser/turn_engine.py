@@ -705,11 +705,19 @@ def evaluate_hero_turn_decision(
     action_kind_for_ev = hero_turn_action.action if hero_turn_action else None
 
     ev_estimate = compute_ev_estimate_v1(
-        action_kind=action_kind_for_ev,
-        sizing=sizing,
-        equity_estimate=equity_estimate,
-        facing_bet=facing_bet,
-    )
+    street="turn",
+    action_kind=action_kind_for_ev,
+    pot_before=(sizing.get("pot_before") if isinstance(sizing, dict) else None),
+    investment=(sizing.get("amount") if isinstance(sizing, dict) else None),
+    estimated_equity=(
+        equity_estimate.get("estimated_equity")
+        if isinstance(equity_estimate, dict)
+        else None
+    ),
+    fold_equity=None,
+    final_pot_if_called=None,
+)
+
 
 
     return {

@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+from .ev_tools import compute_ev_estimate_v1
 from dataclasses import dataclass, asdict
 from typing import Optional, Dict, Any
 
@@ -596,4 +596,16 @@ def evaluate_preflop_decision(
         comment=comment,
     )
 
-    return asdict(evaluation)
+    ev_estimate = compute_ev_estimate_v1(
+        street="preflop",
+        action_kind=action_kind or "unknown",
+        pot_before=pot_before,
+        investment=investment,
+        estimated_equity=estimated_equity,
+        fold_equity=None,
+        final_pot_if_called=None,
+    )
+
+    out = asdict(evaluation)
+    out["ev_estimate"] = ev_estimate
+    return out

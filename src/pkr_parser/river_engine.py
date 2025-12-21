@@ -124,6 +124,72 @@ def _estimate_river_equity(
     }
 
 
+def _estimate_missed_value_ev_on_river(
+    action_type: str,
+    river_equity: Optional[float],
+    pot_before: Optional[float],
+    hero_ip: bool,
+    multiway: bool,
+) -> Optional[Dict[str, Any]]:
+    """
+    v1 эвристика "сколько EV недобрали на ривере", если сыграли слишком пассивно.
+    Мы НЕ считаем точный солверный EV. Нужна полезная чиселка для отчёта.
+
+    Логика:
+      - если чекнули в позиции с достаточно высокой equity => возможный тонкий добор упущен.
+      - оценка "недобора" = доля банка * (equity - порог) * коэффициент реализации
+    """
+    if action_type != "check":
+        return None
+    if not hero_ip:
+        return None
+    if river_equity is None:
+        return None
+    if pot_before is None:
+        return None
+
+    try:
+        p = float(pot_before)
+    except (TypeError, ValueError):
+        return None
+    if p <= 0:
+        return None
+
+    e = float(river_equity)
+
+    # Порог "достаточно сильной" руки для тонкого добора в v1
+    threshold = 0.65 if not multiway else 0.70
+    if e < threshold:
+        return None
+
+    # Сколько максимум мы "можем" добрать тонким вэлью-бетом в этой эвристике:
+    # - в HU чаще можно добирать тоньше, в мультипоте осторожнее
+    max_fraction_of_pot = 0.25 if not multiway else 0.15
+
+    # Нормируем силу: чем выше equity над порогом — тем больше вероятный недобор
+    # cap на (e - threshold) в 0.25 чтобы не улетало в космос
+    strength = min(max(e - threshold, 0.0), 0.25) / 0.25  # 0..1
+
+    missed_ev = p * max_fraction_of_pot * strength
+
+    # В отчётах мы хотим "потерю" как отрицательное число относительно выбранного действия
+    ev_action = -float(f"{missed_ev:.4f}")
+
+    explanation = (
+        "Ривер: эвристика missed value. "
+        f"Ты чекнул в позиции при оценочной equity≈{e:.2f} (порог {threshold:.2f}). "
+        f"Модель предполагает, что тонкий вэлью-бет мог бы принести дополнительно до ~{max_fraction_of_pot*100:.0f}% банка "
+        "пропорционально запасу по equity над порогом. "
+        f"Оценка недобора ≈ {missed_ev:.4f} (в валюте стола)."
+    )
+
+    return {
+        "ev_action": ev_action,
+        "model": "river_missed_value_v1",
+        "explanation": explanation,
+    }
+
+
 def evaluate_hero_river_decision(
     actions: List[Any],
     hero_name: Optional[str],
@@ -141,11 +207,9 @@ def evaluate_hero_river_decision(
       - action_kind: реальное действие (bet/call/check/raise/fold)
       - sizing: { amount, pot_before, pct_pot }
       - context: { players_to_river, multiway, hero_ip, hero_position, preflop_role }
-      - hand: {
-            base_from_turn_equity,
-            note
-        }
+      - hand: { base_from_turn_equity, note }
       - equity_estimate: { estimated_equity, model, explanation }
+      - ev_estimate: { ev_action, model, explanation }  # (только если есть что посчитать)
       - decision_quality: оценка качества (good / ok / risky / bad / unknown)
       - quality_comment: текстовое объяснение оценки
       - comment: общий краткий комментарий по споту
@@ -341,7 +405,7 @@ def evaluate_hero_river_decision(
         if reason:
             quality_comment = reason
 
-    # -------- Сайзинг и финальный комментарий --------
+    # -------- Сайзинг --------
     amount = getattr(first, "amount", None)
     pot_before = getattr(first, "pot_before", None)
     pct_pot = getattr(first, "pct_pot", None)
@@ -352,6 +416,18 @@ def evaluate_hero_river_decision(
         "pct_pot": pct_pot,
     }
 
+    # -------- EV estimate (только где есть смысл в v1) --------
+    # Сейчас добавляем именно то, что тебе важно для варианта A:
+    # чек в позиции с высокой equity => missed value => отрицательный EV.
+    ev_estimate = _estimate_missed_value_ev_on_river(
+        action_type=action_type,
+        river_equity=river_eq_value,
+        pot_before=pot_before,
+        hero_ip=context["hero_ip"],
+        multiway=context["multiway"],
+    )
+
+    # -------- Финальный комментарий --------
     pct_str = None
     if pct_pot is not None:
         try:
@@ -379,10 +455,17 @@ def evaluate_hero_river_decision(
             f"{equity_estimate['estimated_equity']:.2f}."
         )
 
+    ev_part = ""
+    if ev_estimate and ev_estimate.get("ev_action") is not None:
+        try:
+            ev_part = f" EV(action)≈{float(ev_estimate['ev_action']):.4f}."
+        except Exception:
+            ev_part = ""
+
     comment = (
         f"Тип действия на ривере: {action_type}. "
         f"Ты играешь {multi_part} {pos_part}.{size_part}"
-        f"{quality_part}{equity_part}"
+        f"{quality_part}{equity_part} {ev_part}".rstrip()
     )
 
     return {
@@ -392,6 +475,7 @@ def evaluate_hero_river_decision(
         "context": context,
         "hand": hand_block,
         "equity_estimate": equity_estimate,
+        "ev_estimate": ev_estimate,
         "decision_quality": decision_quality,
         "quality_comment": quality_comment,
         "comment": comment,

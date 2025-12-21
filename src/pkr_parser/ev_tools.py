@@ -1,118 +1,149 @@
 from __future__ import annotations
 
-from typing import Any, Dict, Optional
+from typing import Optional, Dict, Any
 
 
-def _to_float(x: Any) -> Optional[float]:
-    try:
-        if x is None:
-            return None
-        return float(x)
-    except Exception:
-        return None
+def _clamp01(x: float) -> float:
+    if x < 0.0:
+        return 0.0
+    if x > 1.0:
+        return 1.0
+    return x
+
+
+def ev_fold() -> float:
+    # В v1 считаем EV фолда = 0 относительно точки решения
+    return 0.0
+
+
+def ev_call(*, pot_before: float, to_call: float, equity: float) -> float:
+    """
+    EV колла в точке решения (до рейка, без реализации и будущих улиц):
+      EV = equity * (pot_before + to_call) - to_call
+    """
+    e = _clamp01(float(equity))
+    pb = float(pot_before)
+    tc = float(to_call)
+    final_pot = pb + tc
+    return e * final_pot - tc
+
+
+def ev_bet_or_raise(
+    *,
+    pot_before: float,
+    investment: float,
+    equity_if_called: float,
+    fold_equity: Optional[float] = None,
+    final_pot_if_called: Optional[float] = None,
+) -> float:
+    """
+    EV ставки/рейза (простая модель FE + equity):
+      EV = FE * pot_before + (1-FE) * (equity * final_pot_if_called - investment)
+
+    Если final_pot_if_called не задан:
+      final_pot_if_called = pot_before + 2 * investment
+    (грубое приближение: опп коллит твой сайз 1-в-1)
+    """
+    pb = float(pot_before)
+    inv = float(investment)
+    e = _clamp01(float(equity_if_called))
+
+    fe = 0.0 if fold_equity is None else _clamp01(float(fold_equity))
+
+    if final_pot_if_called is None:
+        final_pot = pb + 2.0 * inv
+    else:
+        final_pot = float(final_pot_if_called)
+
+    return fe * pb + (1.0 - fe) * (e * final_pot - inv)
 
 
 def compute_ev_estimate_v1(
     *,
-    action_kind: Optional[str],
-    sizing: Optional[Dict[str, Any]],
-    equity_estimate: Optional[Dict[str, Any]],
-    facing_bet: bool,
+    street: str,
+    action_kind: str,
+    pot_before: Optional[float],
+    investment: Optional[float],
+    estimated_equity: Optional[float],
+    fold_equity: Optional[float] = None,
+    final_pot_if_called: Optional[float] = None,
 ) -> Optional[Dict[str, Any]]:
     """
-    EV-модель v1 (очень простая, но стабильная):
-    - НЕ солвер.
-    - Использует estimated_equity, pot_before и amount (если есть).
-    - Даёт EV выбранной линии и базовой альтернативы (passive).
+    Унифицированный EV-блок для hero_*_decision.
+    Возвращает словарь, который можно прямо класть в JSON.
+
+    Если данных не хватает — возвращает None.
     """
+        # --- v1 rule: passive actions with no investment have EV=0 ---
+    if investment is None and action_kind in ("check", "fold"):
+        return {
+            "model": "ev_v1",
+            "street": street,
+            "action_kind": action_kind,
+            "pot_before": pot_before,
+            "investment": investment,
+            "estimated_equity": estimated_equity,
+            "fold_equity": fold_equity,
+            "final_pot_if_called": final_pot_if_called,
+            "ev_action": 0.0,
+            "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline.",
+        }
 
-    if not action_kind or not sizing or not equity_estimate:
+    if pot_before is None or estimated_equity is None:
         return None
 
-    equity = _to_float(equity_estimate.get("estimated_equity"))
-    pot_before = _to_float(sizing.get("pot_before"))
-    amount = _to_float(sizing.get("amount"))
+    pb = float(pot_before)
+    eq = float(estimated_equity)
 
-    if equity is None or pot_before is None:
+    ak = (action_kind or "").lower()
+
+    if ak == "fold":
+        return {
+            "street": street,
+            "model": "ev_v1",
+            "pot_before": pb,
+            "investment": investment,
+            "estimated_equity": eq,
+            "fold_equity": fold_equity,
+            "final_pot_if_called": final_pot_if_called,
+            "ev_action": ev_fold(),
+        }
+
+    if investment is None:
+        # для call/raise без investment мы не можем корректно посчитать EV
         return None
 
-    # normalize
-    if amount is None:
-        amount = 0.0
+    inv = float(investment)
 
-    action_kind = action_kind.lower().strip()
+    if ak == "call":
+        return {
+            "street": street,
+            "model": "ev_v1",
+            "pot_before": pb,
+            "investment": inv,
+            "estimated_equity": eq,
+            "fold_equity": None,
+            "final_pot_if_called": pb + inv,
+            "ev_action": ev_call(pot_before=pb, to_call=inv, equity=eq),
+        }
 
-    # Базовые EV:
-    # - fold: 0
-    # - check: equity * pot
-    # - call: equity*(pot + call) - call
-    # - bet/raise: equity*(pot + 2*bet) - bet (если заколлили)
-    # В v1 fold_equity = 0 (позже добавим, как только начнём считать FE на постфлопе).
-    fold_equity = 0.0
+    if ak in ("bet", "raise"):
+        return {
+            "street": street,
+            "model": "ev_v1",
+            "pot_before": pb,
+            "investment": inv,
+            "estimated_equity": eq,
+            "fold_equity": fold_equity,
+            "final_pot_if_called": final_pot_if_called,
+            "ev_action": ev_bet_or_raise(
+                pot_before=pb,
+                investment=inv,
+                equity_if_called=eq,
+                fold_equity=fold_equity,
+                final_pot_if_called=final_pot_if_called,
+            ),
+        }
 
-    ev_taken: Optional[float] = None
-    ev_passive: Optional[float] = None
-    delta_ev: Optional[float] = None
-    best_line: Optional[str] = None
-    alternative_line: Optional[str] = None
-
-    if action_kind == "fold":
-        ev_taken = 0.0
-        # альтернативой считаем call (если это фолд против ставки)
-        if facing_bet and amount > 0:
-            alternative_line = "call"
-            ev_passive = (equity * (pot_before + amount)) - amount
-        else:
-            alternative_line = None
-            ev_passive = None
-
-    elif action_kind == "check":
-        ev_taken = equity * pot_before
-        # В v1 не пытаемся считать EV агрессивной альтернативы, потому что нужен FE и реакция оппа.
-        alternative_line = None
-        ev_passive = None
-
-    elif action_kind == "call":
-        ev_taken = (equity * (pot_before + amount)) - amount
-        # пассивная альтернатива против ставки = fold
-        if facing_bet:
-            alternative_line = "fold"
-            ev_passive = 0.0
-        else:
-            alternative_line = "check"
-            ev_passive = equity * pot_before
-
-    elif action_kind in ("bet", "raise"):
-        # v1: без FE; если захотим, позже добавим postflop fold_equity и формулу ниже.
-        ev_if_called = (equity * (pot_before + 2.0 * amount)) - amount
-        ev_taken = (fold_equity * pot_before) + ((1.0 - fold_equity) * ev_if_called)
-
-        alternative_line = "check"
-        ev_passive = equity * pot_before
-
-    else:
-        return None
-
-    if ev_taken is not None and ev_passive is not None:
-        delta_ev = ev_taken - ev_passive
-        best_line = action_kind if delta_ev >= 0 else alternative_line
-
-    return {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-            "equity": round(equity, 4),
-            "pot_before": round(pot_before, 4),
-            "amount": round(amount, 4),
-            "facing_bet": facing_bet,
-            "fold_equity_used": fold_equity,
-        },
-        "ev_taken": None if ev_taken is None else round(ev_taken, 6),
-        "ev_passive": None if ev_passive is None else round(ev_passive, 6),
-        "delta_ev": None if delta_ev is None else round(delta_ev, 6),
-        "alternative_line": alternative_line,
-        "best_line_by_ev": best_line,
-        "comment": (
-            "EV v1: упрощённая оценка по equity и поту. "
-            "Постфлоп fold equity пока не учитывается (будет в v2)."
-        ),
-    }
+    # неизвестный action_kind
+    return None

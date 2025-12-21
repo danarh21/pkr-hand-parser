@@ -79,7 +79,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.03,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -399,7 +411,17 @@
         "error_type": "too_loose_open",
         "range_comment": "A4s не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
       },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.67 (66.7%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.22. A4s не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
+      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.67 (66.7%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.22. A4s не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.03,
+        "investment": 0.06,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.007500000000000007
+      }
     },
     "hero_flop_hand_category": "high_card",
     "hero_flop_hand_detail": {
@@ -432,20 +454,16 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.20 и категории руки на флопе (high_card). Игра в позиции (IP) слегка повышает эффективную equity (около 2 п.п.). Ты префлоп-агрессор, поэтому твой диапазон в среднем сильнее — добавляем около 2 п.п. equity. Рука без попадания (high_card) редко хорошо реализует equity — дополнительно уменьшаем оценку."
       },
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.1,
-          "pot_before": 0.13,
-          "amount": 0.0,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.013,
-        "ev_passive": null,
-        "delta_ev": null,
-        "alternative_line": null,
-        "best_line_by_ev": null,
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "model": "ev_v1",
+        "street": "flop",
+        "action_kind": "check",
+        "pot_before": 0.13,
+        "investment": null,
+        "estimated_equity": 0.1,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и избегaешь минусовых блефов.",
@@ -487,20 +505,16 @@
       "quality_comment": "Чек на тёрне с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и не раздуваешь его с air.",
       "comment": "Тип действия на тёрне: check. Ты играешь в хедз-ап банке в позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'paired_board'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: good. Чек на тёрне с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и не раздуваешь его с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.23.",
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.23,
-          "pot_before": 0.13,
-          "amount": 0.0,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.0299,
-        "ev_passive": null,
-        "delta_ev": null,
-        "alternative_line": null,
-        "best_line_by_ev": null,
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "model": "ev_v1",
+        "street": "turn",
+        "action_kind": "check",
+        "pot_before": 0.13,
+        "investment": null,
+        "estimated_equity": 0.23,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
       }
     },
     "hero_river_decision": {
@@ -527,6 +541,7 @@
         "model": "simple_river_model",
         "explanation": "Базовая оценка на ривере строится от turn-equity≈0.23. Игра в позиции на ривере слегка повышает эффективную equity (около 1 п.п.). Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 1 п.п. equity. Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
       },
+      "ev_estimate": null,
       "decision_quality": "good",
       "quality_comment": "Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка.",
       "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке в позиции. Оценка решения движком: good. Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка. Оценочная equity на ривере против диапазона оппонента ≈ 0.24."
@@ -782,7 +797,17 @@
         "final_pot_if_called": 0.23
       },
       "range_discipline": null,
-      "comment": "Тип действия: 3bet. Формат: raise. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.35 (35.3%), твоя оценочная equity около 0.70 (70.0%). Разница (edge) ≈ 0.35."
+      "comment": "Тип действия: 3bet. Формат: raise. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.35 (35.3%), твоя оценочная equity около 0.70 (70.0%). Разница (edge) ≈ 0.35.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.11000000000000001,
+        "investment": 0.06,
+        "estimated_equity": 0.7,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.101
+      }
     },
     "hero_flop_hand_category": "pair",
     "hero_flop_hand_detail": {
@@ -815,20 +840,14 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.70 и категории руки на флопе (pair). Мультипот (несколько оппонентов) снижает твою equity примерно на 7 п.п. Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-агрессор, поэтому твой диапазон в среднем сильнее — добавляем около 2 п.п. equity."
       },
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.68,
-          "pot_before": 0.26,
-          "amount": 0.13,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.2236,
-        "ev_passive": 0.1768,
-        "delta_ev": 0.0468,
-        "alternative_line": "check",
-        "best_line_by_ev": "bet",
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "street": "flop",
+        "model": "ev_v1",
+        "pot_before": 0.26,
+        "investment": 0.13,
+        "estimated_equity": 0.68,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.22360000000000002
       },
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
@@ -870,20 +889,14 @@
       "quality_comment": "Колл ставки на тёрне с сильной рукой выглядит логичным продолжением линии.",
       "comment": "Тип действия на тёрне: call_vs_bet. Ты играешь в хедз-ап банке в позиции. По сравнению с флопом твоя реализуемая equity на тёрне примерно не изменилась. Карта тёрна классифицируется как 'paired_board'. Карта тёрна нейтральна для твоей руки/диапазона. Оценка решения движком: good. Колл ставки на тёрне с сильной рукой выглядит логичным продолжением линии. Оценочная equity на тёрне против диапазона оппонента ≈ 0.74.",
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.74,
-          "pot_before": 0.81,
-          "amount": 0.29,
-          "facing_bet": true,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.524,
-        "ev_passive": 0.0,
-        "delta_ev": 0.524,
-        "alternative_line": "fold",
-        "best_line_by_ev": "call",
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "street": "turn",
+        "model": "ev_v1",
+        "pot_before": 0.81,
+        "investment": 0.29,
+        "estimated_equity": 0.74,
+        "fold_equity": null,
+        "final_pot_if_called": 1.1,
+        "ev_action": 0.524
       }
     },
     "hero_river_decision": {
@@ -910,9 +923,14 @@
         "model": "simple_river_model",
         "explanation": "Базовая оценка на ривере строится от turn-equity≈0.74. Игра в позиции на ривере слегка повышает эффективную equity (около 1 п.п.). Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 1 п.п. equity. Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
       },
+      "ev_estimate": {
+        "ev_action": -0.1155,
+        "model": "river_missed_value_v1",
+        "explanation": "Ривер: эвристика missed value. Ты чекнул в позиции при оценочной equity≈0.76 (порог 0.65). Модель предполагает, что тонкий вэлью-бет мог бы принести дополнительно до ~25% банка пропорционально запасу по equity над порогом. Оценка недобора ≈ 0.1155 (в валюте стола)."
+      },
       "decision_quality": "risky",
       "quality_comment": "Чек на ривере с очень сильной рукой в хедз-ап поте в позиции может недобрать велью.",
-      "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке в позиции. Оценка решения движком: risky. Чек на ривере с очень сильной рукой в хедз-ап поте в позиции может недобрать велью. Оценочная equity на ривере против диапазона оппонента ≈ 0.76."
+      "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке в позиции. Оценка решения движком: risky. Чек на ривере с очень сильной рукой в хедз-ап поте в позиции может недобрать велью. Оценочная equity на ривере против диапазона оппонента ≈ 0.76.  EV(action)≈-0.1155."
     },
     "actions": [
       {
@@ -1252,7 +1270,17 @@
         "error_type": null,
         "range_comment": "63s открыта с позиции SB, что НЕ раньше минимальной MOS-позиции CO. По диапазону открытия ты в рамках своей стратегии."
       },
-      "comment": "Тип действия: open_limp. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.25 (25.0%), твоя оценочная equity около 0.52 (51.6%). Разница (edge) ≈ 0.27. 63s открыта с позиции SB, что НЕ раньше минимальной MOS-позиции CO. По диапазону открытия ты в рамках своей стратегии."
+      "comment": "Тип действия: open_limp. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.25 (25.0%), твоя оценочная equity около 0.52 (51.6%). Разница (edge) ≈ 0.27. 63s открыта с позиции SB, что НЕ раньше минимальной MOS-позиции CO. По диапазону открытия ты в рамках своей стратегии.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.03,
+        "investment": 0.01,
+        "estimated_equity": 0.516,
+        "fold_equity": null,
+        "final_pot_if_called": 0.04,
+        "ev_action": 0.010640000000000002
+      }
     },
     "hero_flop_hand_category": "pair",
     "hero_flop_hand_detail": {
@@ -1285,20 +1313,16 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.35 и категории руки на флопе (pair). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, твой диапазон слегка слабее диапазона агрессора — вычитаем около 1 п.п. equity. Пара полностью на борде (board_pair), твой showdown value слабый — ещё немного снижаем equity."
       },
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.235,
-          "pot_before": 0.04,
-          "amount": 0.0,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.0094,
-        "ev_passive": null,
-        "delta_ev": null,
-        "alternative_line": null,
-        "best_line_by_ev": null,
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "model": "ev_v1",
+        "street": "flop",
+        "action_kind": "check",
+        "pot_before": 0.04,
+        "investment": null,
+        "estimated_equity": 0.235,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
@@ -1340,20 +1364,16 @@
       "quality_comment": "Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air.",
       "comment": "Тип действия на тёрне: check. Ты играешь в хедз-ап банке без позиции. По сравнению с флопом твоя реализуемая equity на тёрне примерно не изменилась. Карта тёрна классифицируется как 'flush_complete'. Влияние карты тёрна на твою руку скорее негативное. Оценка решения движком: good. Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.30.",
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.3,
-          "pot_before": 0.04,
-          "amount": 0.0,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.012,
-        "ev_passive": null,
-        "delta_ev": null,
-        "alternative_line": null,
-        "best_line_by_ev": null,
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "model": "ev_v1",
+        "street": "turn",
+        "action_kind": "check",
+        "pot_before": 0.04,
+        "investment": null,
+        "estimated_equity": 0.3,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
       }
     },
     "hero_river_decision": {
@@ -1380,6 +1400,7 @@
         "model": "simple_river_model",
         "explanation": "Базовая оценка на ривере строится от turn-equity≈0.30. Игра без позиции на ривере слегка снижает эффективную equity (примерно на 1 п.п.). Ты префлоп-коллер, диапазон немного слабее — вычитаем около 0.5 п.п. equity. Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
       },
+      "ev_estimate": null,
       "decision_quality": "good",
       "quality_comment": "Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка.",
       "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке без позиции. Оценка решения движком: good. Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка. Оценочная equity на ривере против диапазона оппонента ≈ 0.28."
@@ -1644,7 +1665,17 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: call_vs_raise. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.31 (30.8%), твоя оценочная equity около 0.61 (61.2%). Разница (edge) ≈ 0.30."
+      "comment": "Тип действия: call_vs_raise. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.31 (30.8%), твоя оценочная equity около 0.61 (61.2%). Разница (edge) ≈ 0.30.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.09,
+        "investment": 0.04,
+        "estimated_equity": 0.612,
+        "fold_equity": null,
+        "final_pot_if_called": 0.13,
+        "ev_action": 0.039560000000000005
+      }
     },
     "hero_flop_hand_category": "high_card",
     "hero_flop_hand_detail": {
@@ -1677,20 +1708,16 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.20 и категории руки на флопе (high_card). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, твой диапазон слегка слабее диапазона агрессора — вычитаем около 1 п.п. equity. Рука без попадания (high_card) редко хорошо реализует equity — дополнительно уменьшаем оценку."
       },
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.05,
-          "pot_before": 0.13,
-          "amount": 0.0,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.0065,
-        "ev_passive": null,
-        "delta_ev": null,
-        "alternative_line": null,
-        "best_line_by_ev": null,
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "model": "ev_v1",
+        "street": "flop",
+        "action_kind": "check",
+        "pot_before": 0.13,
+        "investment": null,
+        "estimated_equity": 0.05,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
@@ -1916,7 +1943,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.03,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -2107,7 +2146,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.07,
+        "investment": null,
+        "estimated_equity": 0.564,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -2392,7 +2443,17 @@
         "error_type": "too_loose_open",
         "range_comment": "AKo не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
       },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.73 (72.7%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.28. AKo не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
+      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.73 (72.7%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.28. AKo не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.03,
+        "investment": 0.08,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.005500000000000005
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -2590,7 +2651,17 @@
         "error_type": "too_loose_open",
         "range_comment": "A6o не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_limp. Это оверлузовый open относительно твоей базовой стратегии."
       },
-      "comment": "Тип действия: open_limp. Формат: call. Решение находится около нуля: математически оно допустимо, но без большого запаса. Пот-оддсы дают требуемую equity примерно 0.25 (25.0%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ 0.20. A6o не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_limp. Это оверлузовый open относительно твоей базовой стратегии."
+      "comment": "Тип действия: open_limp. Формат: call. Решение находится около нуля: математически оно допустимо, но без большого запаса. Пот-оддсы дают требуемую equity примерно 0.25 (25.0%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ 0.20. A6o не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_limp. Это оверлузовый open относительно твоей базовой стратегии.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.03,
+        "investment": 0.01,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": 0.04,
+        "ev_action": 0.008000000000000002
+      }
     },
     "hero_flop_hand_category": "pair",
     "hero_flop_hand_detail": {
@@ -2623,20 +2694,14 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.70 и категории руки на флопе (pair). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, твой диапазон слегка слабее диапазона агрессора — вычитаем около 1 п.п. equity."
       },
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.72,
-          "pot_before": 0.04,
-          "amount": 0.02,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.0376,
-        "ev_passive": 0.0288,
-        "delta_ev": 0.0088,
-        "alternative_line": "check",
-        "best_line_by_ev": "bet",
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "street": "flop",
+        "model": "ev_v1",
+        "pot_before": 0.04,
+        "investment": 0.02,
+        "estimated_equity": 0.72,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.037599999999999995
       },
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
@@ -2678,20 +2743,14 @@
       "quality_comment": "Ставка на тёрне с сильной готовой рукой выглядит стандартным велью-розыгрышем.",
       "comment": "Тип действия на тёрне: bet_vs_check. Ты играешь в хедз-ап банке без позиции. Размер ставки на тёрне: 0.04 в пот 0.08 (~50.0% пота). По сравнению с флопом твоя реализуемая equity на тёрне примерно не изменилась. Карта тёрна классифицируется как 'paired_board'. Карта тёрна нейтральна для твоей руки/диапазона. Оценка решения движком: good. Ставка на тёрне с сильной готовой рукой выглядит стандартным велью-розыгрышем. Оценочная equity на тёрне против диапазона оппонента ≈ 0.68.",
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.68,
-          "pot_before": 0.08,
-          "amount": 0.04,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.0688,
-        "ev_passive": 0.0544,
-        "delta_ev": 0.0144,
-        "alternative_line": "check",
-        "best_line_by_ev": "bet",
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "street": "turn",
+        "model": "ev_v1",
+        "pot_before": 0.08,
+        "investment": 0.04,
+        "estimated_equity": 0.68,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0688
       }
     },
     "hero_river_decision": null,
@@ -2924,7 +2983,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.07,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -3122,7 +3193,17 @@
         "error_type": "too_loose_open",
         "range_comment": "KJo не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
       },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.12. KJo не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
+      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.12. KJo не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.03,
+        "investment": 0.04,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.009500000000000001
+      }
     },
     "hero_flop_hand_category": "high_card",
     "hero_flop_hand_detail": {
@@ -3155,20 +3236,16 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.20 и категории руки на флопе (high_card). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-агрессор, поэтому твой диапазон в среднем сильнее — добавляем около 2 п.п. equity. Рука без попадания (high_card) редко хорошо реализует equity — дополнительно уменьшаем оценку."
       },
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.05,
-          "pot_before": 0.31,
-          "amount": 0.0,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.0155,
-        "ev_passive": null,
-        "delta_ev": null,
-        "alternative_line": null,
-        "best_line_by_ev": null,
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "model": "ev_v1",
+        "street": "flop",
+        "action_kind": "check",
+        "pot_before": 0.31000000000000005,
+        "investment": null,
+        "estimated_equity": 0.05,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
@@ -3405,7 +3482,19 @@
         "error_type": null,
         "range_comment": "KTo есть в MOS-RFI, но только начиная с позиции MP. Фолд с более ранней позиции UTG — часть тайтового, дисциплинированного плана."
       },
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки. KTo есть в MOS-RFI, но только начиная с позиции MP. Фолд с более ранней позиции UTG — часть тайтового, дисциплинированного плана."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки. KTo есть в MOS-RFI, но только начиная с позиции MP. Фолд с более ранней позиции UTG — часть тайтового, дисциплинированного плана.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.03,
+        "investment": null,
+        "estimated_equity": 0.612,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -3577,7 +3666,17 @@
         "error_type": null,
         "range_comment": "A7s открыта с позиции BTN, что НЕ раньше минимальной MOS-позиции MP. По диапазону открытия ты в рамках своей стратегии."
       },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.67 (66.7%), твоя оценочная equity около 0.61 (61.2%). Разница (edge) ≈ -0.05. A7s открыта с позиции BTN, что НЕ раньше минимальной MOS-позиции MP. По диапазону открытия ты в рамках своей стратегии."
+      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.67 (66.7%), твоя оценочная equity около 0.61 (61.2%). Разница (edge) ≈ -0.05. A7s открыта с позиции BTN, что НЕ раньше минимальной MOS-позиции MP. По диапазону открытия ты в рамках своей стратегии.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.03,
+        "investment": 0.06,
+        "estimated_equity": 0.612,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.031799999999999995
+      }
     },
     "hero_flop_hand_category": "high_card",
     "hero_flop_hand_detail": {
@@ -3610,20 +3709,16 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.20 и категории руки на флопе (high_card). Игра в позиции (IP) слегка повышает эффективную equity (около 2 п.п.). Ты префлоп-агрессор, поэтому твой диапазон в среднем сильнее — добавляем около 2 п.п. equity. Рука без попадания (high_card) редко хорошо реализует equity — дополнительно уменьшаем оценку."
       },
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.1,
-          "pot_before": 0.13,
-          "amount": 0.0,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.013,
-        "ev_passive": null,
-        "delta_ev": null,
-        "alternative_line": null,
-        "best_line_by_ev": null,
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "model": "ev_v1",
+        "street": "flop",
+        "action_kind": "check",
+        "pot_before": 0.13,
+        "investment": null,
+        "estimated_equity": 0.1,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и избегaешь минусовых блефов.",
@@ -3665,20 +3760,16 @@
       "quality_comment": "Чек на тёрне с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и не раздуваешь его с air.",
       "comment": "Тип действия на тёрне: check. Ты играешь в хедз-ап банке в позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'flush_complete'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: good. Чек на тёрне с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и не раздуваешь его с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.23.",
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.23,
-          "pot_before": 0.13,
-          "amount": 0.0,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.0299,
-        "ev_passive": null,
-        "delta_ev": null,
-        "alternative_line": null,
-        "best_line_by_ev": null,
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "model": "ev_v1",
+        "street": "turn",
+        "action_kind": "check",
+        "pot_before": 0.13,
+        "investment": null,
+        "estimated_equity": 0.23,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
       }
     },
     "hero_river_decision": {
@@ -3705,6 +3796,7 @@
         "model": "simple_river_model",
         "explanation": "Базовая оценка на ривере строится от turn-equity≈0.23. Игра в позиции на ривере слегка повышает эффективную equity (около 1 п.п.). Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 1 п.п. equity. Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
       },
+      "ev_estimate": null,
       "decision_quality": "good",
       "quality_comment": "Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка.",
       "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке в позиции. Оценка решения движком: good. Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка. Оценочная equity на ривере против диапазона оппонента ≈ 0.24."
@@ -3954,7 +4046,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.08,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -4129,7 +4233,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.09,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -4310,7 +4426,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.03,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -4535,7 +4663,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.08,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -4726,7 +4866,17 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: call_vs_raise. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.33 (33.3%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ 0.12."
+      "comment": "Тип действия: call_vs_raise. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.33 (33.3%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ 0.12.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.08,
+        "investment": 0.04,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": 0.12,
+        "ev_action": 0.013999999999999999
+      }
     },
     "hero_flop_hand_category": "two_pair",
     "hero_flop_hand_detail": {
@@ -4759,20 +4909,14 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.72 и категории руки на флопе (two_pair). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, твой диапазон слегка слабее диапазона агрессора — вычитаем около 1 п.п. equity."
       },
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.746,
-          "pot_before": 0.12,
-          "amount": 0.06,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.11904,
-        "ev_passive": 0.08952,
-        "delta_ev": 0.02952,
-        "alternative_line": "check",
-        "best_line_by_ev": "bet",
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "street": "flop",
+        "model": "ev_v1",
+        "pot_before": 0.12,
+        "investment": 0.06,
+        "estimated_equity": 0.746,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.11904
       },
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
@@ -4988,7 +5132,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.09,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -5186,7 +5342,17 @@
         "error_type": "too_loose_open",
         "range_comment": "77 не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
       },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.67 (66.7%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.22. 77 не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
+      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.67 (66.7%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.22. 77 не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.03,
+        "investment": 0.06,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.007500000000000007
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -5384,7 +5550,19 @@
         "error_type": null,
         "range_comment": "J5s есть в MOS-RFI, но только начиная с позиции CO. Фолд с более ранней позиции MP — часть тайтового, дисциплинированного плана."
       },
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки. J5s есть в MOS-RFI, но только начиная с позиции CO. Фолд с более ранней позиции MP — часть тайтового, дисциплинированного плана."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки. J5s есть в MOS-RFI, но только начиная с позиции CO. Фолд с более ранней позиции MP — часть тайтового, дисциплинированного плана.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.03,
+        "investment": null,
+        "estimated_equity": 0.516,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -5566,7 +5744,17 @@
         "error_type": "too_loose_open",
         "range_comment": "33 не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
       },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.12. 33 не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
+      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.12. 33 не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.03,
+        "investment": 0.04,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.009500000000000001
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -5741,7 +5929,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.08,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -5953,7 +6153,17 @@
         "error_type": "too_early_position_open",
         "range_comment": "A7o по MOS-чарту должна впервые открываться не раньше позиции CO, но была открыта с более ранней позиции UTG. Это лузовый open относительно твоего RFI."
       },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.52 (51.6%). Разница (edge) ≈ -0.06. A7o по MOS-чарту должна впервые открываться не раньше позиции CO, но была открыта с более ранней позиции UTG. Это лузовый open относительно твоего RFI."
+      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.52 (51.6%). Разница (edge) ≈ -0.06. A7o по MOS-чарту должна впервые открываться не раньше позиции CO, но была открыта с более ранней позиции UTG. Это лузовый open относительно твоего RFI.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.03,
+        "investment": 0.04,
+        "estimated_equity": 0.516,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.016760000000000004
+      }
     },
     "hero_flop_hand_category": "pair",
     "hero_flop_hand_detail": {
@@ -5986,20 +6196,16 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.35 и категории руки на флопе (pair). Мультипот (несколько оппонентов) снижает твою equity примерно на 7 п.п. Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-агрессор, поэтому твой диапазон в среднем сильнее — добавляем около 2 п.п. equity. Пара полностью на борде (board_pair), твой showdown value слабый — ещё немного снижаем equity."
       },
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.195,
-          "pot_before": 0.38,
-          "amount": 0.0,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.0741,
-        "ev_passive": null,
-        "delta_ev": null,
-        "alternative_line": null,
-        "best_line_by_ev": null,
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "model": "ev_v1",
+        "street": "flop",
+        "action_kind": "check",
+        "pot_before": 0.38,
+        "investment": null,
+        "estimated_equity": 0.195,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
@@ -6308,7 +6514,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.03,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -6533,7 +6751,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.05,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -6801,7 +7031,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.08,
+        "investment": null,
+        "estimated_equity": 0.564,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -7026,7 +7268,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.15,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -7294,7 +7548,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.03,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -7519,7 +7785,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.03,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -7762,6 +8040,16 @@
       },
       "range_discipline": null,
       "comment": "Тип действия: call_vs_raise. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.27 (26.7%), твоя оценочная equity около 0.61 (61.2%). Разница (edge) ≈ 0.35.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.11000000000000001,
+        "investment": 0.04,
+        "estimated_equity": 0.612,
+        "fold_equity": null,
+        "final_pot_if_called": 0.15000000000000002,
+        "ev_action": 0.051800000000000006
+      },
       "followup_vs_aggression": {
         "action_type": "fold_vs_3bet_plus",
         "action_kind": "fold",
@@ -8029,7 +8317,17 @@
         "error_type": null,
         "range_comment": "75s открыта с позиции SB, что НЕ раньше минимальной MOS-позиции HJ. По диапазону открытия ты в рамках своей стратегии."
       },
-      "comment": "Тип действия: open_limp. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.25 (25.0%), твоя оценочная equity около 0.56 (56.4%). Разница (edge) ≈ 0.31. 75s открыта с позиции SB, что НЕ раньше минимальной MOS-позиции HJ. По диапазону открытия ты в рамках своей стратегии."
+      "comment": "Тип действия: open_limp. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.25 (25.0%), твоя оценочная equity около 0.56 (56.4%). Разница (edge) ≈ 0.31. 75s открыта с позиции SB, что НЕ раньше минимальной MOS-позиции HJ. По диапазону открытия ты в рамках своей стратегии.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.03,
+        "investment": 0.01,
+        "estimated_equity": 0.564,
+        "fold_equity": null,
+        "final_pot_if_called": 0.04,
+        "ev_action": 0.012559999999999997
+      }
     },
     "hero_flop_hand_category": "high_card",
     "hero_flop_hand_detail": {
@@ -8062,20 +8360,16 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.20 и категории руки на флопе (high_card). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, твой диапазон слегка слабее диапазона агрессора — вычитаем около 1 п.п. equity. Рука без попадания (high_card) редко хорошо реализует equity — дополнительно уменьшаем оценку."
       },
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.05,
-          "pot_before": 0.04,
-          "amount": 0.0,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.002,
-        "ev_passive": null,
-        "delta_ev": null,
-        "alternative_line": null,
-        "best_line_by_ev": null,
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "model": "ev_v1",
+        "street": "flop",
+        "action_kind": "check",
+        "pot_before": 0.04,
+        "investment": null,
+        "estimated_equity": 0.05,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
@@ -8117,20 +8411,16 @@
       "quality_comment": "Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air.",
       "comment": "Тип действия на тёрне: check. Ты играешь в хедз-ап банке без позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'paired_board'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: good. Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.15.",
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.15,
-          "pot_before": 0.04,
-          "amount": 0.0,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.006,
-        "ev_passive": null,
-        "delta_ev": null,
-        "alternative_line": null,
-        "best_line_by_ev": null,
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "model": "ev_v1",
+        "street": "turn",
+        "action_kind": "check",
+        "pot_before": 0.04,
+        "investment": null,
+        "estimated_equity": 0.15,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
       }
     },
     "hero_river_decision": {
@@ -8157,6 +8447,7 @@
         "model": "simple_river_model",
         "explanation": "Базовая оценка на ривере строится от turn-equity≈0.15. Игра без позиции на ривере слегка снижает эффективную equity (примерно на 1 п.п.). Ты префлоп-коллер, диапазон немного слабее — вычитаем около 0.5 п.п. equity. Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
       },
+      "ev_estimate": null,
       "decision_quality": "good",
       "quality_comment": "Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка.",
       "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке без позиции. Оценка решения движком: good. Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка. Оценочная equity на ривере против диапазона оппонента ≈ 0.13."
@@ -8435,7 +8726,19 @@
         "error_type": null,
         "range_comment": "Q8o есть в MOS-RFI, но только начиная с позиции HJ. Фолд с более ранней позиции UTG — часть тайтового, дисциплинированного плана."
       },
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки. Q8o есть в MOS-RFI, но только начиная с позиции HJ. Фолд с более ранней позиции UTG — часть тайтового, дисциплинированного плана."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки. Q8o есть в MOS-RFI, но только начиная с позиции HJ. Фолд с более ранней позиции UTG — часть тайтового, дисциплинированного плана.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.03,
+        "investment": null,
+        "estimated_equity": 0.564,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -8716,7 +9019,17 @@
         "error_type": "too_loose_open",
         "range_comment": "88 не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
       },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.12. 88 не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
+      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.12. 88 не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.03,
+        "investment": 0.04,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.009500000000000001
+      }
     },
     "hero_flop_hand_category": "two_pair",
     "hero_flop_hand_detail": {
@@ -8749,20 +9062,14 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.72 и категории руки на флопе (two_pair). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-агрессор, поэтому твой диапазон в среднем сильнее — добавляем около 2 п.п. equity."
       },
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.776,
-          "pot_before": 0.09,
-          "amount": 0.04,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.09192,
-        "ev_passive": 0.06984,
-        "delta_ev": 0.02208,
-        "alternative_line": "check",
-        "best_line_by_ev": "bet",
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "street": "flop",
+        "model": "ev_v1",
+        "pot_before": 0.09000000000000001,
+        "investment": 0.04,
+        "estimated_equity": 0.776,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.09192
       },
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
@@ -8804,20 +9111,14 @@
       "quality_comment": "Ставка на тёрне с сильной готовой рукой выглядит стандартным велью-розыгрышем.",
       "comment": "Тип действия на тёрне: bet_vs_check. Ты играешь в хедз-ап банке без позиции. Размер ставки на тёрне: 0.09 в пот 0.17 (~52.9% пота). По сравнению с флопом твоя реализуемая equity на тёрне примерно не изменилась. Карта тёрна классифицируется как 'paired_board'. Карта тёрна нейтральна для твоей руки/диапазона. Оценка решения движком: good. Ставка на тёрне с сильной готовой рукой выглядит стандартным велью-розыгрышем. Оценочная equity на тёрне против диапазона оппонента ≈ 0.73.",
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.73,
-          "pot_before": 0.17,
-          "amount": 0.09,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.1655,
-        "ev_passive": 0.1241,
-        "delta_ev": 0.0414,
-        "alternative_line": "check",
-        "best_line_by_ev": "bet",
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "street": "turn",
+        "model": "ev_v1",
+        "pot_before": 0.17,
+        "investment": 0.09,
+        "estimated_equity": 0.73,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.1655
       }
     },
     "hero_river_decision": null,
@@ -9086,7 +9387,17 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: call_vs_raise. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.38 (38.5%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ 0.07."
+      "comment": "Тип действия: call_vs_raise. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.38 (38.5%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ 0.07.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.08,
+        "investment": 0.05,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": 0.13,
+        "ev_action": 0.0085
+      }
     },
     "hero_flop_hand_category": "pair",
     "hero_flop_hand_detail": {
@@ -9119,20 +9430,16 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.50 и категории руки на флопе (pair). Мультипот (несколько оппонентов) снижает твою equity примерно на 7 п.п. Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, твой диапазон слегка слабее диапазона агрессора — вычитаем около 1 п.п. equity."
       },
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.39,
-          "pot_before": 0.21,
-          "amount": 0.0,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.0819,
-        "ev_passive": null,
-        "delta_ev": null,
-        "alternative_line": null,
-        "best_line_by_ev": null,
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "model": "ev_v1",
+        "street": "flop",
+        "action_kind": "check",
+        "pot_before": 0.21,
+        "investment": null,
+        "estimated_equity": 0.39,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
       },
       "decision_quality": "ok",
       "quality_comment": "Чек с рукой средней силы на флопе допустим, особенно вне позиции или в мультипоте.",
@@ -9174,20 +9481,16 @@
       "quality_comment": "Фолд руки средней силы на тёрне может быть ок, особенно против крупного сайзинга или тайтовых диапазонов на опасной карте борда.",
       "comment": "Тип действия на тёрне: fold_vs_bet. Ты играешь в мультипоте без позиции. По сравнению с флопом твоя реализуемая equity на тёрне примерно не изменилась. Карта тёрна классифицируется как 'flush_complete'. Влияние карты тёрна на твою руку скорее негативное. Оценка решения движком: ok. Фолд руки средней силы на тёрне может быть ок, особенно против крупного сайзинга или тайтовых диапазонов на опасной карте борда. Оценочная equity на тёрне против диапазона оппонента ≈ 0.41.",
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.41,
-          "pot_before": 0.28,
-          "amount": 0.0,
-          "facing_bet": true,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.0,
-        "ev_passive": null,
-        "delta_ev": null,
-        "alternative_line": null,
-        "best_line_by_ev": null,
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "model": "ev_v1",
+        "street": "turn",
+        "action_kind": "fold",
+        "pot_before": 0.28,
+        "investment": null,
+        "estimated_equity": 0.41,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
       }
     },
     "hero_river_decision": null,
@@ -9524,7 +9827,17 @@
         "error_type": null,
         "range_comment": "75s открыта с позиции BTN, что НЕ раньше минимальной MOS-позиции HJ. По диапазону открытия ты в рамках своей стратегии."
       },
-      "comment": "Тип действия: open_raise. Формат: raise. Математически или стратегически решение выглядит минусовым. В долгую дистанцию лучше искать более сильные или более дисциплинированные споты. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.56 (56.4%). Разница (edge) ≈ -0.01. 75s открыта с позиции BTN, что НЕ раньше минимальной MOS-позиции HJ. По диапазону открытия ты в рамках своей стратегии."
+      "comment": "Тип действия: open_raise. Формат: raise. Математически или стратегически решение выглядит минусовым. В долгую дистанцию лучше искать более сильные или более дисциплинированные споты. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.56 (56.4%). Разница (edge) ≈ -0.01. 75s открыта с позиции BTN, что НЕ раньше минимальной MOS-позиции HJ. По диапазону открытия ты в рамках своей стратегии.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.03,
+        "investment": 0.04,
+        "estimated_equity": 0.564,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.02203999999999999
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -9731,7 +10044,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.13,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -10015,7 +10340,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.08,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -10222,7 +10559,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.03,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -10495,7 +10844,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.03,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -10692,7 +11053,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.07,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -10899,7 +11272,17 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: call_vs_raise. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.38 (38.5%), твоя оценочная equity около 0.56 (56.4%). Разница (edge) ≈ 0.18."
+      "comment": "Тип действия: call_vs_raise. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.38 (38.5%), твоя оценочная equity около 0.56 (56.4%). Разница (edge) ≈ 0.18.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.08,
+        "investment": 0.05,
+        "estimated_equity": 0.564,
+        "fold_equity": null,
+        "final_pot_if_called": 0.13,
+        "ev_action": 0.023319999999999994
+      }
     },
     "hero_flop_hand_category": "high_card",
     "hero_flop_hand_detail": {
@@ -10932,20 +11315,16 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.20 и категории руки на флопе (high_card). Игра в позиции (IP) слегка повышает эффективную equity (около 2 п.п.). Ты префлоп-коллер, твой диапазон слегка слабее диапазона агрессора — вычитаем около 1 п.п. equity. Рука без попадания (high_card) редко хорошо реализует equity — дополнительно уменьшаем оценку."
       },
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.07,
-          "pot_before": 0.13,
-          "amount": 0.0,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.0091,
-        "ev_passive": null,
-        "delta_ev": null,
-        "alternative_line": null,
-        "best_line_by_ev": null,
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "model": "ev_v1",
+        "street": "flop",
+        "action_kind": "check",
+        "pot_before": 0.13,
+        "investment": null,
+        "estimated_equity": 0.07,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и избегaешь минусовых блефов.",
@@ -10987,20 +11366,16 @@
       "quality_comment": "Чек на тёрне с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и не раздуваешь его с air.",
       "comment": "Тип действия на тёрне: check. Ты играешь в хедз-ап банке в позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'paired_board'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: good. Чек на тёрне с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и не раздуваешь его с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.20.",
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.2,
-          "pot_before": 0.13,
-          "amount": 0.0,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.026,
-        "ev_passive": null,
-        "delta_ev": null,
-        "alternative_line": null,
-        "best_line_by_ev": null,
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "model": "ev_v1",
+        "street": "turn",
+        "action_kind": "check",
+        "pot_before": 0.13,
+        "investment": null,
+        "estimated_equity": 0.2,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
       }
     },
     "hero_river_decision": {
@@ -11027,6 +11402,7 @@
         "model": "simple_river_model",
         "explanation": "Базовая оценка на ривере строится от turn-equity≈0.20. Игра в позиции на ривере слегка повышает эффективную equity (около 1 п.п.). Ты префлоп-коллер, диапазон немного слабее — вычитаем около 0.5 п.п. equity. Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
       },
+      "ev_estimate": null,
       "decision_quality": "good",
       "quality_comment": "Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка.",
       "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке в позиции. Оценка решения движком: good. Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка. Оценочная equity на ривере против диапазона оппонента ≈ 0.20."
@@ -11312,7 +11688,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.05,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -11596,7 +11984,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: unknown. Формат: check. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: unknown. Формат: check. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "check",
+        "pot_before": 0.05,
+        "investment": null,
+        "estimated_equity": 0.564,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": "high_card",
     "hero_flop_hand_detail": {
@@ -11629,20 +12029,16 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.20 и категории руки на флопе (high_card). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Рука без попадания (high_card) редко хорошо реализует equity — дополнительно уменьшаем оценку."
       },
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.05,
-          "pot_before": 0.05,
-          "amount": 0.0,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.0025,
-        "ev_passive": null,
-        "delta_ev": null,
-        "alternative_line": null,
-        "best_line_by_ev": null,
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "model": "ev_v1",
+        "street": "flop",
+        "action_kind": "check",
+        "pot_before": 0.05,
+        "investment": null,
+        "estimated_equity": 0.05,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
@@ -11684,20 +12080,16 @@
       "quality_comment": "Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air.",
       "comment": "Тип действия на тёрне: check. Ты играешь в хедз-ап банке без позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'paired_board'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: good. Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.16.",
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.16,
-          "pot_before": 0.05,
-          "amount": 0.0,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.008,
-        "ev_passive": null,
-        "delta_ev": null,
-        "alternative_line": null,
-        "best_line_by_ev": null,
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "model": "ev_v1",
+        "street": "turn",
+        "action_kind": "check",
+        "pot_before": 0.05,
+        "investment": null,
+        "estimated_equity": 0.16,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
       }
     },
     "hero_river_decision": {
@@ -11724,6 +12116,7 @@
         "model": "simple_river_model",
         "explanation": "Базовая оценка на ривере строится от turn-equity≈0.16. Игра без позиции на ривере слегка снижает эффективную equity (примерно на 1 п.п.). Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
       },
+      "ev_estimate": null,
       "decision_quality": "good",
       "quality_comment": "Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка.",
       "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке без позиции. Оценка решения движком: good. Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка. Оценочная equity на ривере против диапазона оппонента ≈ 0.14."
@@ -12012,7 +12405,19 @@
         "error_type": null,
         "range_comment": "KTo есть в MOS-RFI, но только начиная с позиции MP. Фолд с более ранней позиции UTG — часть тайтового, дисциплинированного плана."
       },
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки. KTo есть в MOS-RFI, но только начиная с позиции MP. Фолд с более ранней позиции UTG — часть тайтового, дисциплинированного плана."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки. KTo есть в MOS-RFI, но только начиная с позиции MP. Фолд с более ранней позиции UTG — часть тайтового, дисциплинированного плана.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.03,
+        "investment": null,
+        "estimated_equity": 0.612,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -12303,7 +12708,17 @@
         "error_type": "too_loose_open",
         "range_comment": "A3s не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
       },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.12. A3s не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
+      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.12. A3s не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.03,
+        "investment": 0.04,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.009500000000000001
+      }
     },
     "hero_flop_hand_category": "straight",
     "hero_flop_hand_detail": {
@@ -12336,20 +12751,14 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.82 и категории руки на флопе (straight). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-агрессор, поэтому твой диапазон в среднем сильнее — добавляем около 2 п.п. equity."
       },
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.906,
-          "pot_before": 0.31,
-          "amount": 0.16,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.41078,
-        "ev_passive": 0.28086,
-        "delta_ev": 0.12992,
-        "alternative_line": "check",
-        "best_line_by_ev": "bet",
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "street": "flop",
+        "model": "ev_v1",
+        "pot_before": 0.31000000000000005,
+        "investment": 0.16,
+        "estimated_equity": 0.906,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.41078000000000015
       },
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
@@ -12592,7 +13001,17 @@
         "error_type": "too_loose_open",
         "range_comment": "KJs не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
       },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.12. KJs не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
+      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.12. KJs не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.03,
+        "investment": 0.04,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.009500000000000001
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -12783,7 +13202,17 @@
         "final_pot_if_called": 0.28
       },
       "range_discipline": null,
-      "comment": "Тип действия: 3bet. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.56 (55.6%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.11."
+      "comment": "Тип действия: 3bet. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.56 (55.6%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.11.",
+      "ev_estimate": {
+        "street": "preflop",
+        "model": "ev_v1",
+        "pot_before": 0.08,
+        "investment": 0.1,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.026000000000000023
+      }
     },
     "hero_flop_hand_category": "set",
     "hero_flop_hand_detail": {
@@ -12816,20 +13245,14 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.78 и категории руки на флопе (set). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-агрессор, поэтому твой диапазон в среднем сильнее — добавляем около 2 п.п. equity. Очень сильная made-hand (set+) — слегка повышаем оценку equity."
       },
       "ev_estimate": {
-        "model": "simple_ev_model_v1",
-        "inputs": {
-          "equity": 0.884,
-          "pot_before": 0.23,
-          "amount": 0.12,
-          "facing_bet": false,
-          "fold_equity_used": 0.0
-        },
-        "ev_taken": 0.29548,
-        "ev_passive": 0.20332,
-        "delta_ev": 0.09216,
-        "alternative_line": "check",
-        "best_line_by_ev": "bet",
-        "comment": "EV v1: упрощённая оценка по equity и поту. Постфлоп fold equity пока не учитывается (будет в v2)."
+        "street": "flop",
+        "model": "ev_v1",
+        "pot_before": 0.22999999999999998,
+        "investment": 0.12,
+        "estimated_equity": 0.884,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.29547999999999996
       },
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
@@ -13065,7 +13488,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.08,
+        "investment": null,
+        "estimated_equity": 0.45,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,
@@ -13266,7 +13701,19 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки."
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "ev_estimate": {
+        "model": "ev_v1",
+        "street": "preflop",
+        "action_kind": "fold",
+        "pot_before": 0.09,
+        "investment": null,
+        "estimated_equity": 0.516,
+        "fold_equity": null,
+        "final_pot_if_called": null,
+        "ev_action": 0.0,
+        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+      }
     },
     "hero_flop_hand_category": null,
     "hero_flop_hand_detail": null,

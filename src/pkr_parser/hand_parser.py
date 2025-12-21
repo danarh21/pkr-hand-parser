@@ -1519,11 +1519,18 @@ def compute_hero_flop_decision(
         f"Ты играешь {multi_part} {pos_part}.{size_part}{hand_part}{quality_part}{equity_part}"
     )
     ev_estimate = compute_ev_estimate_v1(
-        action_kind=first.action,
-        sizing=sizing,
-        equity_estimate=equity_estimate,
-        facing_bet=facing_bet,
-    )
+    street="flop",
+    action_kind=first.action,
+    pot_before=(sizing.get("pot_before") if isinstance(sizing, dict) else None),
+    investment=(sizing.get("amount") if isinstance(sizing, dict) else None),
+    estimated_equity=(
+        equity_estimate.get("estimated_equity")
+        if isinstance(equity_estimate, dict)
+        else None
+    ),
+    fold_equity=None,
+    final_pot_if_called=None,
+)
 
     return {
         "action_type": action_type,
