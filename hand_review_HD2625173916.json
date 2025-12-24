@@ -1,0 +1,466 @@
+{
+  "id": 4,
+  "hand_id": "HD2625173916",
+  "game_type": "Hold'em No Limit",
+  "currency": "$",
+  "small_blind": 0.01,
+  "big_blind": 0.02,
+  "date": "2025/12/12",
+  "time": "00:14:07",
+  "table_name": "NLHWhite24",
+  "max_players": 6,
+  "button_seat": 6,
+  "players": [
+    {
+      "seat": 1,
+      "name": "9608de7",
+      "stack": 2.86,
+      "position": "SB"
+    },
+    {
+      "seat": 2,
+      "name": "6c35aab2",
+      "stack": 1.95,
+      "position": "BB"
+    },
+    {
+      "seat": 3,
+      "name": "c45aa425",
+      "stack": 1.16,
+      "position": "UTG"
+    },
+    {
+      "seat": 5,
+      "name": "60604553",
+      "stack": 2.04,
+      "position": "MP"
+    },
+    {
+      "seat": 6,
+      "name": "Hero",
+      "stack": 1.93,
+      "position": "BTN"
+    }
+  ],
+  "hero_name": "Hero",
+  "hero_cards": [
+    "9s",
+    "Ah"
+  ],
+  "hero_position": "BTN",
+  "hero_stack_bb": 96.5,
+  "hero_preflop_analysis": {
+    "action_type": "3bet",
+    "was_first_in": false,
+    "facing_raises": 1,
+    "facing_callers": 1,
+    "villain_raiser": "c45aa425",
+    "hero_position": "BTN",
+    "effective_stack_bb": 96.5
+  },
+  "hero_preflop_equity": {
+    "hand_key": "A9o",
+    "category": "premium",
+    "strength_score": 0.95,
+    "estimated_equity_vs_unknown": 0.7,
+    "hero_position": "BTN",
+    "villain_position": "UTG",
+    "mos_min_position": "EP",
+    "notes": "A9o входит в твой EP-RFI диапазон по MOS-чарту. Это одна из самых сильных стартовых рук в твоей системе открытий."
+  },
+  "hero_preflop_decision": {
+    "action_type": "3bet",
+    "action_kind": "raise",
+    "decision_quality": "good",
+    "math": {
+      "pot_before": 0.11000000000000001,
+      "investment": 0.06,
+      "pot_odds": 0.3529411764705882,
+      "required_equity": 0.3529411764705882,
+      "estimated_equity": 0.7,
+      "ev_simple": 0.1265,
+      "model": "raise_fe_model",
+      "fold_equity": 0.5,
+      "final_pot_if_called": 0.23
+    },
+    "range_discipline": null,
+    "comment": "Тип действия: 3bet. Формат: raise. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.35 (35.3%), твоя оценочная equity около 0.70 (70.0%). Разница (edge) ≈ 0.35.",
+    "ev_estimate": {
+      "street": "preflop",
+      "model": "ev_v1",
+      "pot_before": 0.11000000000000001,
+      "investment": 0.06,
+      "estimated_equity": 0.7,
+      "fold_equity": null,
+      "final_pot_if_called": null,
+      "ev_action": 0.101
+    }
+  },
+  "hero_flop_hand_category": "pair",
+  "hero_flop_hand_detail": {
+    "made_hand": "pair",
+    "pair_kind": "top_pair"
+  },
+  "hero_flop_decision": {
+    "action_type": "cbet",
+    "action_kind": "bet",
+    "sizing": {
+      "amount": 0.13,
+      "pot_before": 0.26,
+      "pct_pot": 0.5
+    },
+    "context": {
+      "players_to_flop": 4,
+      "multiway": true,
+      "hero_ip": false,
+      "hero_position": "BTN",
+      "preflop_role": "aggressor"
+    },
+    "hand": {
+      "category": "pair",
+      "pair_kind": "top_pair",
+      "strength_score": 0.7
+    },
+    "equity_estimate": {
+      "estimated_equity": 0.68,
+      "model": "simple_flop_category_model",
+      "explanation": "Базовая оценка equity построена от strength_score=0.70 и категории руки на флопе (pair). Мультипот (несколько оппонентов) снижает твою equity примерно на 7 п.п. Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-агрессор, поэтому твой диапазон в среднем сильнее — добавляем около 2 п.п. equity."
+    },
+    "ev_estimate": {
+      "street": "flop",
+      "model": "ev_v1",
+      "pot_before": 0.26,
+      "investment": 0.13,
+      "estimated_equity": 0.68,
+      "fold_equity": null,
+      "final_pot_if_called": null,
+      "ev_action": 0.22360000000000002
+    },
+    "decision_quality": "good",
+    "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
+    "comment": "Тип действия на флопе: cbet. Ты играешь в мультипоте без позиции. Размер ставки: 0.13 в пот 0.26 (~50.0% пота). Категория руки на флопе: pair (top_pair). Оценка решения движком: good. Сильная рука и ставка на флопе выглядит стандартным велью-бетом. Оценочная equity против диапазона оппонента на флопе ≈ 0.68."
+  },
+  "hero_turn_decision": {
+    "action_type": "call_vs_bet",
+    "action_kind": "call",
+    "sizing": {
+      "amount": 0.29,
+      "pot_before": 0.81,
+      "pct_pot": 0.3580246913580246
+    },
+    "context": {
+      "players_to_turn": 2,
+      "multiway": false,
+      "hero_ip": true,
+      "hero_position": "BTN",
+      "preflop_role": "aggressor"
+    },
+    "hand": {
+      "approx_category_from_flop": "pair",
+      "approx_strength_score_from_flop": 0.7,
+      "flop_equity_estimate": 0.68,
+      "evolution": "same",
+      "evolution_detail": "equity_stable",
+      "board_texture": {
+        "turn_card_type": "paired_board",
+        "overall_texture": "semi_wet",
+        "impact_on_equity": "neutral"
+      }
+    },
+    "equity_estimate": {
+      "estimated_equity": 0.74,
+      "model": "simple_turn_model",
+      "explanation": "Базовая оценка на тёрне строится от strength_score≈0.70. Игра в позиции на тёрне слегка повышает эффективную equity (около 2 п.п.). Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 2 п.п. equity. Колл на тёрне сохраняет часть equity, но без fold equity."
+    },
+    "decision_quality": "good",
+    "quality_comment": "Колл ставки на тёрне с сильной рукой выглядит логичным продолжением линии.",
+    "comment": "Тип действия на тёрне: call_vs_bet. Ты играешь в хедз-ап банке в позиции. По сравнению с флопом твоя реализуемая equity на тёрне примерно не изменилась. Карта тёрна классифицируется как 'paired_board'. Карта тёрна нейтральна для твоей руки/диапазона. Оценка решения движком: good. Колл ставки на тёрне с сильной рукой выглядит логичным продолжением линии. Оценочная equity на тёрне против диапазона оппонента ≈ 0.74.",
+    "ev_estimate": {
+      "street": "turn",
+      "model": "ev_v1",
+      "pot_before": 0.81,
+      "investment": 0.29,
+      "estimated_equity": 0.74,
+      "fold_equity": null,
+      "final_pot_if_called": 1.1,
+      "ev_action": 0.524
+    }
+  },
+  "hero_river_decision": {
+    "action_type": "check",
+    "action_kind": "check",
+    "sizing": {
+      "amount": null,
+      "pot_before": 1.1,
+      "pct_pot": null
+    },
+    "context": {
+      "players_to_river": 2,
+      "multiway": false,
+      "hero_ip": true,
+      "hero_position": "BTN",
+      "preflop_role": "aggressor"
+    },
+    "hand": {
+      "base_from_turn_equity": 0.74,
+      "note": "На ривере в v1 мы опираемся на оценку equity с тёрна, слегка подстраивая её под контекст ривера."
+    },
+    "equity_estimate": {
+      "estimated_equity": 0.755,
+      "model": "simple_river_model",
+      "explanation": "Базовая оценка на ривере строится от turn-equity≈0.74. Игра в позиции на ривере слегка повышает эффективную equity (около 1 п.п.). Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 1 п.п. equity. Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
+    },
+    "ev_estimate": {
+      "ev_action": -0.1155,
+      "model": "river_missed_value_v1",
+      "explanation": "Ривер: эвристика missed value. Ты чекнул в позиции при оценочной equity≈0.76 (порог 0.65). Модель предполагает, что тонкий вэлью-бет мог бы принести дополнительно до ~25% банка пропорционально запасу по equity над порогом. Оценка недобора ≈ 0.1155 (в валюте стола)."
+    },
+    "decision_quality": "risky",
+    "quality_comment": "Чек на ривере с очень сильной рукой в хедз-ап поте в позиции может недобрать велью.",
+    "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке в позиции. Оценка решения движком: risky. Чек на ривере с очень сильной рукой в хедз-ап поте в позиции может недобрать велью. Оценочная equity на ривере против диапазона оппонента ≈ 0.76.  EV(action)≈-0.1155."
+  },
+  "actions": [
+    {
+      "street": "preflop",
+      "player": "9608de7",
+      "action": "post_sb",
+      "amount": 0.01,
+      "amount_bb": 0.5,
+      "pot_before": 0.0,
+      "pot_after": 0.01,
+      "pct_pot": null
+    },
+    {
+      "street": "preflop",
+      "player": "6c35aab2",
+      "action": "post_bb",
+      "amount": 0.02,
+      "amount_bb": 1.0,
+      "pot_before": 0.01,
+      "pot_after": 0.03,
+      "pct_pot": 2.0
+    },
+    {
+      "street": "preflop",
+      "player": "c45aa425",
+      "action": "raise",
+      "amount": 0.04,
+      "amount_bb": 2.0,
+      "pot_before": 0.03,
+      "pot_after": 0.07,
+      "pct_pot": 1.3333333333333335
+    },
+    {
+      "street": "preflop",
+      "player": "60604553",
+      "action": "call",
+      "amount": 0.04,
+      "amount_bb": 2.0,
+      "pot_before": 0.07,
+      "pot_after": 0.11000000000000001,
+      "pct_pot": 0.5714285714285714
+    },
+    {
+      "street": "preflop",
+      "player": "Hero",
+      "action": "raise",
+      "amount": 0.06,
+      "amount_bb": 3.0,
+      "pot_before": 0.11000000000000001,
+      "pot_after": 0.17,
+      "pct_pot": 0.5454545454545454
+    },
+    {
+      "street": "preflop",
+      "player": "9608de7",
+      "action": "call",
+      "amount": 0.05,
+      "amount_bb": 2.5,
+      "pot_before": 0.17,
+      "pot_after": 0.22000000000000003,
+      "pct_pot": 0.29411764705882354
+    },
+    {
+      "street": "preflop",
+      "player": "6c35aab2",
+      "action": "fold",
+      "amount": null,
+      "amount_bb": null,
+      "pot_before": 0.22000000000000003,
+      "pot_after": 0.22000000000000003,
+      "pct_pot": null
+    },
+    {
+      "street": "preflop",
+      "player": "c45aa425",
+      "action": "call",
+      "amount": 0.02,
+      "amount_bb": 1.0,
+      "pot_before": 0.22000000000000003,
+      "pot_after": 0.24000000000000002,
+      "pct_pot": 0.0909090909090909
+    },
+    {
+      "street": "preflop",
+      "player": "60604553",
+      "action": "call",
+      "amount": 0.02,
+      "amount_bb": 1.0,
+      "pot_before": 0.24000000000000002,
+      "pot_after": 0.26,
+      "pct_pot": 0.08333333333333333
+    },
+    {
+      "street": "flop",
+      "player": "9608de7",
+      "action": "check",
+      "amount": null,
+      "amount_bb": null,
+      "pot_before": 0.26,
+      "pot_after": 0.26,
+      "pct_pot": null
+    },
+    {
+      "street": "flop",
+      "player": "c45aa425",
+      "action": "check",
+      "amount": null,
+      "amount_bb": null,
+      "pot_before": 0.26,
+      "pot_after": 0.26,
+      "pct_pot": null
+    },
+    {
+      "street": "flop",
+      "player": "60604553",
+      "action": "check",
+      "amount": null,
+      "amount_bb": null,
+      "pot_before": 0.26,
+      "pot_after": 0.26,
+      "pct_pot": null
+    },
+    {
+      "street": "flop",
+      "player": "Hero",
+      "action": "bet",
+      "amount": 0.13,
+      "amount_bb": 6.5,
+      "pot_before": 0.26,
+      "pot_after": 0.39,
+      "pct_pot": 0.5
+    },
+    {
+      "street": "flop",
+      "player": "9608de7",
+      "action": "call",
+      "amount": 0.13,
+      "amount_bb": 6.5,
+      "pot_before": 0.39,
+      "pot_after": 0.52,
+      "pct_pot": 0.3333333333333333
+    },
+    {
+      "street": "flop",
+      "player": "c45aa425",
+      "action": "fold",
+      "amount": null,
+      "amount_bb": null,
+      "pot_before": 0.52,
+      "pot_after": 0.52,
+      "pct_pot": null
+    },
+    {
+      "street": "flop",
+      "player": "60604553",
+      "action": "fold",
+      "amount": null,
+      "amount_bb": null,
+      "pot_before": 0.52,
+      "pot_after": 0.52,
+      "pct_pot": null
+    },
+    {
+      "street": "turn",
+      "player": "9608de7",
+      "action": "bet",
+      "amount": 0.29,
+      "amount_bb": 14.499999999999998,
+      "pot_before": 0.52,
+      "pot_after": 0.81,
+      "pct_pot": 0.5576923076923076
+    },
+    {
+      "street": "turn",
+      "player": "Hero",
+      "action": "call",
+      "amount": 0.29,
+      "amount_bb": 14.499999999999998,
+      "pot_before": 0.81,
+      "pot_after": 1.1,
+      "pct_pot": 0.3580246913580246
+    },
+    {
+      "street": "river",
+      "player": "9608de7",
+      "action": "check",
+      "amount": null,
+      "amount_bb": null,
+      "pot_before": 1.1,
+      "pot_after": 1.1,
+      "pct_pot": null
+    },
+    {
+      "street": "river",
+      "player": "Hero",
+      "action": "check",
+      "amount": null,
+      "amount_bb": null,
+      "pot_before": 1.1,
+      "pot_after": 1.1,
+      "pct_pot": null
+    }
+  ],
+  "board": [
+    "3c",
+    "As",
+    "5h",
+    "5h",
+    "Kh"
+  ],
+  "pot_preflop": 0.26,
+  "pot_flop": 0.52,
+  "pot_turn": 1.1,
+  "pot_river": 1.1,
+  "total_pot": 1.1,
+  "rake": 0.05,
+  "winners": [
+    {
+      "player": "Hero",
+      "amount": 1.03
+    }
+  ],
+  "showdown": [
+    {
+      "player": "9608de7",
+      "cards": [
+        "3h",
+        "4h"
+      ],
+      "result": "lost",
+      "won_amount": null,
+      "description": "a pair of Threes"
+    },
+    {
+      "player": "Hero",
+      "cards": [
+        "9s",
+        "Ah"
+      ],
+      "result": "won",
+      "won_amount": 1.03,
+      "description": "a pair of Aces"
+    }
+  ],
+  "raw_text": "Poker Hand #HD2625173916: Hold'em No Limit ($0.01/$0.02) - 2025/12/12 00:14:07\nTable 'NLHWhite24' 6-max Seat #6 is the button\nSeat 1: 9608de7 ($2.86 in chips)\nSeat 2: 6c35aab2 ($1.95 in chips)\nSeat 3: c45aa425 ($1.16 in chips)\nSeat 5: 60604553 ($2.04 in chips)\nSeat 6: Hero ($1.93 in chips)\n9608de7: posts small blind $0.01\n6c35aab2: posts big blind $0.02\n*** HOLE CARDS ***\nDealt to 9608de7 \nDealt to 6c35aab2 \nDealt to c45aa425 \nDealt to 60604553 \nDealt to Hero [9s Ah]\nc45aa425: raises $0.02 to $0.04\n60604553: calls $0.04\nHero: raises $0.02 to $0.06\n9608de7: calls $0.05\n6c35aab2: folds\nc45aa425: calls $0.02\n60604553: calls $0.02\n*** FLOP *** [3c As 5h]\n9608de7: checks\nc45aa425: checks\n60604553: checks\nHero: bets $0.13\n9608de7: calls $0.13\nc45aa425: folds\n60604553: folds\n*** TURN *** [3c As 5h] [Kh]\n9608de7: bets $0.29\nHero: calls $0.29\n*** RIVER *** [3c As 5h Kh] [7s]\n9608de7: checks\nHero: checks\n9608de7: shows [3h 4h] (a pair of Threes)\nHero: shows [9s Ah] (a pair of Aces)\n*** SHOWDOWN ***\nHero collected $1.03 from pot\n*** SUMMARY ***\nTotal pot $1.1 | Rake $0.05 | Jackpot $0.02 | Bingo $0 | Fortune $0 | Tax $0\nBoard [3c As 5h Kh 7s]\nSeat 1: 9608de7 (small blind) showed [3h 4h] and lost with a pair of Threes\nSeat 2: 6c35aab2 (big blind) folded before Flop\nSeat 3: c45aa425 folded on the Flop\nSeat 5: 60604553 folded on the Flop\nSeat 6: Hero (button) showed [9s Ah] and won ($1.03) with a pair of Aces"
+}

@@ -120,3 +120,31 @@ def estimate_flop_equity_simple(
         "model": "simple_flop_category_model",
         "explanation": explanation,
     }
+
+
+def get_flop_ev_action(action_type: str, hero_ip: bool, multiway: bool) -> str:
+    """
+    Возвращает конкретное действие контекста для флопа.
+    """
+    if action_type == "bet_vs_check":
+        if hero_ip:
+            return "cbet_ip" if not multiway else "cbet_multiway_ip"
+        else:
+            return "donk_bet_oop" if not multiway else "cbet_multiway_oop"
+    elif action_type == "check":
+        if hero_ip:
+            return "check_raise_setup_ip" if not multiway else "check_call_multiway_ip"
+        else:
+            return "check_oop" if not multiway else "check_multiway_oop"
+    elif action_type == "call_vs_bet":
+        if hero_ip:
+            return "call_raise_ip" if not multiway else "call_multiway_ip"
+        else:
+            return "call_oop" if not multiway else "call_multiway_oop"
+    elif action_type == "raise_vs_bet":
+        if hero_ip:
+            return "raise_bluff_ip" if not multiway else "raise_bluff_multiway_ip"
+        else:
+            return "raise_value_oop" if not multiway else "raise_value_multiway_oop"
+    else:
+        return action_type

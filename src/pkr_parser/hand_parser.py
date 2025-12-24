@@ -11,7 +11,8 @@ from .decision_engine import evaluate_preflop_decision
 from .flop_equity_engine import estimate_flop_equity_simple
 from .turn_engine import evaluate_hero_turn_decision
 from .river_engine import evaluate_hero_river_decision
-from .ev_tools import compute_ev_estimate_v1
+from .ev_tools import compute_ev_estimate_v1, generate_assumptions
+
 
 # ---------------------------------------------------------------------
 #  МОДЕЛИ ДАННЫХ
@@ -1518,19 +1519,30 @@ def compute_hero_flop_decision(
         f"Тип действия на флопе: {action_type}. "
         f"Ты играешь {multi_part} {pos_part}.{size_part}{hand_part}{quality_part}{equity_part}"
     )
+    ev_action_label = f"flop_{action_type}"
+
     ev_estimate = compute_ev_estimate_v1(
-    street="flop",
-    action_kind=first.action,
-    pot_before=(sizing.get("pot_before") if isinstance(sizing, dict) else None),
-    investment=(sizing.get("amount") if isinstance(sizing, dict) else None),
-    estimated_equity=(
-        equity_estimate.get("estimated_equity")
-        if isinstance(equity_estimate, dict)
-        else None
-    ),
-    fold_equity=None,
-    final_pot_if_called=None,
-)
+        street="flop",
+        action_kind=first.action,
+        pot_before=(sizing.get("pot_before") if isinstance(sizing, dict) else None),
+        investment=(sizing.get("amount") if isinstance(sizing, dict) else None),
+        estimated_equity=(
+            equity_estimate.get("estimated_equity")
+            if isinstance(equity_estimate, dict)
+            else None
+        ),
+        fold_equity=None,
+        final_pot_if_called=None,
+
+        # 🔑 anti-conflict + Iteration 1
+        ev_action_label=ev_action_label,   # новый контракт (лейбл отдельно)
+        ev_action=ev_action_label,         # legacy-совместимость (если где-то ждали строку)
+
+        assumptions=generate_assumptions("flop", first.action, context),
+        confidence=0.55,
+        context=context,
+        alternatives={},
+    )
 
     return {
         "action_type": action_type,
@@ -1665,6 +1677,7 @@ def parse_file_to_hands(path: str | Path) -> List[Dict[str, Any]]:
                 hero_preflop_analysis=hero_preflop_analysis,
                 hero_flop_decision=hero_flop_decision,
                 board=board,
+                hero_flop_hand_category=hero_flop_hand_category,
             )
 
             hero_river_decision = evaluate_hero_river_decision(

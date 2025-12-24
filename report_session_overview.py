@@ -1,578 +1,203 @@
+from __future__ import annotations
+
+import argparse
 import json
-from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+import sys
+from typing import Any, Dict, List, Optional
 
 
-# =====================
-#  Общие утилиты
-# =====================
-
-def load_hands(path: Path) -> List[Dict[str, Any]]:
-    if not path.exists():
-        raise FileNotFoundError(f"Файл {path} не найден. Сначала запусти main.py, чтобы создать hands.json")
-
-    with path.open("r", encoding="utf-8") as f:
-        data = json.load(f)
-
-    if not isinstance(data, list):
-        raise ValueError("Ожидался список раздач (list) в hands.json")
-
-    return data
+def _load_json(path: str) -> Any:
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
 
 
-def safe_float(v: Any) -> Optional[float]:
-    if isinstance(v, (int, float)):
-        return float(v)
-    return None
+def _to_float(x: Any, default: float = 0.0) -> float:
+    try:
+        if x is None:
+            return default
+        return float(x)
+    except (TypeError, ValueError):
+        return default
 
 
-# =====================
-#  Анализ префлопа / RFI
-# =====================
-
-def analyze_preflop_rfi(hands: List[Dict[str, Any]]) -> Dict[str, Any]:
+def _normalize_ev_estimate(ev_est: Any) -> Dict[str, Any]:
     """
-    Сводка по префлопу:
-      - сколько было RFI-спотов (герой ходит первым)
-      - сколько из них с ошибками по диапазону
-      - дисциплина по позициям
+    Новый контракт:
+      ev_action: float
+      ev_action_label: str
+    Поддержка старого:
+      ev: float, а ev_action мог быть строкой.
     """
-    rfi_spots = 0
-    rfi_errors = 0
+    if not isinstance(ev_est, dict):
+        return {"ev_action": 0.0, "ev_action_label": "missing_ev_estimate", "model": "v1_baseline"}
 
-    # дисциплина по позициям: {pos: {"spots": int, "errors": int}}
-    pos_stats: Dict[str, Dict[str, int]] = {}
-
-    # типы ошибок по диапазону (если есть error_type)
-    error_types: Dict[str, int] = {}
-
-    for hand in hands:
-        pre_analysis = hand.get("hero_preflop_analysis") or {}
-        pre_decision = hand.get("hero_preflop_decision") or {}
-        range_disc = pre_decision.get("range_discipline") or {}
-
-        hero_pos = pre_analysis.get("hero_position") or hand.get("hero_position")
-
-        was_first_in = pre_analysis.get("was_first_in")
-
-        # RFI-спот: ты первый в раздаче (open-raise / iso-raise, без предыдущих рейзов/коллов)
-        if was_first_in:
-            rfi_spots += 1
-            if hero_pos:
-                pos_stats.setdefault(hero_pos, {"spots": 0, "errors": 0})
-                pos_stats[hero_pos]["spots"] += 1
-
-            error_type = range_disc.get("error_type")
-            if error_type:
-                rfi_errors += 1
-                if hero_pos:
-                    pos_stats[hero_pos]["errors"] += 1
-                error_types[error_type] = error_types.get(error_type, 0) + 1
-
-    return {
-        "rfi_spots": rfi_spots,
-        "rfi_errors": rfi_errors,
-        "pos_stats": pos_stats,
-        "error_types": error_types,
-    }
-
-
-# =====================
-#  Анализ постфлопа
-# =====================
-
-def _collect_decision_quality(decision: Dict[str, Any], counter: Dict[str, int]) -> None:
-    dq = decision.get("decision_quality")
-    if isinstance(dq, str):
-        counter[dq] = counter.get(dq, 0) + 1
-
-
-def _collect_action_type(decision: Dict[str, Any], counter: Dict[str, int]) -> None:
-    atype = decision.get("action_type")
-    if isinstance(atype, str):
-        counter[atype] = counter.get(atype, 0) + 1
-
-
-def analyze_postflop(hands: List[Dict[str, Any]]) -> Dict[str, Any]:
-    """
-    Сводка по флоп/тёрн/риверу:
-      - сколько раз был action героя
-      - распределение decision_quality и action_type
-    """
-    result: Dict[str, Any] = {}
-
-    streets = [
-        ("flop", "hero_flop_decision"),
-        ("turn", "hero_turn_decision"),
-        ("river", "hero_river_decision"),
-    ]
-
-    for street_name, key in streets:
-        total_spots = 0
-        quality_counter: Dict[str, int] = {}
-        action_counter: Dict[str, int] = {}
-
-        for hand in hands:
-            dec = hand.get(key) or {}
-            if not dec:
-                continue
-
-            total_spots += 1
-            _collect_decision_quality(dec, quality_counter)
-            _collect_action_type(dec, action_counter)
-
-        result[street_name] = {
-            "total_spots": total_spots,
-            "quality_counter": quality_counter,
-            "action_counter": action_counter,
-        }
-
-    return result
-
-
-# =====================
-#  Missed value на ривере
-#  (reuse логики из report_missed_value)
-# =====================
-
-def find_missed_value_spots(hands: List[Dict[str, Any]]) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
-    """
-    Возвращает два списка:
-      1) missed_value_checks  — сильная рука, IP, ривер, но герой чекнул
-      2) missed_value_passive_calls — сильная рука, IP, ривер, герой только колл против небольшой ставки
-    """
-    missed_value_checks: List[Dict[str, Any]] = []
-    missed_value_passive_calls: List[Dict[str, Any]] = []
-
-    for hand in hands:
-        hero_cards = hand.get("hero_cards") or []
-        board = hand.get("board") or []
-        river_dec = hand.get("hero_river_decision") or {}
-
-        if not river_dec:
-            continue
-
-        # equity на ривере
-        eq_info = river_dec.get("equity_estimate") or {}
-        est_eq = safe_float(eq_info.get("estimated_equity"))
-        if est_eq is None:
-            continue
-
-        # контекст
-        context = river_dec.get("context") or {}
-        hero_ip = context.get("hero_ip")
-        players_to_river = context.get("players_to_river")
-        multiway = context.get("multiway")
-        hero_pos = context.get("hero_position")
-        preflop_role = context.get("preflop_role")
-
-        # сайзинг
-        sizing = river_dec.get("sizing") or {}
-        amount = safe_float(sizing.get("amount"))
-        pot_before = safe_float(sizing.get("pot_before"))
-        pct_pot = safe_float(sizing.get("pct_pot"))
-
-        action_type = river_dec.get("action_type")
-        action_kind = river_dec.get("action_kind")
-
-        # Спот 1: IP, сильная equity, но чек
-        if (
-            hero_ip is True
-            and est_eq >= 0.65
-            and action_type == "check"
-        ):
-            missed_value_checks.append(
-                {
-                    "hand_id": hand.get("hand_id"),
-                    "id": hand.get("id"),
-                    "hero_cards": hero_cards,
-                    "board": board,
-                    "equity": est_eq,
-                    "players_to_river": players_to_river,
-                    "multiway": multiway,
-                    "hero_ip": hero_ip,
-                    "hero_pos": hero_pos,
-                    "preflop_role": preflop_role,
-                    "action_type": action_type,
-                    "action_kind": action_kind,
-                    "amount": amount,
-                    "pot_before": pot_before,
-                    "pct_pot": pct_pot,
-                }
-            )
-
-        # Спот 2: IP, сильная equity, небольшой бет оппа, герой только колл
-        if (
-            hero_ip is True
-            and est_eq >= 0.70
-            and action_type == "call_vs_bet"
-        ):
-            if pot_before is not None and amount is not None and pot_before > 0:
-                frac = amount / pot_before
-            else:
-                frac = None
-
-            if frac is not None and frac <= 0.33:
-                missed_value_passive_calls.append(
-                    {
-                        "hand_id": hand.get("hand_id"),
-                        "id": hand.get("id"),
-                        "hero_cards": hero_cards,
-                        "board": board,
-                        "equity": est_eq,
-                        "players_to_river": players_to_river,
-                        "multiway": multiway,
-                        "hero_ip": hero_ip,
-                        "hero_pos": hero_pos,
-                        "preflop_role": preflop_role,
-                        "action_type": action_type,
-                        "action_kind": action_kind,
-                        "amount": amount,
-                        "pot_before": pot_before,
-                        "pct_pot": pct_pot,
-                        "bet_frac": frac,
-                    }
-                )
-
-    return missed_value_checks, missed_value_passive_calls
-
-
-# =====================
-#  Ключевые руки для разбора
-# =====================
-
-def collect_key_hands(hands: List[Dict[str, Any]], max_examples: int = 10) -> List[Dict[str, Any]]:
-    """
-    Собираем раздачи, где есть risky/mistake/bad решения хотя бы на одной улице.
-    """
-    key_hands: List[Dict[str, Any]] = []
-
-    for hand in hands:
-        hand_id = hand.get("hand_id")
-        idx = hand.get("id")
-        hero_cards = hand.get("hero_cards") or []
-        board = hand.get("board") or []
-
-        issues: List[str] = []
-
-        for street_name, key in [
-            ("preflop", "hero_preflop_decision"),
-            ("flop", "hero_flop_decision"),
-            ("turn", "hero_turn_decision"),
-            ("river", "hero_river_decision"),
-        ]:
-            dec = hand.get(key) or {}
-            dq = dec.get("decision_quality")
-            atype = dec.get("action_type")
-            if dq in ("risky", "mistake", "bad"):
-                issues.append(f"{street_name}: {dq} ({atype})")
-
-        if issues:
-            key_hands.append(
-                {
-                    "hand_id": hand_id,
-                    "id": idx,
-                    "hero_cards": hero_cards,
-                    "board": board,
-                    "issues": issues,
-                }
-            )
-
-    # можно было бы сортировать по важности, но пока просто первые N
-    return key_hands[:max_examples]
-
-
-# =====================
-#  Печать Session Overview
-# =====================
-
-def _print_percent(part: int, total: int) -> str:
-    if total <= 0:
-        return "0.0%"
-    return f"{(part * 100.0) / total:.1f}%"
-
-def build_coach_summary(
-    preflop_stats: Dict[str, Any],
-    postflop_stats: Dict[str, Any],
-    missed_checks: List[Dict[str, Any]],
-    missed_calls: List[Dict[str, Any]],
-    key_hands: List[Dict[str, Any]],
-    total_hands: int,
-) -> Dict[str, Any]:
-    """
-    Возвращает структурированный "человекочитаемый" итог по сессии.
-    UI потом сможет это рендерить как отдельный блок.
-    """
-    rfi_spots = int(preflop_stats.get("rfi_spots", 0) or 0)
-    rfi_errors = int(preflop_stats.get("rfi_errors", 0) or 0)
-    pos_stats = preflop_stats.get("pos_stats") or {}
-
-    def pct(a: int, b: int) -> float:
-        if b <= 0:
-            return 0.0
-        return 100.0 * float(a) / float(b)
-
-    # --- качество по улицам ---
-    def street_good_pct(street: str) -> float:
-        s = postflop_stats.get(street) or {}
-        total = int(s.get("total_spots", 0) or 0)
-        qcnt = s.get("quality_counter") or {}
-        good = int(qcnt.get("good", 0) or 0)
-        return pct(good, total)
-
-    flop_good = street_good_pct("flop")
-    turn_good = street_good_pct("turn")
-    river_good = street_good_pct("river")
-
-    # --- missed value ---
-    mv_total = len(missed_checks) + len(missed_calls)
-
-    # --- выявляем проблемные позиции по RFI дисциплине ---
-    weak_positions: List[str] = []
-    for pos, vals in pos_stats.items():
-        spots = int(vals.get("spots", 0) or 0)
-        errs = int(vals.get("errors", 0) or 0)
-        if spots > 0:
-            disc = 100.0 * float(spots - errs) / float(spots)
-            # считаем "слабым местом" только если есть минимум 3 спота и дисциплина < 90%
-            if spots >= 3 and disc < 90.0:
-                weak_positions.append(f"{pos} ({disc:.1f}%, {errs}/{spots})")
-
-    # --- общий "тон" сессии ---
-    # Простая классификация: стабильная/смешанная/хаотичная
-    avg_good = (flop_good + turn_good + river_good) / 3.0 if (flop_good + turn_good + river_good) > 0 else 0.0
-    if avg_good >= 80.0:
-        session_grade = "стабильная"
-    elif avg_good >= 60.0:
-        session_grade = "смешанная"
+    if "ev_action" in ev_est and not isinstance(ev_est.get("ev_action"), str):
+        ev_num = _to_float(ev_est.get("ev_action"), 0.0)
+    elif "ev" in ev_est:
+        ev_num = _to_float(ev_est.get("ev"), 0.0)
     else:
-        session_grade = "хаотичная"
+        ev_num = 0.0
 
-    # --- сильные стороны ---
-    strengths: List[str] = []
-    if flop_good >= 85.0:
-        strengths.append(f"Флоп: высокая доля качественных решений (good ≈ {flop_good:.1f}%).")
-    if turn_good >= 80.0:
-        strengths.append(f"Тёрн: дисциплина линий держится (good ≈ {turn_good:.1f}%).")
-    if rfi_spots > 0 and pct(rfi_errors, rfi_spots) <= 10.0:
-        strengths.append(f"Префлоп: RFI-дисциплина в целом хорошая (ошибки ≈ {pct(rfi_errors, rfi_spots):.1f}%).")
-
-    if not strengths:
-        strengths.append("Сильные стороны не выделены жёсткими порогами — нужна чуть большая выборка рук для уверенных выводов.")
-
-    # --- где теряется EV (по текущим сигналам) ---
-    leaks: List[str] = []
-    if rfi_errors > 0:
-        leaks.append(f"Префлоп: есть отклонения от RFI-диапазонов (ошибок: {rfi_errors} из {rfi_spots}).")
-    if weak_positions:
-        leaks.append("Префлоп: слабые позиции по дисциплине RFI: " + ", ".join(weak_positions) + ".")
-    if mv_total > 0:
-        leaks.append(f"Ривер: найдены missed value споты (шт: {mv_total}).")
-
-    if not leaks:
-        leaks.append("Явных системных утечек по выбранным эвристикам не найдено (это хорошо, но выборка может быть небольшой).")
-
-    # --- конкретные рекомендации ---
-    recs: List[str] = []
-    if weak_positions:
-        recs.append("Ужесточи открытия/изолейты в проблемных позициях (часто это UTG/SB): в пограничных руках выбирай фолд.")
-    if mv_total > 0:
-        recs.append("Добавь на ривере тонкий вэлью-бет в позиции, когда оценочная equity высокая и линия оппонента пассивная.")
-    if not recs:
-        recs.append("Продолжай играть в том же стиле, но на следующей сессии увеличим чувствительность поиска missed value и проверим, где можно добирать чаще.")
-
-    # --- итог одной строкой ---
-    one_liner = f"Итог: сессия {session_grade}. Главный резерв EV — " + ("ривер (добор)" if mv_total > 0 else "точечная дисциплина префлопа/позиций") + "."
-
-    # ключевые руки (короткий список)
-    key_hand_ids: List[str] = []
-    for h in key_hands[:5]:
-        hid = h.get("hand_id")
-        if isinstance(hid, str) and hid:
-            key_hand_ids.append(hid)
-
-    return {
-        "session_grade": session_grade,
-        "avg_good_pct": round(avg_good, 1),
-        "strengths": strengths,
-        "leaks": leaks,
-        "recommendations": recs,
-        "one_liner": one_liner,
-        "key_hands": key_hand_ids,
-        "meta": {
-            "total_hands": total_hands,
-            "rfi_spots": rfi_spots,
-            "rfi_errors": rfi_errors,
-            "missed_value_total": mv_total,
-            "good_pct": {"flop": round(flop_good, 1), "turn": round(turn_good, 1), "river": round(river_good, 1)},
-        },
-    }
-
-def print_session_overview(
-    preflop_stats: Dict[str, Any],
-    postflop_stats: Dict[str, Any],
-    missed_checks: List[Dict[str, Any]],
-    missed_calls: List[Dict[str, Any]],
-    key_hands: List[Dict[str, Any]],
-    total_hands: int,
-) -> None:
-    print("========== ОБЩИЙ ОТЧЁТ ПО СЕССИИ ==========")
-    print(f"Всего раздач в сессии (в файле hands.json): {total_hands}")
-    print()
-
-    # --- Префлоп / RFI ---
-    print("=== ПРЕФЛОП / RFI-ДИСЦИПЛИНА ===")
-    rfi_spots = preflop_stats["rfi_spots"]
-    rfi_errors = preflop_stats["rfi_errors"]
-    pos_stats = preflop_stats["pos_stats"]
-    error_types = preflop_stats["error_types"]
-
-    print(f"Всего RFI-спотов (когда ты ходишь первым): {rfi_spots}")
-    print(f"Ошибок по диапазону (по модели range_discipline): {rfi_errors} ({_print_percent(rfi_errors, rfi_spots)})")
-    print()
-
-    print("Дисциплина по позициям (только RFI-споты):")
-    if not pos_stats:
-        print("  Нет данных по RFI-спотам (возможно, во всех раздачах ты не был первым)")
+    if isinstance(ev_est.get("ev_action_label"), str):
+        label = ev_est.get("ev_action_label", "")
+    elif isinstance(ev_est.get("ev_action"), str):
+        label = ev_est.get("ev_action", "")
     else:
-        for pos, vals in pos_stats.items():
-            spots = vals["spots"]
-            errs = vals["errors"]
-            disc = 100.0 * (spots - errs) / spots if spots > 0 else 0.0
-            print(f"  {pos}: дисциплина {disc:.1f}%  (спотов: {spots}, ошибок: {errs})")
-    print()
+        label = ""
 
-    if error_types:
-        print("Типы ошибок по диапазону (по полю error_type):")
-        for etype, cnt in error_types.items():
-            print(f"  - {etype}: {cnt}")
-    else:
-        print("Модель не выделила явных типов ошибок по диапазону (error_type пуст).")
-    print()
+    model = ev_est.get("model", "v1_baseline")
+    if not isinstance(model, str):
+        model = "v1_baseline"
 
-    # --- Постфлоп ---
-    print("=== ПОСТФЛОП (ФЛОП / ТЁРН / РИВЕР) ===")
-
-    for street in ("flop", "turn", "river"):
-        data = postflop_stats.get(street) or {}
-        total_spots_s = data.get("total_spots", 0)
-        qcnt = data.get("quality_counter", {})
-        acnt = data.get("action_counter", {})
-
-        print(f"--- {street.upper()} ---")
-        print(f"Всего раздач с действием героя на {street}: {total_spots_s}")
-
-        if total_spots_s > 0:
-            print("Качество решений (decision_quality):")
-            for q in ("good", "ok", "risky", "mistake", "bad"):
-                if q in qcnt:
-                    print(f"  - {q:7}: {qcnt[q]:3} раз ({_print_percent(qcnt[q], total_spots_s)})")
-            # прочие, если есть
-            for q, cnt in qcnt.items():
-                if q not in ("good", "ok", "risky", "mistake", "bad"):
-                    print(f"  - {q:7}: {cnt:3} раз ({_print_percent(cnt, total_spots_s)})")
-
-            print("Типы действий (action_type):")
-            for atype, cnt in acnt.items():
-                print(f"  - {atype:15}: {cnt:3} раз ({_print_percent(cnt, total_spots_s)})")
-        else:
-            print("  Герой ни разу не принимал решений на этой улице в текущей выборке.")
-        print()
-
-    # --- Missed Value ---
-    total_mv = len(missed_checks) + len(missed_calls)
-    print("=== MISSED VALUE НА РИВЕРЕ (по эвристике) ===")
-    print(f"Всего потенциальных missed value спотов на ривере: {total_mv}")
-    print(f"  - Чек в позиции с сильной рукой: {len(missed_checks)}")
-    print(f"  - Пассивный колл против небольшой ставки в позиции: {len(missed_calls)}")
-    print()
-
-    if total_mv == 0:
-        print("По текущим настройкам модель не нашла явных missed value спотов на ривере.")
-        print("Это не означает идеальную игру, но крупные упущения вэлью по базовым критериям не зафиксированы.")
-    else:
-        print("Примеры missed value спотов (не более 5 каждого типа):")
-        print("-- Чек с сильной рукой в позиции --")
-        for spot in missed_checks[:5]:
-            print(f"  Hand #{spot.get('id')} ({spot.get('hand_id')}), equity={spot.get('equity'):.2f}, борд={' '.join(spot.get('board') or [])}")
-        print("-- Пассивный колл против небольшой ставки --")
-        for spot in missed_calls[:5]:
-            print(f"  Hand #{spot.get('id')} ({spot.get('hand_id')}), equity={spot.get('equity'):.2f}, борд={' '.join(spot.get('board') or [])}")
-    print()
-
-    # --- Ключевые руки ---
-    print("=== КЛЮЧЕВЫЕ РУКИ ДЛЯ РАЗБОРА (сомнительные решения) ===")
-    if not key_hands:
-        print("Модель не нашла раздач с явно рискованными/ошибочными решениями по тегам decision_quality.")
-    else:
-        for hand_info in key_hands:
-            hand_id = hand_info.get("hand_id")
-            idx = hand_info.get("id")
-            cards = hand_info.get("hero_cards") or []
-            board = hand_info.get("board") or []
-            issues = hand_info.get("issues") or []
-            print(f"  - Hand #{idx} ({hand_id}) | карты героя: {' '.join(cards)}, борд: {' '.join(board)}")
-            for iss in issues:
-                print(f"      * {iss}")
-    print()
-    # --- Итоговый коуч-блок ---
-    summary = build_coach_summary(
-        preflop_stats=preflop_stats,
-        postflop_stats=postflop_stats,
-        missed_checks=missed_checks,
-        missed_calls=missed_calls,
-        key_hands=key_hands,
-        total_hands=total_hands,
-    )
-
-    print("=== ИТОГОВЫЙ ВЕРДИКТ ПО СЕССИИ (коуч-вывод) ===")
-    print(summary["one_liner"])
-    print()
-    print("Что было хорошо:")
-    for i, s in enumerate(summary["strengths"], 1):
-        print(f"  {i}. {s}")
-    print()
-    print("Где вероятно теряется EV:")
-    for i, s in enumerate(summary["leaks"], 1):
-        print(f"  {i}. {s}")
-    print()
-    print("Что делать в следующей сессии:")
-    for i, s in enumerate(summary["recommendations"], 1):
-        print(f"  {i}. {s}")
-    if summary.get("key_hands"):
-        print()
-        print("Ключевые раздачи для просмотра:")
-        for hid in summary["key_hands"]:
-            print(f"  - {hid}")
-    print()
-
-    print("============= SESSION OVERVIEW ГОТОВ =============")
-    print()
+    out = dict(ev_est)
+    out["ev_action"] = float(ev_num)
+    out["ev_action_label"] = label
+    out["model"] = model
+    if "ev" in out:
+        out.pop("ev", None)
+    return out
 
 
-# =====================
-#  MAIN
-# =====================
+def _iter_hand_reviews(data: Any) -> List[Dict[str, Any]]:
+    if isinstance(data, list):
+        return [x for x in data if isinstance(x, dict)]
+    if isinstance(data, dict):
+        # уже hand_review
+        if "hand_id" in data or "preflop" in data or "streets" in data:
+            return [data]
+        for key in ("hand_reviews", "hands", "items"):
+            if key in data and isinstance(data[key], list):
+                return [x for x in data[key] if isinstance(x, dict)]
+    return []
+
+
+def _get_street_obj(hand_review: Dict[str, Any], street: str) -> Dict[str, Any]:
+    if street in hand_review and isinstance(hand_review[street], dict):
+        return hand_review[street]
+
+    streets = hand_review.get("streets")
+    if isinstance(streets, dict) and isinstance(streets.get(street), dict):
+        return streets[street]
+
+    alt = f"{street}_result"
+    if alt in hand_review and isinstance(hand_review[alt], dict):
+        return hand_review[alt]
+
+    return {}
+
+
+def _get_hero_decision(street_obj: Dict[str, Any]) -> Dict[str, Any]:
+    if isinstance(street_obj.get("hero_decision"), dict):
+        return street_obj["hero_decision"]
+    if isinstance(street_obj.get("decision"), dict):
+        return street_obj["decision"]
+    for _, v in street_obj.items():
+        if isinstance(v, dict) and ("ev_estimate" in v or "decision_quality" in v):
+            return v
+    return {}
+
+
+def _signed(x: float) -> str:
+    return f"{x:+.4f}"
+
 
 def main() -> None:
-    base_path = Path(__file__).resolve().parent
-    hands_path = base_path / "hands.json"
+    parser = argparse.ArgumentParser(description="PKR: Session Overview (EV-centric, Iteration 1).")
+    parser.add_argument("json_path", help="JSON файл со списком hand_review (или объект с hands/hand_reviews).")
+    args = parser.parse_args()
 
-    hands = load_hands(hands_path)
+    try:
+        data = _load_json(args.json_path)
+    except FileNotFoundError:
+        print(f"Файл не найден: {args.json_path}", file=sys.stderr)
+        sys.exit(1)
+    except json.JSONDecodeError as e:
+        print(f"Ошибка JSON: {e}", file=sys.stderr)
+        sys.exit(1)
 
-    preflop_stats = analyze_preflop_rfi(hands)
-    postflop_stats = analyze_postflop(hands)
-    missed_checks, missed_calls = find_missed_value_spots(hands)
-    key_hands = collect_key_hands(hands, max_examples=10)
+    hands = _iter_hand_reviews(data)
+    if not hands:
+        print("Не нашёл рук в JSON (ожидаю list[hand_review] или dict с ключом hands/hand_reviews).", file=sys.stderr)
+        sys.exit(1)
 
-    print_session_overview(
-        preflop_stats=preflop_stats,
-        postflop_stats=postflop_stats,
-        missed_checks=missed_checks,
-        missed_calls=missed_calls,
-        key_hands=key_hands,
-        total_hands=len(hands),
-    )
+    # агрегаты
+    ev_sum = {"preflop": 0.0, "flop": 0.0, "turn": 0.0, "river": 0.0, "total": 0.0}
+    decisions_count = 0
+
+    dq_counts = {"good": 0, "marginal": 0, "mistake": 0, "blunder": 0, "unknown": 0}
+
+    # Дополнительно: сколько раз по улицам EV был 0 (чтобы видеть “пустые” оценки)
+    ev_zero_counts = {"preflop": 0, "flop": 0, "turn": 0, "river": 0}
+
+    for hr in hands:
+        hand_total = 0.0
+
+        for street in ("preflop", "flop", "turn", "river"):
+            st = _get_street_obj(hr, street)
+            hd = _get_hero_decision(st)
+
+            if isinstance(hd, dict) and hd:
+                decisions_count += 1
+                dq = str(hd.get("decision_quality") or "unknown").lower()
+                if dq not in dq_counts:
+                    dq = "unknown"
+                dq_counts[dq] += 1
+
+                ev_est = _normalize_ev_estimate(hd.get("ev_estimate"))
+                evv = _to_float(ev_est.get("ev_action"), 0.0)
+            else:
+                evv = 0.0
+
+            ev_sum[street] += float(evv)
+            hand_total += float(evv)
+
+            if abs(float(evv)) < 1e-12:
+                ev_zero_counts[street] += 1
+
+        ev_sum["total"] += float(hand_total)
+
+    n_hands = len(hands)
+    ev_avg = {k: (v / n_hands) for k, v in ev_sum.items()}
+
+    print("=" * 72)
+    print("SESSION OVERVIEW (Iteration 1)")
+    print(f"Hands: {n_hands}")
+    print(f"Street decisions counted: {decisions_count}")
+    print("=" * 72)
+
+    print()
+    print("=== EV SUM ===")
+    print(f"EV(preflop): {_signed(ev_sum['preflop'])}")
+    print(f"EV(flop):    {_signed(ev_sum['flop'])}")
+    print(f"EV(turn):    {_signed(ev_sum['turn'])}")
+    print(f"EV(river):   {_signed(ev_sum['river'])}")
+    print("-" * 26)
+    print(f"EV(total):   {_signed(ev_sum['total'])}")
+
+    print()
+    print("=== EV AVG PER HAND ===")
+    print(f"EV/preflop: {_signed(ev_avg['preflop'])}")
+    print(f"EV/flop:    {_signed(ev_avg['flop'])}")
+    print(f"EV/turn:    {_signed(ev_avg['turn'])}")
+    print(f"EV/river:   {_signed(ev_avg['river'])}")
+    print("-" * 26)
+    print(f"EV/hand:    {_signed(ev_avg['total'])}")
+
+    print()
+    print("=== DECISION QUALITY (street-level counts) ===")
+    for k in ("good", "marginal", "mistake", "blunder", "unknown"):
+        print(f"{k.rjust(8)}: {dq_counts.get(k, 0)}")
+
+    print()
+    print("=== EV=0 COUNTS (by street, number of hands) ===")
+    # тут счётчик по рукам, не по решениям: “в скольких руках на улице EV был 0”
+    print(f"preflop: {ev_zero_counts['preflop']} / {n_hands}")
+    print(f"flop:    {ev_zero_counts['flop']} / {n_hands}")
+    print(f"turn:    {ev_zero_counts['turn']} / {n_hands}")
+    print(f"river:   {ev_zero_counts['river']} / {n_hands}")
+
+    print()
+    print("OK")
 
 
 if __name__ == "__main__":

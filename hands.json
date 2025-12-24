@@ -79,18 +79,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.03,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=SB; villain_position=unknown; effective_stack=96.5; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "villain_position": "unknown",
+          "effective_stack": 96.5,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -403,24 +417,33 @@
         "fold_equity": 0.35,
         "final_pot_if_called": 0.15
       },
-      "range_discipline": {
-        "in_mos": false,
-        "position_ok": false,
-        "hero_position": "UTG",
-        "mos_min_position": null,
-        "error_type": "too_loose_open",
-        "range_comment": "A4s не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
-      },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.67 (66.7%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.22. A4s не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии.",
+      "range_discipline": null,
+      "comment": "Тип действия: open_raise. Формат: raise. ReqEq≈0.67 (66.7%), Eq≈0.45 (45.0%), edge≈-0.22.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "raise",
+        "ev_action": 0.015375000000000003,
+        "ev_action_label": "open_raise_from_utg",
+        "ev": 0.015375000000000003,
+        "ev_action_str": "open_raise_from_utg",
         "pot_before": 0.03,
         "investment": 0.06,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.35,
         "final_pot_if_called": null,
-        "ev_action": 0.007500000000000007
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=raise; multiway=False; hero_ip=False; hero_position=UTG; villain_position=unknown; effective_stack=99.0; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "UTG",
+          "villain_position": "unknown",
+          "effective_stack": 99.0,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       }
     },
     "hero_flop_hand_category": "high_card",
@@ -454,16 +477,29 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.20 и категории руки на флопе (high_card). Игра в позиции (IP) слегка повышает эффективную equity (около 2 п.п.). Ты префлоп-агрессор, поэтому твой диапазон в среднем сильнее — добавляем около 2 п.п. equity. Рука без попадания (high_card) редко хорошо реализует equity — дополнительно уменьшаем оценку."
       },
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "flop",
         "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "flop_check",
+        "ev": 0.0,
+        "ev_action_str": "flop_check",
         "pot_before": 0.13,
         "investment": null,
         "estimated_equity": 0.1,
         "fold_equity": null,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=flop; action_kind=check; multiway=False; hero_ip=True; hero_position=UTG",
+        "confidence": 0.55,
+        "context": {
+          "players_to_flop": 2,
+          "multiway": false,
+          "hero_ip": true,
+          "hero_position": "UTG",
+          "preflop_role": "aggressor"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и избегaешь минусовых блефов.",
@@ -485,37 +521,49 @@
         "preflop_role": "aggressor"
       },
       "hand": {
-        "approx_category_from_flop": "high_card",
-        "approx_strength_score_from_flop": 0.2,
-        "flop_equity_estimate": 0.1,
-        "evolution": "improved",
-        "evolution_detail": "equity_increased",
-        "board_texture": {
-          "turn_card_type": "paired_board",
-          "overall_texture": "semi_wet",
-          "impact_on_equity": "positive"
-        }
+        "board_turn": "8d",
+        "board": [
+          "Ks",
+          "6s",
+          "8d",
+          "8d",
+          "3d"
+        ]
       },
       "equity_estimate": {
-        "estimated_equity": 0.23,
-        "model": "simple_turn_model",
-        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.20. Игра в позиции на тёрне слегка повышает эффективную equity (около 2 п.п.). Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 2 п.п. equity. Пассивная линия (чек) слегка уменьшает реализуемость equity."
+        "estimated_equity": 0.15999999999999998,
+        "model": "mvp_turn_heuristic"
       },
-      "decision_quality": "good",
-      "quality_comment": "Чек на тёрне с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и не раздуваешь его с air.",
-      "comment": "Тип действия на тёрне: check. Ты играешь в хедз-ап банке в позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'paired_board'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: good. Чек на тёрне с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и не раздуваешь его с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.23.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "turn",
         "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "turn_check_ip_hu",
+        "ev": 0.0,
+        "ev_action_str": "turn_check_ip_hu",
         "pot_before": 0.13,
         "investment": null,
-        "estimated_equity": 0.23,
-        "fold_equity": null,
+        "estimated_equity": 0.15999999999999998,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
-      }
+        "model": "v1_baseline",
+        "assumptions": "street=turn; action_kind=check; multiway=False; hero_ip=True; hero_position=UTG; villain_position=unknown; effective_stack=0.0; board_texture=unknown",
+        "confidence": 0.6,
+        "context": {
+          "multiway": false,
+          "hero_ip": true,
+          "hero_position": "UTG",
+          "villain_position": "unknown",
+          "effective_stack": 0.0,
+          "board_texture": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
+      },
+      "missed_value": null,
+      "decision_quality": "ok",
+      "quality_comment": "EV=+0.0000",
+      "comment": "Turn check, IP=True, MW=False"
     },
     "hero_river_decision": {
       "action_type": "check",
@@ -528,23 +576,56 @@
       "context": {
         "players_to_river": 2,
         "multiway": false,
-        "hero_ip": true,
+        "hero_ip": false,
         "hero_position": "UTG",
-        "preflop_role": "aggressor"
+        "preflop_role": "known"
       },
       "hand": {
-        "base_from_turn_equity": 0.23,
-        "note": "На ривере в v1 мы опираемся на оценку equity с тёрна, слегка подстраивая её под контекст ривера."
+        "board_river": "3d",
+        "board": [
+          "Ks",
+          "6s",
+          "8d",
+          "8d",
+          "3d"
+        ],
+        "board_texture": "unknown"
       },
       "equity_estimate": {
-        "estimated_equity": 0.245,
-        "model": "simple_river_model",
-        "explanation": "Базовая оценка на ривере строится от turn-equity≈0.23. Игра в позиции на ривере слегка повышает эффективную equity (около 1 п.п.). Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 1 п.п. equity. Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
+        "estimated_equity": 0.262,
+        "model": "mvp_river_heuristic",
+        "notes": "Equity approximation from turn estimate (shrunk toward 0.5)."
       },
-      "ev_estimate": null,
-      "decision_quality": "good",
-      "quality_comment": "Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка.",
-      "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке в позиции. Оценка решения движком: good. Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка. Оценочная equity на ривере против диапазона оппонента ≈ 0.24."
+      "ev_estimate": {
+        "street": "river",
+        "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "river_check_oop_hu",
+        "ev": 0.0,
+        "ev_action_str": "river_check_oop_hu",
+        "pot_before": 0.13,
+        "investment": null,
+        "estimated_equity": 0.262,
+        "fold_equity": 0.0,
+        "final_pot_if_called": null,
+        "model": "v1_baseline",
+        "assumptions": "street=river; action_kind=check; multiway=False; hero_ip=False; hero_position=UTG; villain_position=unknown; effective_stack=0.0; board_texture=unknown",
+        "confidence": 0.6,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "UTG",
+          "villain_position": "unknown",
+          "effective_stack": 0.0,
+          "board_texture": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
+      },
+      "missed_value": null,
+      "decision_quality": "ok",
+      "quality_comment": "EV(action)=+0.0000 по модели v1_baseline.",
+      "comment": "River: check. IP=False. Multiway=False."
     },
     "actions": [
       {
@@ -796,17 +877,39 @@
         "fold_equity": 0.5,
         "final_pot_if_called": 0.23
       },
-      "range_discipline": null,
-      "comment": "Тип действия: 3bet. Формат: raise. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.35 (35.3%), твоя оценочная equity около 0.70 (70.0%). Разница (edge) ≈ 0.35.",
+      "range_discipline": {
+        "in_mos": true,
+        "hero_position": "BTN",
+        "mos_min_position": "EP",
+        "error_type": null,
+        "range_comment": ""
+      },
+      "comment": "Тип действия: 3bet. Формат: raise. ReqEq≈0.35 (35.3%), Eq≈0.70 (70.0%), edge≈0.35.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "raise",
+        "ev_action": 0.10550000000000001,
+        "ev_action_label": "3bet_vs_unknown_raise",
+        "ev": 0.10550000000000001,
+        "ev_action_str": "3bet_vs_unknown_raise",
         "pot_before": 0.11000000000000001,
         "investment": 0.06,
         "estimated_equity": 0.7,
-        "fold_equity": null,
+        "fold_equity": 0.5,
         "final_pot_if_called": null,
-        "ev_action": 0.101
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=raise; multiway=False; hero_ip=False; hero_position=BTN; villain_position=unknown; effective_stack=96.5; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BTN",
+          "villain_position": "unknown",
+          "effective_stack": 96.5,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       }
     },
     "hero_flop_hand_category": "pair",
@@ -841,13 +944,28 @@
       },
       "ev_estimate": {
         "street": "flop",
-        "model": "ev_v1",
+        "action_kind": "bet",
+        "ev_action": 0.22360000000000002,
+        "ev_action_label": "flop_cbet",
+        "ev": 0.22360000000000002,
+        "ev_action_str": "flop_cbet",
         "pot_before": 0.26,
         "investment": 0.13,
         "estimated_equity": 0.68,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.22360000000000002
+        "model": "v1_baseline",
+        "assumptions": "street=flop; action_kind=bet; multiway=True; hero_ip=False; hero_position=BTN",
+        "confidence": 0.55,
+        "context": {
+          "players_to_flop": 4,
+          "multiway": true,
+          "hero_ip": false,
+          "hero_position": "BTN",
+          "preflop_role": "aggressor"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       },
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
@@ -858,8 +976,8 @@
       "action_kind": "call",
       "sizing": {
         "amount": 0.29,
-        "pot_before": 0.81,
-        "pct_pot": 0.3580246913580246
+        "pot_before": 0.52,
+        "pct_pot": 0.5576923076923076
       },
       "context": {
         "players_to_turn": 2,
@@ -869,35 +987,49 @@
         "preflop_role": "aggressor"
       },
       "hand": {
-        "approx_category_from_flop": "pair",
-        "approx_strength_score_from_flop": 0.7,
-        "flop_equity_estimate": 0.68,
-        "evolution": "same",
-        "evolution_detail": "equity_stable",
-        "board_texture": {
-          "turn_card_type": "paired_board",
-          "overall_texture": "semi_wet",
-          "impact_on_equity": "neutral"
-        }
+        "board_turn": "5h",
+        "board": [
+          "3c",
+          "As",
+          "5h",
+          "5h",
+          "Kh"
+        ]
       },
       "equity_estimate": {
-        "estimated_equity": 0.74,
-        "model": "simple_turn_model",
-        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.70. Игра в позиции на тёрне слегка повышает эффективную equity (около 2 п.п.). Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 2 п.п. equity. Колл на тёрне сохраняет часть equity, но без fold equity."
+        "estimated_equity": 0.653,
+        "model": "mvp_turn_heuristic"
       },
-      "decision_quality": "good",
-      "quality_comment": "Колл ставки на тёрне с сильной рукой выглядит логичным продолжением линии.",
-      "comment": "Тип действия на тёрне: call_vs_bet. Ты играешь в хедз-ап банке в позиции. По сравнению с флопом твоя реализуемая equity на тёрне примерно не изменилась. Карта тёрна классифицируется как 'paired_board'. Карта тёрна нейтральна для твоей руки/диапазона. Оценка решения движком: good. Колл ставки на тёрне с сильной рукой выглядит логичным продолжением линии. Оценочная equity на тёрне против диапазона оппонента ≈ 0.74.",
       "ev_estimate": {
         "street": "turn",
-        "model": "ev_v1",
-        "pot_before": 0.81,
+        "action_kind": "call",
+        "ev_action": 0.23893000000000003,
+        "ev_action_label": "turn_call_vs_bet_ip_hu",
+        "ev": 0.23893000000000003,
+        "ev_action_str": "turn_call_vs_bet_ip_hu",
+        "pot_before": 0.52,
         "investment": 0.29,
-        "estimated_equity": 0.74,
-        "fold_equity": null,
-        "final_pot_if_called": 1.1,
-        "ev_action": 0.524
-      }
+        "estimated_equity": 0.653,
+        "fold_equity": 0.0,
+        "final_pot_if_called": null,
+        "model": "v1_baseline",
+        "assumptions": "street=turn; action_kind=call; multiway=False; hero_ip=True; hero_position=BTN; villain_position=unknown; effective_stack=0.0; board_texture=unknown",
+        "confidence": 0.6,
+        "context": {
+          "multiway": false,
+          "hero_ip": true,
+          "hero_position": "BTN",
+          "villain_position": "unknown",
+          "effective_stack": 0.0,
+          "board_texture": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV(call/check)=equity*(pot_before+investment)-investment = 0.653*(0.52+0.29)-0.29"
+      },
+      "missed_value": null,
+      "decision_quality": "good",
+      "quality_comment": "EV=+0.2389",
+      "comment": "Turn call_vs_bet, IP=True, MW=False"
     },
     "hero_river_decision": {
       "action_type": "check",
@@ -912,25 +1044,54 @@
         "multiway": false,
         "hero_ip": true,
         "hero_position": "BTN",
-        "preflop_role": "aggressor"
+        "preflop_role": "known"
       },
       "hand": {
-        "base_from_turn_equity": 0.74,
-        "note": "На ривере в v1 мы опираемся на оценку equity с тёрна, слегка подстраивая её под контекст ривера."
+        "board_river": "Kh",
+        "board": [
+          "3c",
+          "As",
+          "5h",
+          "5h",
+          "Kh"
+        ],
+        "board_texture": "unknown"
       },
       "equity_estimate": {
-        "estimated_equity": 0.755,
-        "model": "simple_river_model",
-        "explanation": "Базовая оценка на ривере строится от turn-equity≈0.74. Игра в позиции на ривере слегка повышает эффективную equity (около 1 п.п.). Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 1 п.п. equity. Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
+        "estimated_equity": 0.6071,
+        "model": "mvp_river_heuristic",
+        "notes": "Equity approximation from turn estimate (shrunk toward 0.5)."
       },
       "ev_estimate": {
-        "ev_action": -0.1155,
-        "model": "river_missed_value_v1",
-        "explanation": "Ривер: эвристика missed value. Ты чекнул в позиции при оценочной equity≈0.76 (порог 0.65). Модель предполагает, что тонкий вэлью-бет мог бы принести дополнительно до ~25% банка пропорционально запасу по equity над порогом. Оценка недобора ≈ 0.1155 (в валюте стола)."
+        "street": "river",
+        "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "river_check_ip_hu",
+        "ev": 0.0,
+        "ev_action_str": "river_check_ip_hu",
+        "pot_before": 1.1,
+        "investment": null,
+        "estimated_equity": 0.6071,
+        "fold_equity": 0.0,
+        "final_pot_if_called": null,
+        "model": "v1_baseline",
+        "assumptions": "street=river; action_kind=check; multiway=False; hero_ip=True; hero_position=BTN; villain_position=unknown; effective_stack=0.0; board_texture=unknown",
+        "confidence": 0.6,
+        "context": {
+          "multiway": false,
+          "hero_ip": true,
+          "hero_position": "BTN",
+          "villain_position": "unknown",
+          "effective_stack": 0.0,
+          "board_texture": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       },
-      "decision_quality": "risky",
-      "quality_comment": "Чек на ривере с очень сильной рукой в хедз-ап поте в позиции может недобрать велью.",
-      "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке в позиции. Оценка решения движком: risky. Чек на ривере с очень сильной рукой в хедз-ап поте в позиции может недобрать велью. Оценочная equity на ривере против диапазона оппонента ≈ 0.76.  EV(action)≈-0.1155."
+      "missed_value": null,
+      "decision_quality": "ok",
+      "quality_comment": "EV(action)=+0.0000 по модели v1_baseline.",
+      "comment": "River: check. IP=True. Multiway=False."
     },
     "actions": [
       {
@@ -1264,22 +1425,37 @@
       },
       "range_discipline": {
         "in_mos": true,
-        "position_ok": true,
         "hero_position": "SB",
         "mos_min_position": "CO",
         "error_type": null,
-        "range_comment": "63s открыта с позиции SB, что НЕ раньше минимальной MOS-позиции CO. По диапазону открытия ты в рамках своей стратегии."
+        "range_comment": ""
       },
-      "comment": "Тип действия: open_limp. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.25 (25.0%), твоя оценочная equity около 0.52 (51.6%). Разница (edge) ≈ 0.27. 63s открыта с позиции SB, что НЕ раньше минимальной MOS-позиции CO. По диапазону открытия ты в рамках своей стратегии.",
+      "comment": "Тип действия: open_limp. Формат: call. ReqEq≈0.25 (25.0%), Eq≈0.52 (51.6%), edge≈0.27.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "call",
+        "ev_action": 0.010640000000000002,
+        "ev_action_label": "open_limp",
+        "ev": 0.010640000000000002,
+        "ev_action_str": "open_limp",
         "pot_before": 0.03,
         "investment": 0.01,
         "estimated_equity": 0.516,
-        "fold_equity": null,
-        "final_pot_if_called": 0.04,
-        "ev_action": 0.010640000000000002
+        "fold_equity": 0.0,
+        "final_pot_if_called": null,
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=call; multiway=False; hero_ip=False; hero_position=SB; villain_position=unknown; effective_stack=97.5; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "villain_position": "unknown",
+          "effective_stack": 97.5,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(call/check)=equity*(pot_before+investment)-investment = 0.516*(0.03+0.01)-0.01"
       }
     },
     "hero_flop_hand_category": "pair",
@@ -1313,16 +1489,29 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.35 и категории руки на флопе (pair). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, твой диапазон слегка слабее диапазона агрессора — вычитаем около 1 п.п. equity. Пара полностью на борде (board_pair), твой showdown value слабый — ещё немного снижаем equity."
       },
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "flop",
         "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "flop_check",
+        "ev": 0.0,
+        "ev_action_str": "flop_check",
         "pot_before": 0.04,
         "investment": null,
         "estimated_equity": 0.235,
         "fold_equity": null,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=flop; action_kind=check; multiway=False; hero_ip=False; hero_position=SB",
+        "confidence": 0.55,
+        "context": {
+          "players_to_flop": 2,
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "preflop_role": "caller"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
@@ -1341,40 +1530,52 @@
         "multiway": false,
         "hero_ip": false,
         "hero_position": "SB",
-        "preflop_role": "caller"
+        "preflop_role": "unknown"
       },
       "hand": {
-        "approx_category_from_flop": "pair",
-        "approx_strength_score_from_flop": 0.35,
-        "flop_equity_estimate": 0.235,
-        "evolution": "same",
-        "evolution_detail": "equity_stable",
-        "board_texture": {
-          "turn_card_type": "flush_complete",
-          "overall_texture": "wet",
-          "impact_on_equity": "negative"
-        }
+        "board_turn": "5s",
+        "board": [
+          "9s",
+          "9d",
+          "5s",
+          "5s",
+          "8c"
+        ]
       },
       "equity_estimate": {
-        "estimated_equity": 0.3,
-        "model": "simple_turn_model",
-        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.35. Игра без позиции на тёрне снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, диапазон немного слабее — вычитаем около 1 п.п. equity. Пассивная линия (чек) слегка уменьшает реализуемость equity."
+        "estimated_equity": 0.27475,
+        "model": "mvp_turn_heuristic"
       },
-      "decision_quality": "good",
-      "quality_comment": "Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air.",
-      "comment": "Тип действия на тёрне: check. Ты играешь в хедз-ап банке без позиции. По сравнению с флопом твоя реализуемая equity на тёрне примерно не изменилась. Карта тёрна классифицируется как 'flush_complete'. Влияние карты тёрна на твою руку скорее негативное. Оценка решения движком: good. Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.30.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "turn",
         "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "turn_check_oop_hu",
+        "ev": 0.0,
+        "ev_action_str": "turn_check_oop_hu",
         "pot_before": 0.04,
         "investment": null,
-        "estimated_equity": 0.3,
-        "fold_equity": null,
+        "estimated_equity": 0.27475,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
-      }
+        "model": "v1_baseline",
+        "assumptions": "street=turn; action_kind=check; multiway=False; hero_ip=False; hero_position=SB; villain_position=unknown; effective_stack=0.0; board_texture=unknown",
+        "confidence": 0.6,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "villain_position": "unknown",
+          "effective_stack": 0.0,
+          "board_texture": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
+      },
+      "missed_value": null,
+      "decision_quality": "ok",
+      "quality_comment": "EV=+0.0000",
+      "comment": "Turn check, IP=False, MW=False"
     },
     "hero_river_decision": {
       "action_type": "check",
@@ -1389,21 +1590,54 @@
         "multiway": false,
         "hero_ip": false,
         "hero_position": "SB",
-        "preflop_role": "caller"
+        "preflop_role": "known"
       },
       "hand": {
-        "base_from_turn_equity": 0.3,
-        "note": "На ривере в v1 мы опираемся на оценку equity с тёрна, слегка подстраивая её под контекст ривера."
+        "board_river": "8c",
+        "board": [
+          "9s",
+          "9d",
+          "5s",
+          "5s",
+          "8c"
+        ],
+        "board_texture": "unknown"
       },
       "equity_estimate": {
-        "estimated_equity": 0.28,
-        "model": "simple_river_model",
-        "explanation": "Базовая оценка на ривере строится от turn-equity≈0.30. Игра без позиции на ривере слегка снижает эффективную equity (примерно на 1 п.п.). Ты префлоп-коллер, диапазон немного слабее — вычитаем около 0.5 п.п. equity. Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
+        "estimated_equity": 0.342325,
+        "model": "mvp_river_heuristic",
+        "notes": "Equity approximation from turn estimate (shrunk toward 0.5)."
       },
-      "ev_estimate": null,
-      "decision_quality": "good",
-      "quality_comment": "Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка.",
-      "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке без позиции. Оценка решения движком: good. Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка. Оценочная equity на ривере против диапазона оппонента ≈ 0.28."
+      "ev_estimate": {
+        "street": "river",
+        "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "river_check_oop_hu",
+        "ev": 0.0,
+        "ev_action_str": "river_check_oop_hu",
+        "pot_before": 0.04,
+        "investment": null,
+        "estimated_equity": 0.342325,
+        "fold_equity": 0.0,
+        "final_pot_if_called": null,
+        "model": "v1_baseline",
+        "assumptions": "street=river; action_kind=check; multiway=False; hero_ip=False; hero_position=SB; villain_position=unknown; effective_stack=0.0; board_texture=unknown",
+        "confidence": 0.6,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "villain_position": "unknown",
+          "effective_stack": 0.0,
+          "board_texture": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
+      },
+      "missed_value": null,
+      "decision_quality": "ok",
+      "quality_comment": "EV(action)=+0.0000 по модели v1_baseline.",
+      "comment": "River: check. IP=False. Multiway=False."
     },
     "actions": [
       {
@@ -1664,17 +1898,39 @@
         "fold_equity": null,
         "final_pot_if_called": null
       },
-      "range_discipline": null,
-      "comment": "Тип действия: call_vs_raise. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.31 (30.8%), твоя оценочная equity около 0.61 (61.2%). Разница (edge) ≈ 0.30.",
+      "range_discipline": {
+        "in_mos": true,
+        "hero_position": "BB",
+        "mos_min_position": "MP",
+        "error_type": null,
+        "range_comment": ""
+      },
+      "comment": "Тип действия: call_vs_raise. Формат: call. ReqEq≈0.31 (30.8%), Eq≈0.61 (61.2%), edge≈0.30.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "call",
+        "ev_action": 0.039560000000000005,
+        "ev_action_label": "call_vs_unknown_raise",
+        "ev": 0.039560000000000005,
+        "ev_action_str": "call_vs_unknown_raise",
         "pot_before": 0.09,
         "investment": 0.04,
         "estimated_equity": 0.612,
-        "fold_equity": null,
-        "final_pot_if_called": 0.13,
-        "ev_action": 0.039560000000000005
+        "fold_equity": 0.0,
+        "final_pot_if_called": null,
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=call; multiway=False; hero_ip=False; hero_position=BB; villain_position=unknown; effective_stack=100.49999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BB",
+          "villain_position": "unknown",
+          "effective_stack": 100.49999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(call/check)=equity*(pot_before+investment)-investment = 0.612*(0.09+0.04)-0.04"
       }
     },
     "hero_flop_hand_category": "high_card",
@@ -1708,16 +1964,29 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.20 и категории руки на флопе (high_card). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, твой диапазон слегка слабее диапазона агрессора — вычитаем около 1 п.п. equity. Рука без попадания (high_card) редко хорошо реализует equity — дополнительно уменьшаем оценку."
       },
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "flop",
         "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "flop_check",
+        "ev": 0.0,
+        "ev_action_str": "flop_check",
         "pot_before": 0.13,
         "investment": null,
         "estimated_equity": 0.05,
         "fold_equity": null,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=flop; action_kind=check; multiway=False; hero_ip=False; hero_position=BB",
+        "confidence": 0.55,
+        "context": {
+          "players_to_flop": 2,
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BB",
+          "preflop_role": "caller"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
@@ -1943,18 +2212,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.03,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=UTG; villain_position=unknown; effective_stack=100.49999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "UTG",
+          "villain_position": "unknown",
+          "effective_stack": 100.49999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -2145,19 +2428,39 @@
         "fold_equity": null,
         "final_pot_if_called": null
       },
-      "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "range_discipline": {
+        "in_mos": true,
+        "hero_position": "MP",
+        "mos_min_position": "HJ",
+        "error_type": null,
+        "range_comment": ""
+      },
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.07,
         "investment": null,
         "estimated_equity": 0.564,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=MP; villain_position=unknown; effective_stack=100.49999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "MP",
+          "villain_position": "unknown",
+          "effective_stack": 100.49999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -2435,24 +2738,33 @@
         "fold_equity": 0.52,
         "final_pot_if_called": 0.19
       },
-      "range_discipline": {
-        "in_mos": false,
-        "position_ok": false,
-        "hero_position": "BTN",
-        "mos_min_position": null,
-        "error_type": "too_loose_open",
-        "range_comment": "AKo не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
-      },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.73 (72.7%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.28. AKo не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии.",
+      "range_discipline": null,
+      "comment": "Тип действия: open_raise. Формат: raise. ReqEq≈0.73 (72.7%), Eq≈0.45 (45.0%), edge≈-0.28.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "raise",
+        "ev_action": 0.018240000000000003,
+        "ev_action_label": "open_raise_from_btn",
+        "ev": 0.018240000000000003,
+        "ev_action_str": "open_raise_from_btn",
         "pot_before": 0.03,
         "investment": 0.08,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.52,
         "final_pot_if_called": null,
-        "ev_action": 0.005500000000000005
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=raise; multiway=False; hero_ip=False; hero_position=BTN; villain_position=unknown; effective_stack=99.0; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BTN",
+          "villain_position": "unknown",
+          "effective_stack": 99.0,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       }
     },
     "hero_flop_hand_category": null,
@@ -2631,7 +2943,7 @@
     "hero_preflop_decision": {
       "action_type": "open_limp",
       "action_kind": "call",
-      "decision_quality": "marginal",
+      "decision_quality": "good",
       "math": {
         "pot_before": 0.03,
         "investment": 0.01,
@@ -2643,24 +2955,33 @@
         "fold_equity": null,
         "final_pot_if_called": null
       },
-      "range_discipline": {
-        "in_mos": false,
-        "position_ok": false,
-        "hero_position": "SB",
-        "mos_min_position": null,
-        "error_type": "too_loose_open",
-        "range_comment": "A6o не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_limp. Это оверлузовый open относительно твоей базовой стратегии."
-      },
-      "comment": "Тип действия: open_limp. Формат: call. Решение находится около нуля: математически оно допустимо, но без большого запаса. Пот-оддсы дают требуемую equity примерно 0.25 (25.0%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ 0.20. A6o не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_limp. Это оверлузовый open относительно твоей базовой стратегии.",
+      "range_discipline": null,
+      "comment": "Тип действия: open_limp. Формат: call. ReqEq≈0.25 (25.0%), Eq≈0.45 (45.0%), edge≈0.20.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "call",
+        "ev_action": 0.008000000000000002,
+        "ev_action_label": "open_limp",
+        "ev": 0.008000000000000002,
+        "ev_action_str": "open_limp",
         "pot_before": 0.03,
         "investment": 0.01,
         "estimated_equity": 0.45,
-        "fold_equity": null,
-        "final_pot_if_called": 0.04,
-        "ev_action": 0.008000000000000002
+        "fold_equity": 0.0,
+        "final_pot_if_called": null,
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=call; multiway=False; hero_ip=False; hero_position=SB; villain_position=unknown; effective_stack=97.0; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "villain_position": "unknown",
+          "effective_stack": 97.0,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(call/check)=equity*(pot_before+investment)-investment = 0.450*(0.03+0.01)-0.01"
       }
     },
     "hero_flop_hand_category": "pair",
@@ -2695,13 +3016,28 @@
       },
       "ev_estimate": {
         "street": "flop",
-        "model": "ev_v1",
+        "action_kind": "bet",
+        "ev_action": 0.037599999999999995,
+        "ev_action_label": "flop_bet_vs_check",
+        "ev": 0.037599999999999995,
+        "ev_action_str": "flop_bet_vs_check",
         "pot_before": 0.04,
         "investment": 0.02,
         "estimated_equity": 0.72,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.037599999999999995
+        "model": "v1_baseline",
+        "assumptions": "street=flop; action_kind=bet; multiway=False; hero_ip=False; hero_position=SB",
+        "confidence": 0.55,
+        "context": {
+          "players_to_flop": 2,
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "preflop_role": "caller"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       },
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
@@ -2720,38 +3056,51 @@
         "multiway": false,
         "hero_ip": false,
         "hero_position": "SB",
-        "preflop_role": "caller"
+        "preflop_role": "unknown"
       },
       "hand": {
-        "approx_category_from_flop": "pair",
-        "approx_strength_score_from_flop": 0.7,
-        "flop_equity_estimate": 0.72,
-        "evolution": "same",
-        "evolution_detail": "equity_stable",
-        "board_texture": {
-          "turn_card_type": "paired_board",
-          "overall_texture": "semi_wet",
-          "impact_on_equity": "neutral"
-        }
+        "board_turn": "5s",
+        "board": [
+          "Ac",
+          "3c",
+          "5s",
+          "5s"
+        ]
       },
       "equity_estimate": {
-        "estimated_equity": 0.68,
-        "model": "simple_turn_model",
-        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.70. Игра без позиции на тёрне снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, диапазон немного слабее — вычитаем около 1 п.п. equity. Агрессия на тёрне (ставка/рейз) увеличивает реализацию equity примерно на 2 п.п."
+        "estimated_equity": 0.6869999999999999,
+        "model": "mvp_turn_heuristic"
       },
-      "decision_quality": "good",
-      "quality_comment": "Ставка на тёрне с сильной готовой рукой выглядит стандартным велью-розыгрышем.",
-      "comment": "Тип действия на тёрне: bet_vs_check. Ты играешь в хедз-ап банке без позиции. Размер ставки на тёрне: 0.04 в пот 0.08 (~50.0% пота). По сравнению с флопом твоя реализуемая equity на тёрне примерно не изменилась. Карта тёрна классифицируется как 'paired_board'. Карта тёрна нейтральна для твоей руки/диапазона. Оценка решения движком: good. Ставка на тёрне с сильной готовой рукой выглядит стандартным велью-розыгрышем. Оценочная equity на тёрне против диапазона оппонента ≈ 0.68.",
       "ev_estimate": {
         "street": "turn",
-        "model": "ev_v1",
+        "action_kind": "bet",
+        "ev_action": 0.06991999999999998,
+        "ev_action_label": "turn_bet_vs_check_oop_hu",
+        "ev": 0.06991999999999998,
+        "ev_action_str": "turn_bet_vs_check_oop_hu",
         "pot_before": 0.08,
         "investment": 0.04,
-        "estimated_equity": 0.68,
-        "fold_equity": null,
+        "estimated_equity": 0.6869999999999999,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0688
-      }
+        "model": "v1_baseline",
+        "assumptions": "street=turn; action_kind=bet; multiway=False; hero_ip=False; hero_position=SB; villain_position=unknown; effective_stack=0.0; board_texture=unknown",
+        "confidence": 0.6,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "villain_position": "unknown",
+          "effective_stack": 0.0,
+          "board_texture": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
+      },
+      "missed_value": null,
+      "decision_quality": "good",
+      "quality_comment": "EV=+0.0699",
+      "comment": "Turn bet_vs_check, IP=False, MW=False"
     },
     "hero_river_decision": null,
     "actions": [
@@ -2983,18 +3332,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.07,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=BB; villain_position=unknown; effective_stack=98.0; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BB",
+          "villain_position": "unknown",
+          "effective_stack": 98.0,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -3185,24 +3548,33 @@
         "fold_equity": 0.35,
         "final_pot_if_called": 0.11
       },
-      "range_discipline": {
-        "in_mos": false,
-        "position_ok": false,
-        "hero_position": "UTG",
-        "mos_min_position": null,
-        "error_type": "too_loose_open",
-        "range_comment": "KJo не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
-      },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.12. KJo не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии.",
+      "range_discipline": null,
+      "comment": "Тип действия: open_raise. Формат: raise. ReqEq≈0.57 (57.1%), Eq≈0.45 (45.0%), edge≈-0.12.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "raise",
+        "ev_action": 0.016675,
+        "ev_action_label": "open_raise_from_utg",
+        "ev": 0.016675,
+        "ev_action_str": "open_raise_from_utg",
         "pot_before": 0.03,
         "investment": 0.04,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.35,
         "final_pot_if_called": null,
-        "ev_action": 0.009500000000000001
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=raise; multiway=False; hero_ip=False; hero_position=UTG; villain_position=unknown; effective_stack=105.0; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "UTG",
+          "villain_position": "unknown",
+          "effective_stack": 105.0,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       }
     },
     "hero_flop_hand_category": "high_card",
@@ -3236,16 +3608,29 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.20 и категории руки на флопе (high_card). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-агрессор, поэтому твой диапазон в среднем сильнее — добавляем около 2 п.п. equity. Рука без попадания (high_card) редко хорошо реализует equity — дополнительно уменьшаем оценку."
       },
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "flop",
         "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "flop_check",
+        "ev": 0.0,
+        "ev_action_str": "flop_check",
         "pot_before": 0.31000000000000005,
         "investment": null,
         "estimated_equity": 0.05,
         "fold_equity": null,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=flop; action_kind=check; multiway=False; hero_ip=False; hero_position=UTG",
+        "confidence": 0.55,
+        "context": {
+          "players_to_flop": 2,
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "UTG",
+          "preflop_role": "aggressor"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
@@ -3476,24 +3861,37 @@
       },
       "range_discipline": {
         "in_mos": true,
-        "position_ok": false,
         "hero_position": "UTG",
         "mos_min_position": "MP",
         "error_type": null,
-        "range_comment": "KTo есть в MOS-RFI, но только начиная с позиции MP. Фолд с более ранней позиции UTG — часть тайтового, дисциплинированного плана."
+        "range_comment": ""
       },
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки. KTo есть в MOS-RFI, но только начиная с позиции MP. Фолд с более ранней позиции UTG — часть тайтового, дисциплинированного плана.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.03,
         "investment": null,
         "estimated_equity": 0.612,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=UTG; villain_position=unknown; effective_stack=105.0; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "UTG",
+          "villain_position": "unknown",
+          "effective_stack": 105.0,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -3660,22 +4058,37 @@
       },
       "range_discipline": {
         "in_mos": true,
-        "position_ok": true,
         "hero_position": "BTN",
         "mos_min_position": "MP",
         "error_type": null,
-        "range_comment": "A7s открыта с позиции BTN, что НЕ раньше минимальной MOS-позиции MP. По диапазону открытия ты в рамках своей стратегии."
+        "range_comment": ""
       },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.67 (66.7%), твоя оценочная equity около 0.61 (61.2%). Разница (edge) ≈ -0.05. A7s открыта с позиции BTN, что НЕ раньше минимальной MOS-позиции MP. По диапазону открытия ты в рамках своей стратегии.",
+      "comment": "Тип действия: open_raise. Формат: raise. ReqEq≈0.67 (66.7%), Eq≈0.61 (61.2%), edge≈-0.05.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "raise",
+        "ev_action": 0.030863999999999996,
+        "ev_action_label": "open_raise_from_btn",
+        "ev": 0.030863999999999996,
+        "ev_action_str": "open_raise_from_btn",
         "pot_before": 0.03,
         "investment": 0.06,
         "estimated_equity": 0.612,
-        "fold_equity": null,
+        "fold_equity": 0.52,
         "final_pot_if_called": null,
-        "ev_action": 0.031799999999999995
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=raise; multiway=False; hero_ip=False; hero_position=BTN; villain_position=unknown; effective_stack=108.0; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BTN",
+          "villain_position": "unknown",
+          "effective_stack": 108.0,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       }
     },
     "hero_flop_hand_category": "high_card",
@@ -3709,16 +4122,29 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.20 и категории руки на флопе (high_card). Игра в позиции (IP) слегка повышает эффективную equity (около 2 п.п.). Ты префлоп-агрессор, поэтому твой диапазон в среднем сильнее — добавляем около 2 п.п. equity. Рука без попадания (high_card) редко хорошо реализует equity — дополнительно уменьшаем оценку."
       },
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "flop",
         "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "flop_check",
+        "ev": 0.0,
+        "ev_action_str": "flop_check",
         "pot_before": 0.13,
         "investment": null,
         "estimated_equity": 0.1,
         "fold_equity": null,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=flop; action_kind=check; multiway=False; hero_ip=True; hero_position=BTN",
+        "confidence": 0.55,
+        "context": {
+          "players_to_flop": 2,
+          "multiway": false,
+          "hero_ip": true,
+          "hero_position": "BTN",
+          "preflop_role": "aggressor"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и избегaешь минусовых блефов.",
@@ -3740,37 +4166,49 @@
         "preflop_role": "aggressor"
       },
       "hand": {
-        "approx_category_from_flop": "high_card",
-        "approx_strength_score_from_flop": 0.2,
-        "flop_equity_estimate": 0.1,
-        "evolution": "improved",
-        "evolution_detail": "equity_increased",
-        "board_texture": {
-          "turn_card_type": "flush_complete",
-          "overall_texture": "wet",
-          "impact_on_equity": "positive"
-        }
+        "board_turn": "Qs",
+        "board": [
+          "5s",
+          "6d",
+          "Qs",
+          "Qs",
+          "3s"
+        ]
       },
       "equity_estimate": {
-        "estimated_equity": 0.23,
-        "model": "simple_turn_model",
-        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.20. Игра в позиции на тёрне слегка повышает эффективную equity (около 2 п.п.). Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 2 п.п. equity. Пассивная линия (чек) слегка уменьшает реализуемость equity."
+        "estimated_equity": 0.15999999999999998,
+        "model": "mvp_turn_heuristic"
       },
-      "decision_quality": "good",
-      "quality_comment": "Чек на тёрне с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и не раздуваешь его с air.",
-      "comment": "Тип действия на тёрне: check. Ты играешь в хедз-ап банке в позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'flush_complete'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: good. Чек на тёрне с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и не раздуваешь его с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.23.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "turn",
         "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "turn_check_ip_hu",
+        "ev": 0.0,
+        "ev_action_str": "turn_check_ip_hu",
         "pot_before": 0.13,
         "investment": null,
-        "estimated_equity": 0.23,
-        "fold_equity": null,
+        "estimated_equity": 0.15999999999999998,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
-      }
+        "model": "v1_baseline",
+        "assumptions": "street=turn; action_kind=check; multiway=False; hero_ip=True; hero_position=BTN; villain_position=unknown; effective_stack=0.0; board_texture=unknown",
+        "confidence": 0.6,
+        "context": {
+          "multiway": false,
+          "hero_ip": true,
+          "hero_position": "BTN",
+          "villain_position": "unknown",
+          "effective_stack": 0.0,
+          "board_texture": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
+      },
+      "missed_value": null,
+      "decision_quality": "ok",
+      "quality_comment": "EV=+0.0000",
+      "comment": "Turn check, IP=True, MW=False"
     },
     "hero_river_decision": {
       "action_type": "check",
@@ -3785,21 +4223,54 @@
         "multiway": false,
         "hero_ip": true,
         "hero_position": "BTN",
-        "preflop_role": "aggressor"
+        "preflop_role": "known"
       },
       "hand": {
-        "base_from_turn_equity": 0.23,
-        "note": "На ривере в v1 мы опираемся на оценку equity с тёрна, слегка подстраивая её под контекст ривера."
+        "board_river": "3s",
+        "board": [
+          "5s",
+          "6d",
+          "Qs",
+          "Qs",
+          "3s"
+        ],
+        "board_texture": "unknown"
       },
       "equity_estimate": {
-        "estimated_equity": 0.245,
-        "model": "simple_river_model",
-        "explanation": "Базовая оценка на ривере строится от turn-equity≈0.23. Игра в позиции на ривере слегка повышает эффективную equity (около 1 п.п.). Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 1 п.п. equity. Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
+        "estimated_equity": 0.262,
+        "model": "mvp_river_heuristic",
+        "notes": "Equity approximation from turn estimate (shrunk toward 0.5)."
       },
-      "ev_estimate": null,
-      "decision_quality": "good",
-      "quality_comment": "Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка.",
-      "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке в позиции. Оценка решения движком: good. Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка. Оценочная equity на ривере против диапазона оппонента ≈ 0.24."
+      "ev_estimate": {
+        "street": "river",
+        "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "river_check_ip_hu",
+        "ev": 0.0,
+        "ev_action_str": "river_check_ip_hu",
+        "pot_before": 0.13,
+        "investment": null,
+        "estimated_equity": 0.262,
+        "fold_equity": 0.0,
+        "final_pot_if_called": null,
+        "model": "v1_baseline",
+        "assumptions": "street=river; action_kind=check; multiway=False; hero_ip=True; hero_position=BTN; villain_position=unknown; effective_stack=0.0; board_texture=unknown",
+        "confidence": 0.6,
+        "context": {
+          "multiway": false,
+          "hero_ip": true,
+          "hero_position": "BTN",
+          "villain_position": "unknown",
+          "effective_stack": 0.0,
+          "board_texture": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
+      },
+      "missed_value": null,
+      "decision_quality": "ok",
+      "quality_comment": "EV(action)=+0.0000 по модели v1_baseline.",
+      "comment": "River: check. IP=True. Multiway=False."
     },
     "actions": [
       {
@@ -4046,18 +4517,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.08,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=SB; villain_position=unknown; effective_stack=108.5; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "villain_position": "unknown",
+          "effective_stack": 108.5,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -4233,18 +4718,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.09,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=BB; villain_position=unknown; effective_stack=109.5; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BB",
+          "villain_position": "unknown",
+          "effective_stack": 109.5,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -4426,18 +4925,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.03,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=MP; villain_position=unknown; effective_stack=109.5; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "MP",
+          "villain_position": "unknown",
+          "effective_stack": 109.5,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -4663,18 +5176,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.08,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=BTN; villain_position=unknown; effective_stack=109.5; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BTN",
+          "villain_position": "unknown",
+          "effective_stack": 109.5,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -4866,16 +5393,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: call_vs_raise. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.33 (33.3%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ 0.12.",
+      "comment": "Тип действия: call_vs_raise. Формат: call. ReqEq≈0.33 (33.3%), Eq≈0.45 (45.0%), edge≈0.12.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "call",
+        "ev_action": 0.013999999999999999,
+        "ev_action_label": "call_vs_unknown_raise",
+        "ev": 0.013999999999999999,
+        "ev_action_str": "call_vs_unknown_raise",
         "pot_before": 0.08,
         "investment": 0.04,
         "estimated_equity": 0.45,
-        "fold_equity": null,
-        "final_pot_if_called": 0.12,
-        "ev_action": 0.013999999999999999
+        "fold_equity": 0.0,
+        "final_pot_if_called": null,
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=call; multiway=False; hero_ip=False; hero_position=SB; villain_position=unknown; effective_stack=106.0; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "villain_position": "unknown",
+          "effective_stack": 106.0,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(call/check)=equity*(pot_before+investment)-investment = 0.450*(0.08+0.04)-0.04"
       }
     },
     "hero_flop_hand_category": "two_pair",
@@ -4910,13 +5453,28 @@
       },
       "ev_estimate": {
         "street": "flop",
-        "model": "ev_v1",
+        "action_kind": "bet",
+        "ev_action": 0.11904,
+        "ev_action_label": "flop_bet_vs_check",
+        "ev": 0.11904,
+        "ev_action_str": "flop_bet_vs_check",
         "pot_before": 0.12,
         "investment": 0.06,
         "estimated_equity": 0.746,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.11904
+        "model": "v1_baseline",
+        "assumptions": "street=flop; action_kind=bet; multiway=False; hero_ip=False; hero_position=SB",
+        "confidence": 0.55,
+        "context": {
+          "players_to_flop": 2,
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "preflop_role": "caller"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       },
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
@@ -5132,18 +5690,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.09,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=BB; villain_position=unknown; effective_stack=107.0; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BB",
+          "villain_position": "unknown",
+          "effective_stack": 107.0,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -5334,24 +5906,33 @@
         "fold_equity": 0.35,
         "final_pot_if_called": 0.15
       },
-      "range_discipline": {
-        "in_mos": false,
-        "position_ok": false,
-        "hero_position": "UTG",
-        "mos_min_position": null,
-        "error_type": "too_loose_open",
-        "range_comment": "77 не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
-      },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.67 (66.7%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.22. 77 не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии.",
+      "range_discipline": null,
+      "comment": "Тип действия: open_raise. Формат: raise. ReqEq≈0.67 (66.7%), Eq≈0.45 (45.0%), edge≈-0.22.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "raise",
+        "ev_action": 0.015375000000000003,
+        "ev_action_label": "open_raise_from_utg",
+        "ev": 0.015375000000000003,
+        "ev_action_str": "open_raise_from_utg",
         "pot_before": 0.03,
         "investment": 0.06,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.35,
         "final_pot_if_called": null,
-        "ev_action": 0.007500000000000007
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=raise; multiway=False; hero_ip=False; hero_position=UTG; villain_position=unknown; effective_stack=105.49999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "UTG",
+          "villain_position": "unknown",
+          "effective_stack": 105.49999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       }
     },
     "hero_flop_hand_category": null,
@@ -5544,24 +6125,37 @@
       },
       "range_discipline": {
         "in_mos": true,
-        "position_ok": false,
         "hero_position": "MP",
         "mos_min_position": "CO",
         "error_type": null,
-        "range_comment": "J5s есть в MOS-RFI, но только начиная с позиции CO. Фолд с более ранней позиции MP — часть тайтового, дисциплинированного плана."
+        "range_comment": ""
       },
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки. J5s есть в MOS-RFI, но только начиная с позиции CO. Фолд с более ранней позиции MP — часть тайтового, дисциплинированного плана.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.03,
         "investment": null,
         "estimated_equity": 0.516,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=MP; villain_position=unknown; effective_stack=105.49999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "MP",
+          "villain_position": "unknown",
+          "effective_stack": 105.49999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -5736,24 +6330,33 @@
         "fold_equity": 0.52,
         "final_pot_if_called": 0.11
       },
-      "range_discipline": {
-        "in_mos": false,
-        "position_ok": false,
-        "hero_position": "BTN",
-        "mos_min_position": null,
-        "error_type": "too_loose_open",
-        "range_comment": "33 не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
-      },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.12. 33 не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии.",
+      "range_discipline": null,
+      "comment": "Тип действия: open_raise. Формат: raise. ReqEq≈0.57 (57.1%), Eq≈0.45 (45.0%), edge≈-0.12.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "raise",
+        "ev_action": 0.02016,
+        "ev_action_label": "open_raise_from_btn",
+        "ev": 0.02016,
+        "ev_action_str": "open_raise_from_btn",
         "pot_before": 0.03,
         "investment": 0.04,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.52,
         "final_pot_if_called": null,
-        "ev_action": 0.009500000000000001
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=raise; multiway=False; hero_ip=False; hero_position=BTN; villain_position=unknown; effective_stack=104.0; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BTN",
+          "villain_position": "unknown",
+          "effective_stack": 104.0,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       }
     },
     "hero_flop_hand_category": null,
@@ -5929,18 +6532,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.08,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=SB; villain_position=unknown; effective_stack=104.49999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "villain_position": "unknown",
+          "effective_stack": 104.49999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -6147,22 +6764,37 @@
       },
       "range_discipline": {
         "in_mos": true,
-        "position_ok": false,
         "hero_position": "UTG",
         "mos_min_position": "CO",
-        "error_type": "too_early_position_open",
-        "range_comment": "A7o по MOS-чарту должна впервые открываться не раньше позиции CO, но была открыта с более ранней позиции UTG. Это лузовый open относительно твоего RFI."
+        "error_type": null,
+        "range_comment": ""
       },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.52 (51.6%). Разница (edge) ≈ -0.06. A7o по MOS-чарту должна впервые открываться не раньше позиции CO, но была открыта с более ранней позиции UTG. Это лузовый open относительно твоего RFI.",
+      "comment": "Тип действия: open_raise. Формат: raise. ReqEq≈0.57 (57.1%), Eq≈0.52 (51.6%), edge≈-0.06.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "raise",
+        "ev_action": 0.021394000000000003,
+        "ev_action_label": "open_raise_from_utg",
+        "ev": 0.021394000000000003,
+        "ev_action_str": "open_raise_from_utg",
         "pot_before": 0.03,
         "investment": 0.04,
         "estimated_equity": 0.516,
-        "fold_equity": null,
+        "fold_equity": 0.35,
         "final_pot_if_called": null,
-        "ev_action": 0.016760000000000004
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=raise; multiway=False; hero_ip=False; hero_position=UTG; villain_position=unknown; effective_stack=110.5; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "UTG",
+          "villain_position": "unknown",
+          "effective_stack": 110.5,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       }
     },
     "hero_flop_hand_category": "pair",
@@ -6196,16 +6828,29 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.35 и категории руки на флопе (pair). Мультипот (несколько оппонентов) снижает твою equity примерно на 7 п.п. Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-агрессор, поэтому твой диапазон в среднем сильнее — добавляем около 2 п.п. equity. Пара полностью на борде (board_pair), твой showdown value слабый — ещё немного снижаем equity."
       },
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "flop",
         "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "flop_check",
+        "ev": 0.0,
+        "ev_action_str": "flop_check",
         "pot_before": 0.38,
         "investment": null,
         "estimated_equity": 0.195,
         "fold_equity": null,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=flop; action_kind=check; multiway=True; hero_ip=False; hero_position=UTG",
+        "confidence": 0.55,
+        "context": {
+          "players_to_flop": 3,
+          "multiway": true,
+          "hero_ip": false,
+          "hero_position": "UTG",
+          "preflop_role": "aggressor"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
@@ -6514,18 +7159,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.03,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=MP; villain_position=unknown; effective_stack=110.5; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "MP",
+          "villain_position": "unknown",
+          "effective_stack": 110.5,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -6751,18 +7410,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.05,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=BTN; villain_position=unknown; effective_stack=110.5; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BTN",
+          "villain_position": "unknown",
+          "effective_stack": 110.5,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -7030,19 +7703,39 @@
         "fold_equity": null,
         "final_pot_if_called": null
       },
-      "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "range_discipline": {
+        "in_mos": true,
+        "hero_position": "SB",
+        "mos_min_position": "HJ",
+        "error_type": null,
+        "range_comment": ""
+      },
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.08,
         "investment": null,
         "estimated_equity": 0.564,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=SB; villain_position=unknown; effective_stack=111.00000000000001; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "villain_position": "unknown",
+          "effective_stack": 111.00000000000001,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -7268,18 +7961,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.15,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=BB; villain_position=unknown; effective_stack=112.00000000000001; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BB",
+          "villain_position": "unknown",
+          "effective_stack": 112.00000000000001,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -7548,18 +8255,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.03,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=UTG; villain_position=unknown; effective_stack=112.00000000000001; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "UTG",
+          "villain_position": "unknown",
+          "effective_stack": 112.00000000000001,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -7785,18 +8506,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.03,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=MP; villain_position=unknown; effective_stack=112.00000000000001; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "MP",
+          "villain_position": "unknown",
+          "effective_stack": 112.00000000000001,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -8038,17 +8773,39 @@
         "fold_equity": null,
         "final_pot_if_called": null
       },
-      "range_discipline": null,
-      "comment": "Тип действия: call_vs_raise. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.27 (26.7%), твоя оценочная equity около 0.61 (61.2%). Разница (edge) ≈ 0.35.",
+      "range_discipline": {
+        "in_mos": true,
+        "hero_position": "BTN",
+        "mos_min_position": "MP",
+        "error_type": null,
+        "range_comment": ""
+      },
+      "comment": "Тип действия: call_vs_raise. Формат: call. ReqEq≈0.27 (26.7%), Eq≈0.61 (61.2%), edge≈0.35.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "call",
+        "ev_action": 0.051800000000000006,
+        "ev_action_label": "call_vs_unknown_raise",
+        "ev": 0.051800000000000006,
+        "ev_action_str": "call_vs_unknown_raise",
         "pot_before": 0.11000000000000001,
         "investment": 0.04,
         "estimated_equity": 0.612,
-        "fold_equity": null,
-        "final_pot_if_called": 0.15000000000000002,
-        "ev_action": 0.051800000000000006
+        "fold_equity": 0.0,
+        "final_pot_if_called": null,
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=call; multiway=False; hero_ip=False; hero_position=BTN; villain_position=unknown; effective_stack=113.99999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BTN",
+          "villain_position": "unknown",
+          "effective_stack": 113.99999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(call/check)=equity*(pot_before+investment)-investment = 0.612*(0.11+0.04)-0.04"
       },
       "followup_vs_aggression": {
         "action_type": "fold_vs_3bet_plus",
@@ -8311,22 +9068,37 @@
       },
       "range_discipline": {
         "in_mos": true,
-        "position_ok": true,
         "hero_position": "SB",
         "mos_min_position": "HJ",
         "error_type": null,
-        "range_comment": "75s открыта с позиции SB, что НЕ раньше минимальной MOS-позиции HJ. По диапазону открытия ты в рамках своей стратегии."
+        "range_comment": ""
       },
-      "comment": "Тип действия: open_limp. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.25 (25.0%), твоя оценочная equity около 0.56 (56.4%). Разница (edge) ≈ 0.31. 75s открыта с позиции SB, что НЕ раньше минимальной MOS-позиции HJ. По диапазону открытия ты в рамках своей стратегии.",
+      "comment": "Тип действия: open_limp. Формат: call. ReqEq≈0.25 (25.0%), Eq≈0.56 (56.4%), edge≈0.31.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "call",
+        "ev_action": 0.012559999999999997,
+        "ev_action_label": "open_limp",
+        "ev": 0.012559999999999997,
+        "ev_action_str": "open_limp",
         "pot_before": 0.03,
         "investment": 0.01,
         "estimated_equity": 0.564,
-        "fold_equity": null,
-        "final_pot_if_called": 0.04,
-        "ev_action": 0.012559999999999997
+        "fold_equity": 0.0,
+        "final_pot_if_called": null,
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=call; multiway=False; hero_ip=False; hero_position=SB; villain_position=unknown; effective_stack=114.99999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "villain_position": "unknown",
+          "effective_stack": 114.99999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(call/check)=equity*(pot_before+investment)-investment = 0.564*(0.03+0.01)-0.01"
       }
     },
     "hero_flop_hand_category": "high_card",
@@ -8360,16 +9132,29 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.20 и категории руки на флопе (high_card). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, твой диапазон слегка слабее диапазона агрессора — вычитаем около 1 п.п. equity. Рука без попадания (high_card) редко хорошо реализует equity — дополнительно уменьшаем оценку."
       },
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "flop",
         "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "flop_check",
+        "ev": 0.0,
+        "ev_action_str": "flop_check",
         "pot_before": 0.04,
         "investment": null,
         "estimated_equity": 0.05,
         "fold_equity": null,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=flop; action_kind=check; multiway=False; hero_ip=False; hero_position=SB",
+        "confidence": 0.55,
+        "context": {
+          "players_to_flop": 2,
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "preflop_role": "caller"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
@@ -8388,40 +9173,52 @@
         "multiway": false,
         "hero_ip": false,
         "hero_position": "SB",
-        "preflop_role": "caller"
+        "preflop_role": "unknown"
       },
       "hand": {
-        "approx_category_from_flop": "high_card",
-        "approx_strength_score_from_flop": 0.2,
-        "flop_equity_estimate": 0.05,
-        "evolution": "improved",
-        "evolution_detail": "equity_increased",
-        "board_texture": {
-          "turn_card_type": "paired_board",
-          "overall_texture": "semi_wet",
-          "impact_on_equity": "positive"
-        }
+        "board_turn": "9c",
+        "board": [
+          "Th",
+          "2h",
+          "9c",
+          "9c",
+          "6d"
+        ]
       },
       "equity_estimate": {
-        "estimated_equity": 0.15,
-        "model": "simple_turn_model",
-        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.20. Игра без позиции на тёрне снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, диапазон немного слабее — вычитаем около 1 п.п. equity. Пассивная линия (чек) слегка уменьшает реализуемость equity."
+        "estimated_equity": 0.1175,
+        "model": "mvp_turn_heuristic"
       },
-      "decision_quality": "good",
-      "quality_comment": "Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air.",
-      "comment": "Тип действия на тёрне: check. Ты играешь в хедз-ап банке без позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'paired_board'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: good. Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.15.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "turn",
         "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "turn_check_oop_hu",
+        "ev": 0.0,
+        "ev_action_str": "turn_check_oop_hu",
         "pot_before": 0.04,
         "investment": null,
-        "estimated_equity": 0.15,
-        "fold_equity": null,
+        "estimated_equity": 0.1175,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
-      }
+        "model": "v1_baseline",
+        "assumptions": "street=turn; action_kind=check; multiway=False; hero_ip=False; hero_position=SB; villain_position=unknown; effective_stack=0.0; board_texture=unknown",
+        "confidence": 0.6,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "villain_position": "unknown",
+          "effective_stack": 0.0,
+          "board_texture": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
+      },
+      "missed_value": null,
+      "decision_quality": "ok",
+      "quality_comment": "EV=+0.0000",
+      "comment": "Turn check, IP=False, MW=False"
     },
     "hero_river_decision": {
       "action_type": "check",
@@ -8436,21 +9233,54 @@
         "multiway": false,
         "hero_ip": false,
         "hero_position": "SB",
-        "preflop_role": "caller"
+        "preflop_role": "known"
       },
       "hand": {
-        "base_from_turn_equity": 0.15,
-        "note": "На ривере в v1 мы опираемся на оценку equity с тёрна, слегка подстраивая её под контекст ривера."
+        "board_river": "6d",
+        "board": [
+          "Th",
+          "2h",
+          "9c",
+          "9c",
+          "6d"
+        ],
+        "board_texture": "unknown"
       },
       "equity_estimate": {
-        "estimated_equity": 0.13,
-        "model": "simple_river_model",
-        "explanation": "Базовая оценка на ривере строится от turn-equity≈0.15. Игра без позиции на ривере слегка снижает эффективную equity (примерно на 1 п.п.). Ты префлоп-коллер, диапазон немного слабее — вычитаем около 0.5 п.п. equity. Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
+        "estimated_equity": 0.23225,
+        "model": "mvp_river_heuristic",
+        "notes": "Equity approximation from turn estimate (shrunk toward 0.5)."
       },
-      "ev_estimate": null,
-      "decision_quality": "good",
-      "quality_comment": "Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка.",
-      "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке без позиции. Оценка решения движком: good. Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка. Оценочная equity на ривере против диапазона оппонента ≈ 0.13."
+      "ev_estimate": {
+        "street": "river",
+        "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "river_check_oop_hu",
+        "ev": 0.0,
+        "ev_action_str": "river_check_oop_hu",
+        "pot_before": 0.04,
+        "investment": null,
+        "estimated_equity": 0.23225,
+        "fold_equity": 0.0,
+        "final_pot_if_called": null,
+        "model": "v1_baseline",
+        "assumptions": "street=river; action_kind=check; multiway=False; hero_ip=False; hero_position=SB; villain_position=unknown; effective_stack=0.0; board_texture=unknown",
+        "confidence": 0.6,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "villain_position": "unknown",
+          "effective_stack": 0.0,
+          "board_texture": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
+      },
+      "missed_value": null,
+      "decision_quality": "ok",
+      "quality_comment": "EV(action)=+0.0000 по модели v1_baseline.",
+      "comment": "River: check. IP=False. Multiway=False."
     },
     "actions": [
       {
@@ -8720,24 +9550,37 @@
       },
       "range_discipline": {
         "in_mos": true,
-        "position_ok": false,
         "hero_position": "UTG",
         "mos_min_position": "HJ",
         "error_type": null,
-        "range_comment": "Q8o есть в MOS-RFI, но только начиная с позиции HJ. Фолд с более ранней позиции UTG — часть тайтового, дисциплинированного плана."
+        "range_comment": ""
       },
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки. Q8o есть в MOS-RFI, но только начиная с позиции HJ. Фолд с более ранней позиции UTG — часть тайтового, дисциплинированного плана.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.03,
         "investment": null,
         "estimated_equity": 0.564,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=UTG; villain_position=unknown; effective_stack=111.5; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "UTG",
+          "villain_position": "unknown",
+          "effective_stack": 111.5,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -9011,24 +9854,33 @@
         "fold_equity": 0.38,
         "final_pot_if_called": 0.11
       },
-      "range_discipline": {
-        "in_mos": false,
-        "position_ok": false,
-        "hero_position": "MP",
-        "mos_min_position": null,
-        "error_type": "too_loose_open",
-        "range_comment": "88 не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
-      },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.12. 88 не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии.",
+      "range_discipline": null,
+      "comment": "Тип действия: open_raise. Формат: raise. ReqEq≈0.57 (57.1%), Eq≈0.45 (45.0%), edge≈-0.12.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "raise",
+        "ev_action": 0.01729,
+        "ev_action_label": "open_raise_from_mp",
+        "ev": 0.01729,
+        "ev_action_str": "open_raise_from_mp",
         "pot_before": 0.03,
         "investment": 0.04,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.38,
         "final_pot_if_called": null,
-        "ev_action": 0.009500000000000001
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=raise; multiway=False; hero_ip=False; hero_position=MP; villain_position=unknown; effective_stack=110.5; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "MP",
+          "villain_position": "unknown",
+          "effective_stack": 110.5,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       }
     },
     "hero_flop_hand_category": "two_pair",
@@ -9063,13 +9915,28 @@
       },
       "ev_estimate": {
         "street": "flop",
-        "model": "ev_v1",
+        "action_kind": "bet",
+        "ev_action": 0.09192,
+        "ev_action_label": "flop_cbet",
+        "ev": 0.09192,
+        "ev_action_str": "flop_cbet",
         "pot_before": 0.09000000000000001,
         "investment": 0.04,
         "estimated_equity": 0.776,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.09192
+        "model": "v1_baseline",
+        "assumptions": "street=flop; action_kind=bet; multiway=False; hero_ip=False; hero_position=MP",
+        "confidence": 0.55,
+        "context": {
+          "players_to_flop": 2,
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "MP",
+          "preflop_role": "aggressor"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       },
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
@@ -9086,40 +9953,53 @@
       "context": {
         "players_to_turn": 2,
         "multiway": false,
-        "hero_ip": false,
+        "hero_ip": true,
         "hero_position": "MP",
         "preflop_role": "aggressor"
       },
       "hand": {
-        "approx_category_from_flop": "two_pair",
-        "approx_strength_score_from_flop": 0.72,
-        "flop_equity_estimate": 0.776,
-        "evolution": "same",
-        "evolution_detail": "equity_stable",
-        "board_texture": {
-          "turn_card_type": "paired_board",
-          "overall_texture": "semi_wet",
-          "impact_on_equity": "neutral"
-        }
+        "board_turn": "Qc",
+        "board": [
+          "Qh",
+          "4h",
+          "Qc",
+          "Qc"
+        ]
       },
       "equity_estimate": {
-        "estimated_equity": 0.73,
-        "model": "simple_turn_model",
-        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.72. Игра без позиции на тёрне снижает эффективную equity примерно на 3 п.п. Ты префлоп-агрессор, диапазон в среднем сильнее — добавляем около 2 п.п. equity. Агрессия на тёрне (ставка/рейз) увеличивает реализацию equity примерно на 2 п.п."
+        "estimated_equity": 0.7346,
+        "model": "mvp_turn_heuristic"
       },
-      "decision_quality": "good",
-      "quality_comment": "Ставка на тёрне с сильной готовой рукой выглядит стандартным велью-розыгрышем.",
-      "comment": "Тип действия на тёрне: bet_vs_check. Ты играешь в хедз-ап банке без позиции. Размер ставки на тёрне: 0.09 в пот 0.17 (~52.9% пота). По сравнению с флопом твоя реализуемая equity на тёрне примерно не изменилась. Карта тёрна классифицируется как 'paired_board'. Карта тёрна нейтральна для твоей руки/диапазона. Оценка решения движком: good. Ставка на тёрне с сильной готовой рукой выглядит стандартным велью-розыгрышем. Оценочная equity на тёрне против диапазона оппонента ≈ 0.73.",
       "ev_estimate": {
         "street": "turn",
-        "model": "ev_v1",
+        "action_kind": "bet",
+        "ev_action": 0.16711,
+        "ev_action_label": "turn_bet_vs_check_ip_hu",
+        "ev": 0.16711,
+        "ev_action_str": "turn_bet_vs_check_ip_hu",
         "pot_before": 0.17,
         "investment": 0.09,
-        "estimated_equity": 0.73,
-        "fold_equity": null,
+        "estimated_equity": 0.7346,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.1655
-      }
+        "model": "v1_baseline",
+        "assumptions": "street=turn; action_kind=bet; multiway=False; hero_ip=True; hero_position=MP; villain_position=unknown; effective_stack=0.0; board_texture=unknown",
+        "confidence": 0.6,
+        "context": {
+          "multiway": false,
+          "hero_ip": true,
+          "hero_position": "MP",
+          "villain_position": "unknown",
+          "effective_stack": 0.0,
+          "board_texture": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
+      },
+      "missed_value": null,
+      "decision_quality": "good",
+      "quality_comment": "EV=+0.1671",
+      "comment": "Turn bet_vs_check, IP=True, MW=False"
     },
     "hero_river_decision": null,
     "actions": [
@@ -9387,16 +10267,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: call_vs_raise. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.38 (38.5%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ 0.07.",
+      "comment": "Тип действия: call_vs_raise. Формат: call. ReqEq≈0.38 (38.5%), Eq≈0.45 (45.0%), edge≈0.07.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "call",
+        "ev_action": 0.0085,
+        "ev_action_label": "call_vs_unknown_raise",
+        "ev": 0.0085,
+        "ev_action_str": "call_vs_unknown_raise",
         "pot_before": 0.08,
         "investment": 0.05,
         "estimated_equity": 0.45,
-        "fold_equity": null,
-        "final_pot_if_called": 0.13,
-        "ev_action": 0.0085
+        "fold_equity": 0.0,
+        "final_pot_if_called": null,
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=call; multiway=False; hero_ip=False; hero_position=CO; villain_position=unknown; effective_stack=112.99999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "CO",
+          "villain_position": "unknown",
+          "effective_stack": 112.99999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(call/check)=equity*(pot_before+investment)-investment = 0.450*(0.08+0.05)-0.05"
       }
     },
     "hero_flop_hand_category": "pair",
@@ -9430,16 +10326,29 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.50 и категории руки на флопе (pair). Мультипот (несколько оппонентов) снижает твою equity примерно на 7 п.п. Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, твой диапазон слегка слабее диапазона агрессора — вычитаем около 1 п.п. equity."
       },
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "flop",
         "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "flop_check",
+        "ev": 0.0,
+        "ev_action_str": "flop_check",
         "pot_before": 0.21,
         "investment": null,
         "estimated_equity": 0.39,
         "fold_equity": null,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=flop; action_kind=check; multiway=True; hero_ip=False; hero_position=CO",
+        "confidence": 0.55,
+        "context": {
+          "players_to_flop": 4,
+          "multiway": true,
+          "hero_ip": false,
+          "hero_position": "CO",
+          "preflop_role": "caller"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       },
       "decision_quality": "ok",
       "quality_comment": "Чек с рукой средней силы на флопе допустим, особенно вне позиции или в мультипоте.",
@@ -9450,48 +10359,60 @@
       "action_kind": "fold",
       "sizing": {
         "amount": null,
-        "pot_before": 0.28,
+        "pot_before": 0.21,
         "pct_pot": null
       },
       "context": {
         "players_to_turn": 4,
         "multiway": true,
-        "hero_ip": false,
+        "hero_ip": true,
         "hero_position": "CO",
         "preflop_role": "caller"
       },
       "hand": {
-        "approx_category_from_flop": "pair",
-        "approx_strength_score_from_flop": 0.5,
-        "flop_equity_estimate": 0.39,
-        "evolution": "same",
-        "evolution_detail": "equity_stable",
-        "board_texture": {
-          "turn_card_type": "flush_complete",
-          "overall_texture": "wet",
-          "impact_on_equity": "negative"
-        }
+        "board_turn": "2c",
+        "board": [
+          "9s",
+          "7c",
+          "2c",
+          "2c",
+          "Ah"
+        ]
       },
       "equity_estimate": {
-        "estimated_equity": 0.41,
-        "model": "simple_turn_model",
-        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.50. Мультипот (несколько оппонентов) снижает реализуемую equity примерно на 5 п.п. Игра без позиции на тёрне снижает эффективную equity примерно на 3 п.п. Ты префлоп-коллер, диапазон немного слабее — вычитаем около 1 п.п. equity. Фолд на тёрне завершает раздачу, но оценка equity рассматривает гипотетическую продолженную игру."
+        "estimated_equity": 0.40650000000000003,
+        "model": "mvp_turn_heuristic"
       },
-      "decision_quality": "ok",
-      "quality_comment": "Фолд руки средней силы на тёрне может быть ок, особенно против крупного сайзинга или тайтовых диапазонов на опасной карте борда.",
-      "comment": "Тип действия на тёрне: fold_vs_bet. Ты играешь в мультипоте без позиции. По сравнению с флопом твоя реализуемая equity на тёрне примерно не изменилась. Карта тёрна классифицируется как 'flush_complete'. Влияние карты тёрна на твою руку скорее негативное. Оценка решения движком: ok. Фолд руки средней силы на тёрне может быть ок, особенно против крупного сайзинга или тайтовых диапазонов на опасной карте борда. Оценочная equity на тёрне против диапазона оппонента ≈ 0.41.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "turn",
         "action_kind": "fold",
-        "pot_before": 0.28,
-        "investment": null,
-        "estimated_equity": 0.41,
-        "fold_equity": null,
-        "final_pot_if_called": null,
         "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
-      }
+        "ev_action_label": "turn_fold_vs_bet_ip_mw",
+        "ev": 0.0,
+        "ev_action_str": "turn_fold_vs_bet_ip_mw",
+        "pot_before": 0.21,
+        "investment": null,
+        "estimated_equity": 0.40650000000000003,
+        "fold_equity": 0.0,
+        "final_pot_if_called": null,
+        "model": "v1_baseline",
+        "assumptions": "street=turn; action_kind=fold; multiway=True; hero_ip=True; hero_position=CO; villain_position=unknown; effective_stack=0.0; board_texture=unknown",
+        "confidence": 0.6,
+        "context": {
+          "multiway": true,
+          "hero_ip": true,
+          "hero_position": "CO",
+          "villain_position": "unknown",
+          "effective_stack": 0.0,
+          "board_texture": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
+      },
+      "missed_value": null,
+      "decision_quality": "ok",
+      "quality_comment": "EV=+0.0000",
+      "comment": "Turn fold_vs_bet, IP=True, MW=True"
     },
     "hero_river_decision": null,
     "actions": [
@@ -9821,22 +10742,37 @@
       },
       "range_discipline": {
         "in_mos": true,
-        "position_ok": true,
         "hero_position": "BTN",
         "mos_min_position": "HJ",
         "error_type": null,
-        "range_comment": "75s открыта с позиции BTN, что НЕ раньше минимальной MOS-позиции HJ. По диапазону открытия ты в рамках своей стратегии."
+        "range_comment": ""
       },
-      "comment": "Тип действия: open_raise. Формат: raise. Математически или стратегически решение выглядит минусовым. В долгую дистанцию лучше искать более сильные или более дисциплинированные споты. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.56 (56.4%). Разница (edge) ≈ -0.01. 75s открыта с позиции BTN, что НЕ раньше минимальной MOS-позиции HJ. По диапазону открытия ты в рамках своей стратегии.",
+      "comment": "Тип действия: open_raise. Формат: raise. ReqEq≈0.57 (57.1%), Eq≈0.56 (56.4%), edge≈-0.01.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "raise",
+        "ev_action": 0.026179199999999993,
+        "ev_action_label": "open_raise_from_btn",
+        "ev": 0.026179199999999993,
+        "ev_action_str": "open_raise_from_btn",
         "pot_before": 0.03,
         "investment": 0.04,
         "estimated_equity": 0.564,
-        "fold_equity": null,
+        "fold_equity": 0.52,
         "final_pot_if_called": null,
-        "ev_action": 0.02203999999999999
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=raise; multiway=False; hero_ip=False; hero_position=BTN; villain_position=unknown; effective_stack=111.5; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BTN",
+          "villain_position": "unknown",
+          "effective_stack": 111.5,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       }
     },
     "hero_flop_hand_category": null,
@@ -10044,18 +10980,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.13,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=SB; villain_position=unknown; effective_stack=112.00000000000001; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "villain_position": "unknown",
+          "effective_stack": 112.00000000000001,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -10340,18 +11290,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.08,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=BB; villain_position=unknown; effective_stack=112.99999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BB",
+          "villain_position": "unknown",
+          "effective_stack": 112.99999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -10559,18 +11523,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.03,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=UTG; villain_position=unknown; effective_stack=112.99999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "UTG",
+          "villain_position": "unknown",
+          "effective_stack": 112.99999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -10844,18 +11822,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.03,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=MP; villain_position=unknown; effective_stack=112.99999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "MP",
+          "villain_position": "unknown",
+          "effective_stack": 112.99999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -11053,18 +12045,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.07,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=CO; villain_position=unknown; effective_stack=112.99999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "CO",
+          "villain_position": "unknown",
+          "effective_stack": 112.99999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -11271,17 +12277,39 @@
         "fold_equity": null,
         "final_pot_if_called": null
       },
-      "range_discipline": null,
-      "comment": "Тип действия: call_vs_raise. Формат: call. Решение выглядит явно плюсовым с точки зрения математики. Пот-оддсы дают требуемую equity примерно 0.38 (38.5%), твоя оценочная equity около 0.56 (56.4%). Разница (edge) ≈ 0.18.",
+      "range_discipline": {
+        "in_mos": true,
+        "hero_position": "BTN",
+        "mos_min_position": "HJ",
+        "error_type": null,
+        "range_comment": ""
+      },
+      "comment": "Тип действия: call_vs_raise. Формат: call. ReqEq≈0.38 (38.5%), Eq≈0.56 (56.4%), edge≈0.18.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "call",
+        "ev_action": 0.023319999999999994,
+        "ev_action_label": "call_vs_unknown_raise",
+        "ev": 0.023319999999999994,
+        "ev_action_str": "call_vs_unknown_raise",
         "pot_before": 0.08,
         "investment": 0.05,
         "estimated_equity": 0.564,
-        "fold_equity": null,
-        "final_pot_if_called": 0.13,
-        "ev_action": 0.023319999999999994
+        "fold_equity": 0.0,
+        "final_pot_if_called": null,
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=call; multiway=False; hero_ip=False; hero_position=BTN; villain_position=unknown; effective_stack=112.5; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BTN",
+          "villain_position": "unknown",
+          "effective_stack": 112.5,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(call/check)=equity*(pot_before+investment)-investment = 0.564*(0.08+0.05)-0.05"
       }
     },
     "hero_flop_hand_category": "high_card",
@@ -11315,16 +12343,29 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.20 и категории руки на флопе (high_card). Игра в позиции (IP) слегка повышает эффективную equity (около 2 п.п.). Ты префлоп-коллер, твой диапазон слегка слабее диапазона агрессора — вычитаем около 1 п.п. equity. Рука без попадания (high_card) редко хорошо реализует equity — дополнительно уменьшаем оценку."
       },
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "flop",
         "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "flop_check",
+        "ev": 0.0,
+        "ev_action_str": "flop_check",
         "pot_before": 0.13,
         "investment": null,
         "estimated_equity": 0.07,
         "fold_equity": null,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=flop; action_kind=check; multiway=False; hero_ip=True; hero_position=BTN",
+        "confidence": 0.55,
+        "context": {
+          "players_to_flop": 2,
+          "multiway": false,
+          "hero_ip": true,
+          "hero_position": "BTN",
+          "preflop_role": "caller"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и избегaешь минусовых блефов.",
@@ -11346,37 +12387,49 @@
         "preflop_role": "caller"
       },
       "hand": {
-        "approx_category_from_flop": "high_card",
-        "approx_strength_score_from_flop": 0.2,
-        "flop_equity_estimate": 0.07,
-        "evolution": "improved",
-        "evolution_detail": "equity_increased",
-        "board_texture": {
-          "turn_card_type": "paired_board",
-          "overall_texture": "semi_wet",
-          "impact_on_equity": "positive"
-        }
+        "board_turn": "5h",
+        "board": [
+          "2d",
+          "Ts",
+          "5h",
+          "5h",
+          "2c"
+        ]
       },
       "equity_estimate": {
-        "estimated_equity": 0.2,
-        "model": "simple_turn_model",
-        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.20. Игра в позиции на тёрне слегка повышает эффективную equity (около 2 п.п.). Ты префлоп-коллер, диапазон немного слабее — вычитаем около 1 п.п. equity. Пассивная линия (чек) слегка уменьшает реализуемость equity."
+        "estimated_equity": 0.1345,
+        "model": "mvp_turn_heuristic"
       },
-      "decision_quality": "good",
-      "quality_comment": "Чек на тёрне с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и не раздуваешь его с air.",
-      "comment": "Тип действия на тёрне: check. Ты играешь в хедз-ап банке в позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'paired_board'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: good. Чек на тёрне с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и не раздуваешь его с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.20.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "turn",
         "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "turn_check_ip_hu",
+        "ev": 0.0,
+        "ev_action_str": "turn_check_ip_hu",
         "pot_before": 0.13,
         "investment": null,
-        "estimated_equity": 0.2,
-        "fold_equity": null,
+        "estimated_equity": 0.1345,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
-      }
+        "model": "v1_baseline",
+        "assumptions": "street=turn; action_kind=check; multiway=False; hero_ip=True; hero_position=BTN; villain_position=unknown; effective_stack=0.0; board_texture=unknown",
+        "confidence": 0.6,
+        "context": {
+          "multiway": false,
+          "hero_ip": true,
+          "hero_position": "BTN",
+          "villain_position": "unknown",
+          "effective_stack": 0.0,
+          "board_texture": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
+      },
+      "missed_value": null,
+      "decision_quality": "ok",
+      "quality_comment": "EV=+0.0000",
+      "comment": "Turn check, IP=True, MW=False"
     },
     "hero_river_decision": {
       "action_type": "check",
@@ -11391,21 +12444,54 @@
         "multiway": false,
         "hero_ip": true,
         "hero_position": "BTN",
-        "preflop_role": "caller"
+        "preflop_role": "known"
       },
       "hand": {
-        "base_from_turn_equity": 0.2,
-        "note": "На ривере в v1 мы опираемся на оценку equity с тёрна, слегка подстраивая её под контекст ривера."
+        "board_river": "2c",
+        "board": [
+          "2d",
+          "Ts",
+          "5h",
+          "5h",
+          "2c"
+        ],
+        "board_texture": "unknown"
       },
       "equity_estimate": {
-        "estimated_equity": 0.2,
-        "model": "simple_river_model",
-        "explanation": "Базовая оценка на ривере строится от turn-equity≈0.20. Игра в позиции на ривере слегка повышает эффективную equity (около 1 п.п.). Ты префлоп-коллер, диапазон немного слабее — вычитаем около 0.5 п.п. equity. Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
+        "estimated_equity": 0.24415000000000003,
+        "model": "mvp_river_heuristic",
+        "notes": "Equity approximation from turn estimate (shrunk toward 0.5)."
       },
-      "ev_estimate": null,
-      "decision_quality": "good",
-      "quality_comment": "Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка.",
-      "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке в позиции. Оценка решения движком: good. Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка. Оценочная equity на ривере против диапазона оппонента ≈ 0.20."
+      "ev_estimate": {
+        "street": "river",
+        "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "river_check_ip_hu",
+        "ev": 0.0,
+        "ev_action_str": "river_check_ip_hu",
+        "pot_before": 0.13,
+        "investment": null,
+        "estimated_equity": 0.24415000000000003,
+        "fold_equity": 0.0,
+        "final_pot_if_called": null,
+        "model": "v1_baseline",
+        "assumptions": "street=river; action_kind=check; multiway=False; hero_ip=True; hero_position=BTN; villain_position=unknown; effective_stack=0.0; board_texture=unknown",
+        "confidence": 0.6,
+        "context": {
+          "multiway": false,
+          "hero_ip": true,
+          "hero_position": "BTN",
+          "villain_position": "unknown",
+          "effective_stack": 0.0,
+          "board_texture": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
+      },
+      "missed_value": null,
+      "decision_quality": "ok",
+      "quality_comment": "EV(action)=+0.0000 по модели v1_baseline.",
+      "comment": "River: check. IP=True. Multiway=False."
     },
     "actions": [
       {
@@ -11688,18 +12774,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.05,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=SB; villain_position=unknown; effective_stack=105.49999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "villain_position": "unknown",
+          "effective_stack": 105.49999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -11983,19 +13083,39 @@
         "fold_equity": null,
         "final_pot_if_called": null
       },
-      "range_discipline": null,
-      "comment": "Тип действия: unknown. Формат: check. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "range_discipline": {
+        "in_mos": true,
+        "hero_position": "BB",
+        "mos_min_position": "HJ",
+        "error_type": null,
+        "range_comment": ""
+      },
+      "comment": "Тип действия: unknown. Формат: check. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "unknown",
+        "ev": 0.0,
+        "ev_action_str": "unknown",
         "pot_before": 0.05,
         "investment": null,
         "estimated_equity": 0.564,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=check; multiway=False; hero_ip=False; hero_position=BB; villain_position=unknown; effective_stack=105.49999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BB",
+          "villain_position": "unknown",
+          "effective_stack": 105.49999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": "high_card",
@@ -12029,16 +13149,29 @@
         "explanation": "Базовая оценка equity построена от strength_score=0.20 и категории руки на флопе (high_card). Игра без позиции (OOP) снижает эффективную equity примерно на 3 п.п. Рука без попадания (high_card) редко хорошо реализует equity — дополнительно уменьшаем оценку."
       },
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "flop",
         "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "flop_check",
+        "ev": 0.0,
+        "ev_action_str": "flop_check",
         "pot_before": 0.05,
         "investment": null,
         "estimated_equity": 0.05,
         "fold_equity": null,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=flop; action_kind=check; multiway=False; hero_ip=False; hero_position=BB",
+        "confidence": 0.55,
+        "context": {
+          "players_to_flop": 2,
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BB",
+          "preflop_role": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       },
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
@@ -12060,37 +13193,49 @@
         "preflop_role": "unknown"
       },
       "hand": {
-        "approx_category_from_flop": "high_card",
-        "approx_strength_score_from_flop": 0.2,
-        "flop_equity_estimate": 0.05,
-        "evolution": "improved",
-        "evolution_detail": "equity_increased",
-        "board_texture": {
-          "turn_card_type": "paired_board",
-          "overall_texture": "semi_wet",
-          "impact_on_equity": "positive"
-        }
+        "board_turn": "6h",
+        "board": [
+          "Qs",
+          "Kc",
+          "6h",
+          "6h",
+          "5s"
+        ]
       },
       "equity_estimate": {
-        "estimated_equity": 0.16,
-        "model": "simple_turn_model",
-        "explanation": "Базовая оценка на тёрне строится от strength_score≈0.20. Игра без позиции на тёрне снижает эффективную equity примерно на 3 п.п. Пассивная линия (чек) слегка уменьшает реализуемость equity."
+        "estimated_equity": 0.1175,
+        "model": "mvp_turn_heuristic"
       },
-      "decision_quality": "good",
-      "quality_comment": "Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air.",
-      "comment": "Тип действия на тёрне: check. Ты играешь в хедз-ап банке без позиции. По сравнению с флопом твоя реализуемая equity на тёрне выглядит улучшившейся. Карта тёрна классифицируется как 'paired_board'. Карта тёрна в целом помогает твоему диапазону/руке. Оценка решения движком: good. Чек на тёрне с очень слабой рукой без позиции — аккуратное решение, ты минимизируешь потери с air. Оценочная equity на тёрне против диапазона оппонента ≈ 0.16.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "turn",
         "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "turn_check_oop_hu",
+        "ev": 0.0,
+        "ev_action_str": "turn_check_oop_hu",
         "pot_before": 0.05,
         "investment": null,
-        "estimated_equity": 0.16,
-        "fold_equity": null,
+        "estimated_equity": 0.1175,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
-      }
+        "model": "v1_baseline",
+        "assumptions": "street=turn; action_kind=check; multiway=False; hero_ip=False; hero_position=BB; villain_position=unknown; effective_stack=0.0; board_texture=unknown",
+        "confidence": 0.6,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BB",
+          "villain_position": "unknown",
+          "effective_stack": 0.0,
+          "board_texture": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
+      },
+      "missed_value": null,
+      "decision_quality": "ok",
+      "quality_comment": "EV=+0.0000",
+      "comment": "Turn check, IP=False, MW=False"
     },
     "hero_river_decision": {
       "action_type": "check",
@@ -12105,21 +13250,54 @@
         "multiway": false,
         "hero_ip": false,
         "hero_position": "BB",
-        "preflop_role": "unknown"
+        "preflop_role": "known"
       },
       "hand": {
-        "base_from_turn_equity": 0.16,
-        "note": "На ривере в v1 мы опираемся на оценку equity с тёрна, слегка подстраивая её под контекст ривера."
+        "board_river": "5s",
+        "board": [
+          "Qs",
+          "Kc",
+          "6h",
+          "6h",
+          "5s"
+        ],
+        "board_texture": "unknown"
       },
       "equity_estimate": {
-        "estimated_equity": 0.145,
-        "model": "simple_river_model",
-        "explanation": "Базовая оценка на ривере строится от turn-equity≈0.16. Игра без позиции на ривере слегка снижает эффективную equity (примерно на 1 п.п.). Пассивная линия (чек) на ривере слегка снижает реализуемость equity."
+        "estimated_equity": 0.23225,
+        "model": "mvp_river_heuristic",
+        "notes": "Equity approximation from turn estimate (shrunk toward 0.5)."
       },
-      "ev_estimate": null,
-      "decision_quality": "good",
-      "quality_comment": "Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка.",
-      "comment": "Тип действия на ривере: check. Ты играешь в хедз-ап банке без позиции. Оценка решения движком: good. Чек на ривере со слабой рукой без хорошего SDV — нормальный контроль банка. Оценочная equity на ривере против диапазона оппонента ≈ 0.14."
+      "ev_estimate": {
+        "street": "river",
+        "action_kind": "check",
+        "ev_action": 0.0,
+        "ev_action_label": "river_check_oop_hu",
+        "ev": 0.0,
+        "ev_action_str": "river_check_oop_hu",
+        "pot_before": 0.05,
+        "investment": null,
+        "estimated_equity": 0.23225,
+        "fold_equity": 0.0,
+        "final_pot_if_called": null,
+        "model": "v1_baseline",
+        "assumptions": "street=river; action_kind=check; multiway=False; hero_ip=False; hero_position=BB; villain_position=unknown; effective_stack=0.0; board_texture=unknown",
+        "confidence": 0.6,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BB",
+          "villain_position": "unknown",
+          "effective_stack": 0.0,
+          "board_texture": "unknown"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
+      },
+      "missed_value": null,
+      "decision_quality": "ok",
+      "quality_comment": "EV(action)=+0.0000 по модели v1_baseline.",
+      "comment": "River: check. IP=False. Multiway=False."
     },
     "actions": [
       {
@@ -12399,24 +13577,37 @@
       },
       "range_discipline": {
         "in_mos": true,
-        "position_ok": false,
         "hero_position": "UTG",
         "mos_min_position": "MP",
         "error_type": null,
-        "range_comment": "KTo есть в MOS-RFI, но только начиная с позиции MP. Фолд с более ранней позиции UTG — часть тайтового, дисциплинированного плана."
+        "range_comment": ""
       },
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки. KTo есть в MOS-RFI, но только начиная с позиции MP. Фолд с более ранней позиции UTG — часть тайтового, дисциплинированного плана.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.03,
         "investment": null,
         "estimated_equity": 0.612,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=UTG; villain_position=unknown; effective_stack=105.49999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "UTG",
+          "villain_position": "unknown",
+          "effective_stack": 105.49999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -12700,24 +13891,33 @@
         "fold_equity": 0.38,
         "final_pot_if_called": 0.11
       },
-      "range_discipline": {
-        "in_mos": false,
-        "position_ok": false,
-        "hero_position": "MP",
-        "mos_min_position": null,
-        "error_type": "too_loose_open",
-        "range_comment": "A3s не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
-      },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.12. A3s не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии.",
+      "range_discipline": null,
+      "comment": "Тип действия: open_raise. Формат: raise. ReqEq≈0.57 (57.1%), Eq≈0.45 (45.0%), edge≈-0.12.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "raise",
+        "ev_action": 0.01729,
+        "ev_action_label": "open_raise_from_mp",
+        "ev": 0.01729,
+        "ev_action_str": "open_raise_from_mp",
         "pot_before": 0.03,
         "investment": 0.04,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.38,
         "final_pot_if_called": null,
-        "ev_action": 0.009500000000000001
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=raise; multiway=False; hero_ip=False; hero_position=MP; villain_position=unknown; effective_stack=105.49999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "MP",
+          "villain_position": "unknown",
+          "effective_stack": 105.49999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       }
     },
     "hero_flop_hand_category": "straight",
@@ -12752,13 +13952,28 @@
       },
       "ev_estimate": {
         "street": "flop",
-        "model": "ev_v1",
+        "action_kind": "bet",
+        "ev_action": 0.41078000000000015,
+        "ev_action_label": "flop_cbet",
+        "ev": 0.41078000000000015,
+        "ev_action_str": "flop_cbet",
         "pot_before": 0.31000000000000005,
         "investment": 0.16,
         "estimated_equity": 0.906,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.41078000000000015
+        "model": "v1_baseline",
+        "assumptions": "street=flop; action_kind=bet; multiway=False; hero_ip=False; hero_position=MP",
+        "confidence": 0.55,
+        "context": {
+          "players_to_flop": 2,
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "MP",
+          "preflop_role": "aggressor"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       },
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
@@ -12993,24 +14208,33 @@
         "fold_equity": 0.38,
         "final_pot_if_called": 0.11
       },
-      "range_discipline": {
-        "in_mos": false,
-        "position_ok": false,
-        "hero_position": "MP",
-        "mos_min_position": null,
-        "error_type": "too_loose_open",
-        "range_comment": "KJs не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии."
-      },
-      "comment": "Тип действия: open_raise. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.57 (57.1%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.12. KJs не входит в твой MOS-RFI диапазон (EP–CO), но была сыграна как open_raise. Это оверлузовый open относительно твоей базовой стратегии.",
+      "range_discipline": null,
+      "comment": "Тип действия: open_raise. Формат: raise. ReqEq≈0.57 (57.1%), Eq≈0.45 (45.0%), edge≈-0.12.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "raise",
+        "ev_action": 0.01729,
+        "ev_action_label": "open_raise_from_mp",
+        "ev": 0.01729,
+        "ev_action_str": "open_raise_from_mp",
         "pot_before": 0.03,
         "investment": 0.04,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.38,
         "final_pot_if_called": null,
-        "ev_action": 0.009500000000000001
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=raise; multiway=False; hero_ip=False; hero_position=MP; villain_position=unknown; effective_stack=104.49999999999999; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "MP",
+          "villain_position": "unknown",
+          "effective_stack": 104.49999999999999,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       }
     },
     "hero_flop_hand_category": null,
@@ -13202,16 +14426,32 @@
         "final_pot_if_called": 0.28
       },
       "range_discipline": null,
-      "comment": "Тип действия: 3bet. Формат: raise. Решение выглядит сильно минусовым: вероятность выигрыша слишком низкая относительно пот-оддсов или оно явно выходит за рамки твоего диапазона. Пот-оддсы дают требуемую equity примерно 0.56 (55.6%), твоя оценочная equity около 0.45 (45.0%). Разница (edge) ≈ -0.11.",
+      "comment": "Тип действия: 3bet. Формат: raise. ReqEq≈0.56 (55.6%), Eq≈0.45 (45.0%), edge≈-0.11.",
       "ev_estimate": {
         "street": "preflop",
-        "model": "ev_v1",
+        "action_kind": "raise",
+        "ev_action": 0.05300000000000001,
+        "ev_action_label": "3bet_vs_unknown_raise",
+        "ev": 0.05300000000000001,
+        "ev_action_str": "3bet_vs_unknown_raise",
         "pot_before": 0.08,
         "investment": 0.1,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.5,
         "final_pot_if_called": null,
-        "ev_action": 0.026000000000000023
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=raise; multiway=False; hero_ip=False; hero_position=BTN; villain_position=unknown; effective_stack=98.5; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BTN",
+          "villain_position": "unknown",
+          "effective_stack": 98.5,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       }
     },
     "hero_flop_hand_category": "set",
@@ -13246,13 +14486,28 @@
       },
       "ev_estimate": {
         "street": "flop",
-        "model": "ev_v1",
+        "action_kind": "bet",
+        "ev_action": 0.29547999999999996,
+        "ev_action_label": "flop_cbet",
+        "ev": 0.29547999999999996,
+        "ev_action_str": "flop_cbet",
         "pot_before": 0.22999999999999998,
         "investment": 0.12,
         "estimated_equity": 0.884,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.29547999999999996
+        "model": "v1_baseline",
+        "assumptions": "street=flop; action_kind=bet; multiway=False; hero_ip=False; hero_position=BTN",
+        "confidence": 0.55,
+        "context": {
+          "players_to_flop": 2,
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BTN",
+          "preflop_role": "aggressor"
+        },
+        "alternatives": {},
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
       },
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
@@ -13488,18 +14743,32 @@
         "final_pot_if_called": null
       },
       "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.08,
         "investment": null,
         "estimated_equity": 0.45,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=SB; villain_position=unknown; effective_stack=99.0; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "SB",
+          "villain_position": "unknown",
+          "effective_stack": 99.0,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,
@@ -13700,19 +14969,39 @@
         "fold_equity": null,
         "final_pot_if_called": null
       },
-      "range_discipline": null,
-      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось точно оценить решение на префлопе: не хватает данных по поту, размеру ставки или equity руки.",
+      "range_discipline": {
+        "in_mos": true,
+        "hero_position": "BB",
+        "mos_min_position": "CO",
+        "error_type": null,
+        "range_comment": ""
+      },
+      "comment": "Тип действия: fold_preflop. Формат: fold. Не удалось оценить: не хватает данных по поту/ставке/equity.",
       "ev_estimate": {
-        "model": "ev_v1",
         "street": "preflop",
         "action_kind": "fold",
+        "ev_action": 0.0,
+        "ev_action_label": "fold_preflop",
+        "ev": 0.0,
+        "ev_action_str": "fold_preflop",
         "pot_before": 0.09,
         "investment": null,
         "estimated_equity": 0.516,
-        "fold_equity": null,
+        "fold_equity": 0.0,
         "final_pot_if_called": null,
-        "ev_action": 0.0,
-        "explanation": "No additional investment (check/fold) => EV(action)=0 in v1 baseline."
+        "model": "v1_baseline",
+        "assumptions": "street=preflop; action_kind=fold; multiway=False; hero_ip=False; hero_position=BB; villain_position=unknown; effective_stack=100.0; board_texture=preflop",
+        "confidence": 0.7,
+        "context": {
+          "multiway": false,
+          "hero_ip": false,
+          "hero_position": "BB",
+          "villain_position": "unknown",
+          "effective_stack": 100.0,
+          "board_texture": "preflop"
+        },
+        "alternatives": {},
+        "explanation": "EV=0.0 (пасивное действие без вложений)."
       }
     },
     "hero_flop_hand_category": null,

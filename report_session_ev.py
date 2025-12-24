@@ -8,13 +8,7 @@ from typing import Any, Dict, List, Optional, Tuple
 ROOT = Path(__file__).resolve().parent
 HANDS_JSON = ROOT / "hands.json"
 
-
-STREETS = [
-    ("preflop", "hero_preflop_decision"),
-    ("flop", "hero_flop_decision"),
-    ("turn", "hero_turn_decision"),
-    ("river", "hero_river_decision"),
-]
+STREETS = ["preflop", "flop", "turn", "river"]
 
 
 def _safe_float(x: Any) -> Optional[float]:
@@ -26,18 +20,71 @@ def _safe_float(x: Any) -> Optional[float]:
         return None
 
 
+def _get_decision(hand: Dict[str, Any], street: str) -> Optional[Dict[str, Any]]:
+    # legacy
+    key = f"hero_{street}_decision"
+    dec = hand.get(key)
+    if isinstance(dec, dict):
+        return dec
+
+    # nested: hand["turn"]["hero_decision"] / ["decision"]
+    st = hand.get(street)
+    if isinstance(st, dict):
+        dec2 = st.get("hero_decision") or st.get("decision")
+        if isinstance(dec2, dict):
+            return dec2
+
+    # ui-ready: hand["streets"]["turn"]["hero_decision"]
+    streets_obj = hand.get("streets")
+    if isinstance(streets_obj, dict):
+        st2 = streets_obj.get(street)
+        if isinstance(st2, dict):
+            dec3 = st2.get("hero_decision") or st2.get("decision")
+            if isinstance(dec3, dict):
+                return dec3
+
+    return None
+
+
 def _get_ev_action(decision: Any) -> Optional[float]:
     if not isinstance(decision, dict):
         return None
     ev = decision.get("ev_estimate")
     if not isinstance(ev, dict):
         return None
-    return _safe_float(ev.get("ev_action"))
+
+    v = ev.get("ev_action")
+    if isinstance(v, str):
+        v = None
+    out = _safe_float(v)
+    if out is not None:
+        return out
+
+    return _safe_float(ev.get("ev"))
 
 
-def _hand_label(hand: Dict[str, Any], idx: int) -> str:
-    hid = hand.get("hand_id") or f"Hand#{idx}"
-    return str(hid)
+def _get_missed_value_ev(decision: Any) -> float:
+    """
+    Missed value может лежать:
+      1) decision["missed_value"]["missed_value_ev"]
+      2) decision["ev_estimate"]["missed_value_ev"]
+    """
+    if not isinstance(decision, dict):
+        return 0.0
+
+    mv = decision.get("missed_value")
+    if isinstance(mv, dict):
+        v = _safe_float(mv.get("missed_value_ev"))
+        if v is not None and v > 0:
+            return v
+
+    ev = decision.get("ev_estimate")
+    if isinstance(ev, dict):
+        v2 = _safe_float(ev.get("missed_value_ev"))
+        if v2 is not None and v2 > 0:
+            return v2
+
+    return 0.0
 
 
 def _street_action_type(decision: Any) -> str:
@@ -46,12 +93,8 @@ def _street_action_type(decision: Any) -> str:
     return str(decision.get("action_type") or "unknown")
 
 
-def _sum_ev_by_street(hand: Dict[str, Any]) -> Dict[str, float]:
-    out: Dict[str, float] = {}
-    for street, key in STREETS:
-        ev = _get_ev_action(hand.get(key))
-        out[street] = ev if ev is not None else 0.0
-    return out
+def _hand_label(hand: Dict[str, Any], idx: int) -> str:
+    return str(hand.get("hand_id") or f"Hand#{idx}")
 
 
 def load_hands() -> List[Dict[str, Any]]:
@@ -62,27 +105,33 @@ def load_hands() -> List[Dict[str, Any]]:
 
 def main() -> None:
     hands = load_hands()
-
     total_hands = len(hands)
 
-    street_totals: Dict[str, float] = {s: 0.0 for s, _ in STREETS}
-    street_counts: Dict[str, int] = {s: 0 for s, _ in STREETS}
+    street_totals: Dict[str, float] = {s: 0.0 for s in STREETS}
+    street_counts: Dict[str, int] = {s: 0 for s in STREETS}
 
-    # action_type breakdown by street
-    action_type_counts: Dict[str, Dict[str, int]] = {s: {} for s, _ in STREETS}
-    action_type_ev: Dict[str, Dict[str, float]] = {s: {} for s, _ in STREETS}
+    action_type_counts: Dict[str, Dict[str, int]] = {s: {} for s in STREETS}
+    action_type_ev: Dict[str, Dict[str, float]] = {s: {} for s in STREETS}
 
-    per_hand_ev: List[Tuple[float, str]] = []  # (total_ev, hand_id)
-    per_hand_street_ev: Dict[str, List[Tuple[float, str]]] = {s: [] for s, _ in STREETS}
+    per_hand_ev: List[Tuple[float, str]] = []
+    per_hand_street_ev: Dict[str, List[Tuple[float, str]]] = {s: [] for s in STREETS}
+
+    # Missed value aggregation
+    missed_totals: Dict[str, float] = {s: 0.0 for s in STREETS}
+    missed_counts: Dict[str, int] = {s: 0 for s in STREETS}
+    per_hand_missed: List[Tuple[float, str]] = []  # (missed_ev_total, hand_id)
+    per_hand_street_missed: Dict[str, List[Tuple[float, str]]] = {s: [] for s in STREETS}
 
     for idx, hand in enumerate(hands, start=1):
         hand_id = _hand_label(hand, idx)
 
         hand_total_ev = 0.0
-        for street, key in STREETS:
-            decision = hand.get(key)
-            ev = _get_ev_action(decision)
+        hand_total_missed = 0.0
 
+        for street in STREETS:
+            decision = _get_decision(hand, street)
+
+            ev = _get_ev_action(decision)
             if ev is not None:
                 street_totals[street] += ev
                 street_counts[street] += 1
@@ -94,10 +143,21 @@ def main() -> None:
 
                 per_hand_street_ev[street].append((ev, hand_id))
 
+            mv_ev = _get_missed_value_ev(decision)
+            if mv_ev > 0:
+                missed_totals[street] += mv_ev
+                missed_counts[street] += 1
+                hand_total_missed += mv_ev
+                per_hand_street_missed[street].append((mv_ev, hand_id))
+
         per_hand_ev.append((hand_total_ev, hand_id))
+        per_hand_missed.append((hand_total_missed, hand_id))
 
     total_ev = sum(street_totals.values())
     avg_ev_per_hand = total_ev / total_hands if total_hands else 0.0
+
+    total_missed = sum(missed_totals.values())
+    avg_missed_per_hand = total_missed / total_hands if total_hands else 0.0
 
     print("========== SESSION EV OVERVIEW ==========")
     print(f"Hands in file: {total_hands}")
@@ -106,11 +166,21 @@ def main() -> None:
     print()
 
     print("=== EV BY STREET ===")
-    for street, _ in STREETS:
+    for street in STREETS:
         cnt = street_counts[street]
         tot = street_totals[street]
         avg = (tot / cnt) if cnt else 0.0
         print(f"- {street:7s}: total_ev={tot:.4f} | decisions={cnt} | avg_ev/decision={avg:.6f}")
+    print()
+
+    print("=== MISSED VALUE EV (Iteration 2) ===")
+    print(f"Total Missed EV: {total_missed:.4f}")
+    print(f"Average Missed EV per hand: {avg_missed_per_hand:.6f}")
+    for street in STREETS:
+        cnt = missed_counts[street]
+        tot = missed_totals[street]
+        avg = (tot / cnt) if cnt else 0.0
+        print(f"- {street:7s}: missed_total={tot:.4f} | spots={cnt} | avg_missed/spot={avg:.6f}")
     print()
 
     print("=== TOP HANDS BY EV (TOTAL) ===")
@@ -127,8 +197,16 @@ def main() -> None:
         print(f"  - {hid}: {ev:.4f}")
     print()
 
+    print("=== TOP HANDS BY MISSED VALUE EV (TOTAL) ===")
+    per_hand_missed_sorted = sorted(per_hand_missed, key=lambda x: x[0])
+    worst_missed = list(reversed(per_hand_missed_sorted[-5:]))  # biggest missed
+    print("Biggest missed 5:")
+    for mv, hid in worst_missed:
+        print(f"  - {hid}: {mv:.4f}")
+    print()
+
     print("=== TOP HANDS BY EV (PER STREET) ===")
-    for street, _ in STREETS:
+    for street in STREETS:
         items = per_hand_street_ev[street]
         if not items:
             print(f"- {street}: no decisions with ev_estimate")
@@ -146,15 +224,29 @@ def main() -> None:
             print(f"      * {hid}: {ev:.4f}")
     print()
 
+    print("=== TOP MISSED VALUE EV (PER STREET) ===")
+    for street in STREETS:
+        items = per_hand_street_missed[street]
+        if not items:
+            print(f"- {street}: no missed value spots")
+            continue
+        items_sorted = sorted(items, key=lambda x: x[0])
+        best_s = list(reversed(items_sorted[-3:]))
+
+        print(f"- {street.upper()}:")
+        print("    Biggest missed 3:")
+        for mv, hid in best_s:
+            print(f"      * {hid}: {mv:.4f}")
+    print()
+
     print("=== ACTION TYPES (COUNT + EV) ===")
-    for street, _ in STREETS:
+    for street in STREETS:
         print(f"- {street.upper()}:")
         counts = action_type_counts[street]
         evs = action_type_ev[street]
         if not counts:
             print("    (no data)")
             continue
-        # sort by count desc
         rows = sorted(counts.items(), key=lambda kv: kv[1], reverse=True)
         for at, c in rows:
             tot_ev = evs.get(at, 0.0)
