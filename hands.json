@@ -499,8 +499,11 @@
           "preflop_role": "aggressor"
         },
         "alternatives": {},
-        "explanation": "EV=0.0 (пасивное действие без вложений)."
+        "explanation": "EV=0.0 (пасивное действие без вложений).",
+        "missed_value_ev": 0.0,
+        "missed_value_tag": null
       },
+      "missed_value": null,
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и избегaешь минусовых блефов.",
       "comment": "Тип действия на флопе: check. Ты играешь в хедз-ап банке в позиции. Категория руки на флопе: high_card Оценка решения движком: good. Чек с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и избегaешь минусовых блефов. Оценочная equity против диапазона оппонента на флопе ≈ 0.10."
@@ -965,8 +968,11 @@
           "preflop_role": "aggressor"
         },
         "alternatives": {},
-        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment).",
+        "missed_value_ev": 0.0,
+        "missed_value_tag": null
       },
+      "missed_value": null,
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
       "comment": "Тип действия на флопе: cbet. Ты играешь в мультипоте без позиции. Размер ставки: 0.13 в пот 0.26 (~50.0% пота). Категория руки на флопе: pair (top_pair). Оценка решения движком: good. Сильная рука и ставка на флопе выглядит стандартным велью-бетом. Оценочная equity против диапазона оппонента на флопе ≈ 0.68."
@@ -1511,8 +1517,11 @@
           "preflop_role": "caller"
         },
         "alternatives": {},
-        "explanation": "EV=0.0 (пасивное действие без вложений)."
+        "explanation": "EV=0.0 (пасивное действие без вложений).",
+        "missed_value_ev": 0.0,
+        "missed_value_tag": null
       },
+      "missed_value": null,
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
       "comment": "Тип действия на флопе: check. Ты играешь в хедз-ап банке без позиции. Категория руки на флопе: pair (board_pair). Оценка решения движком: good. Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air. Оценочная equity против диапазона оппонента на флопе ≈ 0.23."
@@ -1986,8 +1995,11 @@
           "preflop_role": "caller"
         },
         "alternatives": {},
-        "explanation": "EV=0.0 (пасивное действие без вложений)."
+        "explanation": "EV=0.0 (пасивное действие без вложений).",
+        "missed_value_ev": 0.0,
+        "missed_value_tag": null
       },
+      "missed_value": null,
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
       "comment": "Тип действия на флопе: check. Ты играешь в хедз-ап банке без позиции. Категория руки на флопе: high_card Оценка решения движком: good. Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air. Оценочная equity против диапазона оппонента на флопе ≈ 0.05."
@@ -3037,8 +3049,11 @@
           "preflop_role": "caller"
         },
         "alternatives": {},
-        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment).",
+        "missed_value_ev": 0.0,
+        "missed_value_tag": null
       },
+      "missed_value": null,
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
       "comment": "Тип действия на флопе: bet_vs_check. Ты играешь в хедз-ап банке без позиции. Размер ставки: 0.02 в пот 0.04 (~50.0% пота). Категория руки на флопе: pair (top_pair). Оценка решения движком: good. Сильная рука и ставка на флопе выглядит стандартным велью-бетом. Оценочная equity против диапазона оппонента на флопе ≈ 0.72."
@@ -3630,8 +3645,11 @@
           "preflop_role": "aggressor"
         },
         "alternatives": {},
-        "explanation": "EV=0.0 (пасивное действие без вложений)."
+        "explanation": "EV=0.0 (пасивное действие без вложений).",
+        "missed_value_ev": 0.0,
+        "missed_value_tag": null
       },
+      "missed_value": null,
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
       "comment": "Тип действия на флопе: check. Ты играешь в хедз-ап банке без позиции. Категория руки на флопе: high_card Оценка решения движком: good. Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air. Оценочная equity против диапазона оппонента на флопе ≈ 0.05."
@@ -4144,8 +4162,11 @@
           "preflop_role": "aggressor"
         },
         "alternatives": {},
-        "explanation": "EV=0.0 (пасивное действие без вложений)."
+        "explanation": "EV=0.0 (пасивное действие без вложений).",
+        "missed_value_ev": 0.0,
+        "missed_value_tag": null
       },
+      "missed_value": null,
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и избегaешь минусовых блефов.",
       "comment": "Тип действия на флопе: check. Ты играешь в хедз-ап банке в позиции. Категория руки на флопе: high_card Оценка решения движком: good. Чек с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и избегaешь минусовых блефов. Оценочная equity против диапазона оппонента на флопе ≈ 0.10."
@@ -5474,8 +5495,11 @@
           "preflop_role": "caller"
         },
         "alternatives": {},
-        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment).",
+        "missed_value_ev": 0.0,
+        "missed_value_tag": null
       },
+      "missed_value": null,
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
       "comment": "Тип действия на флопе: bet_vs_check. Ты играешь в хедз-ап банке без позиции. Размер ставки: 0.06 в пот 0.12 (~50.0% пота). Категория руки на флопе: two_pair Оценка решения движком: good. Сильная рука и ставка на флопе выглядит стандартным велью-бетом. Оценочная equity против диапазона оппонента на флопе ≈ 0.75."
@@ -6850,8 +6874,11 @@
           "preflop_role": "aggressor"
         },
         "alternatives": {},
-        "explanation": "EV=0.0 (пасивное действие без вложений)."
+        "explanation": "EV=0.0 (пасивное действие без вложений).",
+        "missed_value_ev": 0.0,
+        "missed_value_tag": null
       },
+      "missed_value": null,
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
       "comment": "Тип действия на флопе: check. Ты играешь в мультипоте без позиции. Категория руки на флопе: pair (board_pair). Оценка решения движком: good. Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air. Оценочная equity против диапазона оппонента на флопе ≈ 0.20."
@@ -9154,8 +9181,11 @@
           "preflop_role": "caller"
         },
         "alternatives": {},
-        "explanation": "EV=0.0 (пасивное действие без вложений)."
+        "explanation": "EV=0.0 (пасивное действие без вложений).",
+        "missed_value_ev": 0.0,
+        "missed_value_tag": null
       },
+      "missed_value": null,
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
       "comment": "Тип действия на флопе: check. Ты играешь в хедз-ап банке без позиции. Категория руки на флопе: high_card Оценка решения движком: good. Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air. Оценочная equity против диапазона оппонента на флопе ≈ 0.05."
@@ -9936,8 +9966,11 @@
           "preflop_role": "aggressor"
         },
         "alternatives": {},
-        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment).",
+        "missed_value_ev": 0.0,
+        "missed_value_tag": null
       },
+      "missed_value": null,
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
       "comment": "Тип действия на флопе: cbet. Ты играешь в хедз-ап банке без позиции. Размер ставки: 0.04 в пот 0.09 (~44.4% пота). Категория руки на флопе: two_pair Оценка решения движком: good. Сильная рука и ставка на флопе выглядит стандартным велью-бетом. Оценочная equity против диапазона оппонента на флопе ≈ 0.78."
@@ -10348,8 +10381,11 @@
           "preflop_role": "caller"
         },
         "alternatives": {},
-        "explanation": "EV=0.0 (пасивное действие без вложений)."
+        "explanation": "EV=0.0 (пасивное действие без вложений).",
+        "missed_value_ev": 0.0,
+        "missed_value_tag": null
       },
+      "missed_value": null,
       "decision_quality": "ok",
       "quality_comment": "Чек с рукой средней силы на флопе допустим, особенно вне позиции или в мультипоте.",
       "comment": "Тип действия на флопе: check. Ты играешь в мультипоте без позиции. Категория руки на флопе: pair (bottom_pair). Оценка решения движком: ok. Чек с рукой средней силы на флопе допустим, особенно вне позиции или в мультипоте. Оценочная equity против диапазона оппонента на флопе ≈ 0.39."
@@ -12365,8 +12401,11 @@
           "preflop_role": "caller"
         },
         "alternatives": {},
-        "explanation": "EV=0.0 (пасивное действие без вложений)."
+        "explanation": "EV=0.0 (пасивное действие без вложений).",
+        "missed_value_ev": 0.0,
+        "missed_value_tag": null
       },
+      "missed_value": null,
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и избегaешь минусовых блефов.",
       "comment": "Тип действия на флопе: check. Ты играешь в хедз-ап банке в позиции. Категория руки на флопе: high_card Оценка решения движком: good. Чек с очень слабой рукой в позиции — стандартная линия: ты контролируешь банк и избегaешь минусовых блефов. Оценочная equity против диапазона оппонента на флопе ≈ 0.07."
@@ -13171,8 +13210,11 @@
           "preflop_role": "unknown"
         },
         "alternatives": {},
-        "explanation": "EV=0.0 (пасивное действие без вложений)."
+        "explanation": "EV=0.0 (пасивное действие без вложений).",
+        "missed_value_ev": 0.0,
+        "missed_value_tag": null
       },
+      "missed_value": null,
       "decision_quality": "good",
       "quality_comment": "Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air.",
       "comment": "Тип действия на флопе: check. Ты играешь в хедз-ап банке без позиции. Категория руки на флопе: high_card Оценка решения движком: good. Чек с очень слабой рукой без позиции — оптимальное решение: ты минимизируешь потери и не раздуваешь банк с air. Оценочная equity против диапазона оппонента на флопе ≈ 0.05."
@@ -13973,8 +14015,11 @@
           "preflop_role": "aggressor"
         },
         "alternatives": {},
-        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment).",
+        "missed_value_ev": 0.0,
+        "missed_value_tag": null
       },
+      "missed_value": null,
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
       "comment": "Тип действия на флопе: cbet. Ты играешь в хедз-ап банке без позиции. Размер ставки: 0.16 в пот 0.31 (~51.6% пота). Категория руки на флопе: straight Оценка решения движком: good. Сильная рука и ставка на флопе выглядит стандартным велью-бетом. Оценочная equity против диапазона оппонента на флопе ≈ 0.91."
@@ -14507,8 +14552,11 @@
           "preflop_role": "aggressor"
         },
         "alternatives": {},
-        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment)."
+        "explanation": "EV(bet/raise)=FE*pot_before + (1-FE)*(equity*final_pot_if_called - investment).",
+        "missed_value_ev": 0.0,
+        "missed_value_tag": null
       },
+      "missed_value": null,
       "decision_quality": "good",
       "quality_comment": "Сильная рука и ставка на флопе выглядит стандартным велью-бетом.",
       "comment": "Тип действия на флопе: cbet. Ты играешь в хедз-ап банке без позиции. Размер ставки: 0.12 в пот 0.23 (~52.2% пота). Категория руки на флопе: set Оценка решения движком: good. Сильная рука и ставка на флопе выглядит стандартным велью-бетом. Оценочная equity против диапазона оппонента на флопе ≈ 0.88."

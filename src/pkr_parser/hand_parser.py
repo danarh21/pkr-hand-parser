@@ -1252,6 +1252,63 @@ def _estimate_flop_strength_score(
         return 0.20
 
     return 0.50
+def _compute_missed_value_flop_v1(
+    *,
+    action_type: str,
+    hero_ip: bool,
+    multiway: bool,
+    strength_score: Optional[float],
+    pot_before: Optional[float],
+    hand_category: Optional[str],
+    pair_kind: Optional[str],
+) -> Optional[Dict[str, Any]]:
+    """
+    Iteration 2 (MVP): Missed Value на флопе.
+
+    Ловим базовый спот: герой в позиции в HU, чекает с сильной рукой.
+
+    Условия (минимум ложных срабатываний):
+      - action_type == "check"
+      - hero_ip == True
+      - multiway == False
+      - strength_score >= 0.65 (strong+)
+      - pot_before > 0
+
+    Оценка missed EV (грубая, но стабильная для MVP):
+      missed_value_ev = 0.25 * pot_before
+    """
+    if action_type != "check":
+        return None
+    if not hero_ip or multiway:
+        return None
+    if strength_score is None or strength_score < 0.65:
+        return None
+    if pot_before is None:
+        return None
+    try:
+        pb = float(pot_before)
+    except Exception:
+        return None
+    if pb <= 0:
+        return None
+
+    missed_ev = 0.25 * pb
+
+    label = "strong_hand"
+    if hand_category == "pair" and pair_kind:
+        label = f"pair_{pair_kind}"
+
+    return {
+        "street": "flop",
+        "tag": "missed_value_check_strong_ip",
+        "reason": f"Hero checked IP in HU with strong hand ({label}).",
+        "hand_category": hand_category,
+        "pair_kind": pair_kind,
+        "strength_score": float(strength_score),
+        "pot_before": float(pb),
+        "missed_value_ev": float(missed_ev),
+        "model": "mvp_flop_missed_value_v1",
+    }
 
 
 def compute_hero_flop_decision(
@@ -1535,14 +1592,40 @@ def compute_hero_flop_decision(
         final_pot_if_called=None,
 
         # 🔑 anti-conflict + Iteration 1
-        ev_action_label=ev_action_label,   # новый контракт (лейбл отдельно)
-        ev_action=ev_action_label,         # legacy-совместимость (если где-то ждали строку)
+        ev_action_label=ev_action_label,
+        ev_action=ev_action_label,
 
         assumptions=generate_assumptions("flop", first.action, context),
         confidence=0.55,
         context=context,
         alternatives={},
     )
+
+    # -------------------------------
+    # MISSED VALUE (Iteration 2 MVP)
+    # -------------------------------
+    missed_value = _compute_missed_value_flop_v1(
+        action_type=action_type,
+        hero_ip=context["hero_ip"],
+        multiway=context["multiway"],
+        strength_score=strength_score,
+        pot_before=(sizing.get("pot_before") if isinstance(sizing, dict) else None),
+        hand_category=hero_flop_hand_category,
+        pair_kind=pair_kind,
+    )
+
+    missed_value_ev = 0.0
+    if isinstance(missed_value, dict):
+        try:
+            missed_value_ev = float(missed_value.get("missed_value_ev", 0.0))
+        except Exception:
+            missed_value_ev = 0.0
+
+    if isinstance(ev_estimate, dict):
+        ev_estimate["missed_value_ev"] = missed_value_ev
+        ev_estimate["missed_value_tag"] = (
+            missed_value.get("tag") if isinstance(missed_value, dict) else None
+        )
 
     return {
         "action_type": action_type,
@@ -1552,10 +1635,12 @@ def compute_hero_flop_decision(
         "hand": hand_info,
         "equity_estimate": equity_estimate,
         "ev_estimate": ev_estimate,
+        "missed_value": missed_value,
         "decision_quality": decision_quality,
         "quality_comment": quality_comment,
         "comment": comment,
     }
+
 
 # ---------------------------------------------------------------------
 #  TXT → JSON
